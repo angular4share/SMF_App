@@ -247,7 +247,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         model.setProduct_Name(ProdName);
         model.setFreq_ID(FreqID);
         model.setFreq_Name(FreqName);
-        model.setQty(Qty);
+        model.setIssueQty(Qty);
         model.setRate("");
         model.setAmount("");
         model.setStart_Date(StartDt);
@@ -489,7 +489,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                     Sr_No_D = String.valueOf((i + 1));
                     ProdID_D = add_Product_Items.get(i).getProduct_ID();
                     ProdDesc_D = add_Product_Items.get(i).getProduct_Name();
-                    Qty_D = add_Product_Items.get(i).getQty();
+                    Qty_D = add_Product_Items.get(i).getIssueQty();
                     FreqID_D = add_Product_Items.get(i).getFreq_ID();
                     FreqName_D = add_Product_Items.get(i).getFreq_Name();
                     Rate_D = add_Product_Items.get(i).getRate();
@@ -501,7 +501,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                     Sr_No_D = Sr_No_D + "#" + (i + 1);
                     ProdID_D = ProdID_D + "#" + add_Product_Items.get(i).getProduct_ID();
                     ProdDesc_D = ProdDesc_D + "#" + add_Product_Items.get(i).getProduct_Name();
-                    Qty_D = Qty_D + "#" + add_Product_Items.get(i).getQty();
+                    Qty_D = Qty_D + "#" + add_Product_Items.get(i).getIssueQty();
                     FreqID_D = FreqID_D + "#" + add_Product_Items.get(i).getFreq_ID();
                     FreqName_D = FreqName_D + "#" + add_Product_Items.get(i).getFreq_Name();
                     Rate_D = Rate_D + "#" + add_Product_Items.get(i).getRate();

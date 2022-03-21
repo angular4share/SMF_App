@@ -7,8 +7,10 @@ public class Subcribe {
     public String Product_Name;
     public String Freq_ID;
     public String Freq_Name;
-    public String Qty;
+    public String SubsQty;
+    public String IssueQty;
     public String ExtraQty;
+    public String StockQty;
     public String Rate;
     public String Amount;
     public String Start_Date;
@@ -56,12 +58,20 @@ public class Subcribe {
         Freq_Name = freq_Name;
     }
 
-    public String getQty() {
-        return Qty;
+    public String getSubsQty() {
+        return SubsQty;
     }
 
-    public void setQty(String qty) {
-        Qty = qty;
+    public void setSubsQty(String subsQty) {
+        SubsQty = subsQty;
+    }
+
+    public String getIssueQty() {
+        return IssueQty;
+    }
+
+    public void setIssueQty(String issueQty) {
+        IssueQty = issueQty;
     }
 
     public String getExtraQty() {
@@ -70,6 +80,14 @@ public class Subcribe {
 
     public void setExtraQty(String extraQty) {
         ExtraQty = extraQty;
+    }
+
+    public String getStockQty() {
+        return StockQty;
+    }
+
+    public void setStockQty(String stockQty) {
+        StockQty = stockQty;
     }
 
     public String getRate() {

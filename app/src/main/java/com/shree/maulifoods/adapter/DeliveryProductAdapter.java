@@ -21,6 +21,7 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shree.maulifoods.R;
+import com.shree.maulifoods.pojo.Delivery;
 import com.shree.maulifoods.pojo.Product;
 import com.shree.maulifoods.pojo.Subcribe;
 import com.shree.maulifoods.pojo.TimeSlot;
@@ -41,15 +42,11 @@ import retrofit2.Response;
 
 public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProductAdapter.MyViewHolder> {
 
-    //<editor-fold desc="Description">
-    private Context context;
-    private ArrayList<Subcribe> dArrayList;
+    private ArrayList<Delivery> dArrayList;
     private String TAG = "***DeliveryProductAdapter***";
     private DecimalFormat df = new DecimalFormat("#.##");
-    //</editor-fold>
 
-    public DeliveryProductAdapter(Context context, ArrayList<Subcribe> tempArrayList) {
-        this.context = context;
+    public DeliveryProductAdapter(ArrayList<Delivery> tempArrayList) {
         this.dArrayList = tempArrayList;
     }
 
@@ -65,14 +62,14 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
     public void onBindViewHolder(DeliveryProductAdapter.MyViewHolder holder, int p) {
         int position = holder.getAdapterPosition();
 
-        holder.tv_product_name.setText(dArrayList.get(position).getProduct_Name());
-        holder.tv_subs_Qty.setText(dArrayList.get(position).getQty());
-        holder.ed_issue_qty.setText(dArrayList.get(position).getQty());
-        holder.tv_sale_rate.setText(dArrayList.get(position).getRate());
-        holder.tv_sale_amount.setText(dArrayList.get(position).getAmount());
+        holder.tv_product_name.setText(dArrayList.get(position).getProduct_Desc());
+        holder.tv_subs_Qty.setText(dArrayList.get(position).getSubs_Qty());
+        holder.ed_issue_qty.setText(dArrayList.get(position).getIssue_Qty());
+        holder.tv_sale_rate.setText(dArrayList.get(position).getSaleRate());
+       // holder.tv_sale_amount.setText(String.valueOf(Double.valueOf(dArrayList.get(position).getIssue_Qty()) * Double.valueOf(dArrayList.get(position).getSaleRate())));
 
         holder.tv_frequency.setText(dArrayList.get(position).getFreq_Name());
-        holder.tv_time_slot.setText(dArrayList.get(position).getTime_Type() + " " + dArrayList.get(position).getTine_Slot_Name());
+        holder.tv_time_slot.setText(dArrayList.get(position).getTime_Type() + " " + dArrayList.get(position).getTime_Slot());
         holder.ed_extra_qty.setText(dArrayList.get(position).getExtraQty());
 
         holder.ed_issue_qty.addTextChangedListener(new TextWatcher() {
@@ -91,10 +88,9 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
             public void afterTextChanged(Editable s) {
                 Integer Qty = s.toString().trim().equals("") ? 0 : Integer.valueOf(s.toString().trim());
 
-                Subcribe updated = dArrayList.get(position);
-                updated.setQty(String.valueOf(Qty));
-                updated.setRate(holder.tv_sale_rate.getText().toString());
-                updated.setAmount(df.format(Qty * Double.valueOf(holder.tv_sale_rate.getText().toString())));
+                Delivery updated = dArrayList.get(position);
+                updated.setIssue_Qty(String.valueOf(Qty));
+                updated.setSaleRate(holder.tv_sale_rate.getText().toString());
                 dArrayList.set(position, updated);
 
                 holder.tv_sale_amount.setText(df.format(Qty * Double.valueOf(holder.tv_sale_rate.getText().toString())));

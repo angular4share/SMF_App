@@ -145,6 +145,8 @@
                     android:layout_weight="1"
                     android:background="@color/colorPrimary"
                     android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:onClick="saveConfirm"
                     android:gravity="center"
                     android:text="SAVA DELIVERY"
                     android:textColor="@color/white"

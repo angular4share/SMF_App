@@ -3,12 +3,9 @@ package com.shree.maulifoods.pojo;
 public class Delivery {
 
     private String route_Desc, requirment_Date, subs_ID, customer_Name, customer_Address, customer_City, pinCode, delivery_Status,
-            prv_Bal, product_ID, product_Desc, extraQty, subs_Qty, issue_Qty, saleRate, time_Type,time_Slot, freq_Name, sequence;
+            prv_Bal, product_ID, product_Desc, subs_Qty, issue_Qty,stockQty, extraQty, saleRate, time_Type,time_Slot, freq_Name, sequence;
 
-    public Delivery(String route_Desc, String requirment_Date, String subs_ID, String customer_Name, String customer_Address,
-                    String customer_City, String pinCode, String delivery_Status, String prv_Bal, String product_ID,
-                    String product_Desc, String extraQty, String subs_Qty, String issue_Qty, String saleRate,
-                    String time_Type,String time_Slot,String freq_Name, String sequence) {
+    public Delivery(String route_Desc, String requirment_Date, String subs_ID, String customer_Name, String customer_Address, String customer_City, String pinCode, String delivery_Status, String prv_Bal, String product_ID, String product_Desc, String subs_Qty, String issue_Qty, String stockQty, String extraQty, String saleRate, String time_Type, String time_Slot, String freq_Name, String sequence) {
         this.route_Desc = route_Desc;
         this.requirment_Date = requirment_Date;
         this.subs_ID = subs_ID;
@@ -20,9 +17,10 @@ public class Delivery {
         this.prv_Bal = prv_Bal;
         this.product_ID = product_ID;
         this.product_Desc = product_Desc;
-        this.extraQty = extraQty;
         this.subs_Qty = subs_Qty;
         this.issue_Qty = issue_Qty;
+        this.stockQty = stockQty;
+        this.extraQty = extraQty;
         this.saleRate = saleRate;
         this.time_Type = time_Type;
         this.time_Slot = time_Slot;
@@ -118,14 +116,6 @@ public class Delivery {
         this.product_Desc = product_Desc;
     }
 
-    public String getExtraQty() {
-        return extraQty;
-    }
-
-    public void setExtraQty(String extraQty) {
-        this.extraQty = extraQty;
-    }
-
     public String getSubs_Qty() {
         return subs_Qty;
     }
@@ -140,6 +130,22 @@ public class Delivery {
 
     public void setIssue_Qty(String issue_Qty) {
         this.issue_Qty = issue_Qty;
+    }
+
+    public String getStockQty() {
+        return stockQty;
+    }
+
+    public void setStockQty(String stockQty) {
+        this.stockQty = stockQty;
+    }
+
+    public String getExtraQty() {
+        return extraQty;
+    }
+
+    public void setExtraQty(String extraQty) {
+        this.extraQty = extraQty;
     }
 
     public String getSaleRate() {

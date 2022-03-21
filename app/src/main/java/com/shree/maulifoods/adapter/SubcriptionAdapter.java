@@ -140,7 +140,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             }
         });
 
-        holder.qty.setText(dArrayList.get(position).getQty());
+        holder.qty.setText(dArrayList.get(position).getIssueQty());
         holder.amount.setText(dArrayList.get(position).getAmount());
         if (dArrayList.get(position).getStart_Date() != null || dArrayList.get(position).getStart_Date() != "") {
             holder.startDate.setText(dArrayList.get(position).getStart_Date());
@@ -216,7 +216,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
                 Integer Qty = s.toString().trim().equals("") ? 0 : Integer.valueOf(s.toString().trim());
 
                 Subcribe updated = dArrayList.get(position);
-                updated.setQty(String.valueOf(Qty));
+                updated.setIssueQty(String.valueOf(Qty));
                 updated.setRate(holder.rate.getText().toString());
                 updated.setAmount(df.format(Qty * Double.valueOf(holder.rate.getText().toString())));
                 dArrayList.set(position, updated);
@@ -341,7 +341,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
                             tv_rate.setText(dRateArrayList.get(i).getSaleRate());
 
                             Subcribe updated = dArrayList.get(position);
-                            updated.setQty(edt_qty.getText().toString());
+                            updated.setIssueQty(edt_qty.getText().toString());
                             updated.setRate(tv_rate.getText().toString());
                             updated.setAmount(df.format(Double.valueOf(edt_qty.getText().toString()) * Double.valueOf(tv_rate.getText().toString())));
                             dArrayList.set(position, updated);

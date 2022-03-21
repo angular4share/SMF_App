@@ -105,17 +105,13 @@ public class AppStartActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<List<User>> call, Response<List<User>> response) {
                     List<User> user = response.body();
-                    if (user != null) {
-                        if (user.size() > 0) {
-                            for (User list : user) {
-                                if (list.active.trim().equals("No")) {
-                                    commonUtil.getSnackbar(relativeLayout, "Your Login ID is Disabled!", "OK");
-                                } else if (list.active.trim().equals("Yes")) {
-                                    redictActivity("Login", list.user_ID, list.user_Name, list.mobile_No, list.eMail_ID);
-                                }
+                    if (user.size() > 0) {
+                        for (User list : user) {
+                            if (list.active.trim().equals("No")) {
+                                commonUtil.getSnackbar(relativeLayout, "Your Login ID is Disabled!", "OK");
+                            } else if (list.active.trim().equals("Yes")) {
+                                redictActivity("Login", list.user_ID, list.user_Name, list.mobile_No, list.eMail_ID);
                             }
-                        } else {
-                            redictActivity("Pending", "", "", "", "");
                         }
                     } else {
                         redictActivity("Pending", "", "", "", "");

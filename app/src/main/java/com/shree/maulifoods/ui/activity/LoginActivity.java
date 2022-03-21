@@ -45,7 +45,7 @@ public class LoginActivity extends AppCompatActivity {
     boolean isGPSEnabled = false;
     boolean isNetworkEnabled = false;
     private PinEntryEditText pinEntry;
-    private TextView txt_user_name, txt_user_email, txt_user_shop,txt_VersionNumber;
+    private TextView txt_user_name, txt_user_email, txt_VersionNumber;
     private Bundle bundle;
     private RelativeLayout relativeLayout;
     private ApiInterface apiInterface = null;

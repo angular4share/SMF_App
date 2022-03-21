@@ -96,18 +96,12 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
             public void onClick(View v) {
                 Intent intent = new Intent(context, DeliveryActivity.class);
                 intent.putExtra("Subs_ID", dArrayList.get(position).getSubs_ID());
+                intent.putExtra("Subs_Date",dArrayList.get(position).getRequirment_Date());
                 intent.putExtra("Customer_Name", dArrayList.get(position).getCustomer_Name());
                 intent.putExtra("Customer_Address", dArrayList.get(position).getCustomer_Address());
                 intent.putExtra("Route_Desc", dArrayList.get(position).getRoute_Desc());
                 intent.putExtra("Seq_No", dArrayList.get(position).getSequence());
-                intent.putExtra("Product_ID", dArrayList.get(position).getProduct_ID());
-                intent.putExtra("Product_Desc", dArrayList.get(position).getProduct_Desc());
-                intent.putExtra("Subs_Qty", dArrayList.get(position).getSubs_Qty());
-                intent.putExtra("Sale_Rate", dArrayList.get(position).getSaleRate());
-                intent.putExtra("Time_Type", dArrayList.get(position).getTime_Type());
-                intent.putExtra("Time_Slot", dArrayList.get(position).getTime_Slot());
-                intent.putExtra("Freq_Name", dArrayList.get(position).getFreq_Name());
-                intent.putExtra("Extra_Qty", dArrayList.get(position).getExtraQty());
+                intent.putExtra("Prv_Balance", dArrayList.get(position).getPrv_Bal());
                 Bundle bundle = ActivityOptions.makeCustomAnimation(context, R.anim.fadein, R.anim.fadeout).toBundle();
                 context.startActivity(intent, bundle);
             }

@@ -43,7 +43,6 @@ public interface ApiInterface {
     Call<ArrayList<Vendor>> getVendor(@Query("vendorID") String Vendor_ID);
 
 
-
     @GET("saveRequirment")
     Call<String> saveRequirment(@Query("requirment_date") String requirment_date,
                                 @Query("vendor_id") String vendor_id,
@@ -59,10 +58,11 @@ public interface ApiInterface {
 
 
     @GET("getDelivery")
-    Call<ArrayList<Delivery>> getDelivery(@Query("type") String Type,
-                                          @Query("forDate") String For_Date,
-                                          @Query("empCode") String Emp_Code,
-                                          @Query("custCode") String Cust_Code);
+    Call<ArrayList<Delivery>> getDelivery(@Query("type") String type,
+                                          @Query("forDate") String forDate,
+                                          @Query("empCode") String empCode,
+                                          @Query("custCode") String custCode,
+                                          @Query("outletID") String outletID);
 
 
     @GET("getRouteList")
@@ -135,6 +135,21 @@ public interface ApiInterface {
     @GET("getInward")
     Call<ArrayList<Inword>> getInward(@Query("type") String Type,
                                       @Query("forDate") String For_Date);
+
+    @GET("saveDelivery")
+    Call<String> saveDelivery(@Query("Subs_ID") String Sale_Dt,
+                              @Query("Sale_Dt") String Subs_ID,
+                              @Query("Sales_Type") String Sales_Type,
+                              @Query("Prev_Balance") String Prev_Balance,
+                              @Query("Sr_No") String Sr_No,
+                              @Query("ProdID") String ProdID,
+                              @Query("Subs_Qty") String Subs_Qty,
+                              @Query("Issue_Qty") String Issue_Qty,
+                              @Query("Stock_Qty") String Stock_Qty,
+                              @Query("Extra_Qty") String Extra_Qty,
+                              @Query("Rate") String Rate,
+                              @Query("User_ID") String User_ID,
+                              @Query("Outlet_ID") String Outlet_ID);
 
 }
 
