@@ -1,0 +1,328 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightgray">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="Route: "
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_route"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.85"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.90"
+                    android:gravity="center_vertical"
+                    android:text="Customer Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    android:gravity="center_vertical"
+                    android:text="Que"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_customer"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.90"
+                    android:text="Kailash Balghare"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_que"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    android:text="1"
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_idelivery_listview_item_txt_customer_address"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:text="Flat No B-08, The Skycourt, Phalkewadi, Opp Bank of Baroda, Talegaon Dabhade, Pune-410507"
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.43"
+                    android:text="Product"
+                    android:textColor="@color/black"
+                    android:gravity="center_vertical"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.12"
+                    android:text="Qty"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.12"
+                    android:gravity="center_vertical"
+                    android:text="Rate"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="Amt"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.18"
+                    android:gravity="center_vertical"
+                    android:text="Amt Rec"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="35sp"
+                android:weightSum="1.0">
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_product"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.43"
+                    android:gravity="center_vertical"
+                    android:text="Cow Milk 500ML"
+                    android:textColor="@color/darkgray" />
+
+                <EditText
+                    android:id="@+id/lay_delivery_listview_item_ed_qty"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.12"
+                    android:background="@color/white"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="10"
+                    android:textColor="@color/darkgray"
+                    android:textSize="15sp" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_rate"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.12"
+                    android:gravity="center_vertical"
+                    android:text="25"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_amount"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="250"
+                    android:textColor="@color/darkgray" />
+
+                <EditText
+                    android:id="@+id/lay_delivery_listview_item_et_amount_received"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.18"
+                    android:background="@color/white"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="250"
+                    android:textColor="@color/darkgray"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="PrvBal"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.20"
+                    android:gravity="center_vertical"
+                    android:text="PrvBal Rec"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:gravity="center_vertical"
+                    android:text="NextDay Extra Qty"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_Prv_balance"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="2500"
+                    android:textColor="@color/darkgray" />
+
+                <EditText
+                    android:id="@+id/lay_delivery_listview_item_et_prv_balance_received"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.20"
+                    android:background="@color/white"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="100"
+                    android:textColor="@color/darkgray"
+                    android:textSize="15sp" />
+
+                <EditText
+                    android:id="@+id/lay_delivery_listview_item_ed_next_day_extra_qty"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.35"
+                    android:background="@color/white"
+                    android:imeOptions="actionDone"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="0"
+                    android:textColor="@color/darkgray"
+                    android:textSize="15sp" />
+
+
+            </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40sp"
+            android:layout_marginTop="10sp"
+            android:weightSum="1">
+
+            <TextView
+                android:id="@+id/lay_delivery_listview_item_txt_save"
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:layout_weight="1"
+                android:background="@drawable/rounded_shape"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="SAVA DELIVERY"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

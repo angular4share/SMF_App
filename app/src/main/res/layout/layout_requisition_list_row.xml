@@ -1,0 +1,221 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightgray">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.23"
+                    android:text="Date"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.45"
+                    android:text="Product"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.15"
+                    android:text="Qty"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.17"
+                    android:text="Extra"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="25sp"
+                android:weightSum="1.0">
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_date"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.23"
+                    android:text="05/11/2021"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_product"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.45"
+                    android:text="Cow Milk"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_qty"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:text="1000"
+                    android:textColor="@color/darkgray" />
+
+                <EditText
+                    android:id="@+id/lay_purchase_requisition_listview_item_et_extra_qty"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.17"
+                    android:background="@color/white"
+                    android:inputType="numberDecimal"
+                    android:maxLength="5"
+                    android:text="100"
+                    android:textColor="@color/darkgray"
+                    android:imeOptions="actionDone"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.17"
+                    android:gravity="center_vertical"
+                    android:text="Total"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.13"
+                    android:gravity="center_vertical"
+                    android:text="UOM"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.65"
+                    android:gravity="center_vertical"
+                    android:text="Vendor"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_total_qty"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.17"
+                    android:gravity="center_vertical"
+                    android:text="1100"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_uom"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.13"
+                    android:gravity="center_vertical"
+                    android:text="Ltr"
+                    android:textColor="@color/darkgray" />
+
+                <androidx.appcompat.widget.AppCompatSpinner
+                    android:id="@+id/lay_purchase_requisition_listview_item_spinner_vendor"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_centerHorizontal="true"
+                    android:layout_weight="0.50"
+                    android:padding="2dp" />
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_raise_reqirment"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1sp"
+                    android:layout_marginBottom="1sp"
+                    android:layout_weight="0.20"
+                    android:background="@drawable/rounded_shape"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="RAISE"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:gravity="center_vertical"
+                    android:text="Order Status"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_order_status"
+                    android:layout_width="0sp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.75"
+                    android:gravity="center_vertical"
+                    android:text="Pending for Raise"
+                    android:textColor="@color/darkgray"
+                    android:textStyle="bold"
+                    android:textSize="15sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+</RelativeLayout>

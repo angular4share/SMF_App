@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightgray">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:clickable="true"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="20sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_customer"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.78"
+                    android:gravity="center_vertical"
+                    android:text="Kailash Balghare"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="Que No"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_que"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.07"
+                    android:gravity="center_vertical"
+                    android:text="1"
+                    android:textColor="@color/darkgray" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_customer_address"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.93"
+                    android:text="Pune"
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.16"
+                    android:gravity="center_vertical"
+                    android:text="Bal Amt"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_prv_balance"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.24"
+                    android:gravity="center_vertical"
+                    android:text="1"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_collection"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="1sp"
+                    android:layout_marginRight="5sp"
+                    android:layout_marginBottom="1sp"
+                    android:layout_weight="0.30"
+                    android:background="@drawable/rounded_shape"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="COLLECTION"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_delivery"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="5sp"
+                    android:layout_marginTop="1sp"
+                    android:layout_marginBottom="1sp"
+                    android:layout_weight="0.30"
+                    android:background="@drawable/rounded_shape"
+                    android:clickable="true"
+                    android:gravity="center"
+                    android:text="DELIVERY"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

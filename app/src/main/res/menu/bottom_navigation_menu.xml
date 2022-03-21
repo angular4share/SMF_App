@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <group android:checkableBehavior="none">
+        <item
+            android:id="@+id/nav01"
+            android:icon="@drawable/sales"
+            android:title="Counter Sales" />
+        <item
+            android:id="@+id/nav02"
+            android:icon="@drawable/collection"
+            android:title="Collection" />
+
+        <item
+            android:id="@+id/nav03"
+            android:icon="@drawable/requirment"
+            android:title="NextDay Requirment" />
+
+        <item
+            android:id="@+id/nav04"
+            android:icon="@drawable/inword"
+            android:title="Inward" />
+
+        <item
+            android:id="@+id/nav05"
+            android:icon="@drawable/enquiry"
+            android:title="New Enquiry" />
+
+        <item
+            android:id="@+id/nav06"
+            android:icon="@drawable/delivery"
+            android:title="Delivery" />
+
+
+
+        <item
+            android:id="@+id/nav07"
+            android:icon="@drawable/expenses"
+            android:title="Expense" />
+
+        <item
+            android:id="@+id/nav08"
+            android:icon="@drawable/stock"
+            android:title="Stock" />
+    </group>
+</menu>
