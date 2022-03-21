@@ -1,36 +1,27 @@
 package com.shree.maulifoods.pojo;
 
-public class Vendor {
+public class PayMode {
 
-    String vendor_ID,vendor_Name,vendor_Address;
+    String payMode_ID,payMode_Name;
 
-    public Vendor(String vendor_ID, String vendor_Name, String vendor_Address) {
-        this.vendor_ID = vendor_ID;
-        this.vendor_Name = vendor_Name;
-        this.vendor_Address = vendor_Address;
+    public PayMode(String payMode_ID, String payMode_Name) {
+        this.payMode_ID = payMode_ID;
+        this.payMode_Name = payMode_Name;
     }
 
-    public String getVendor_ID() {
-        return vendor_ID;
+    public String getPayMode_ID() {
+        return payMode_ID;
     }
 
-    public void setVendor_ID(String vendor_ID) {
-        vendor_ID = vendor_ID;
+    public void setPayMode_ID(String payMode_ID) {
+        this.payMode_ID = payMode_ID;
     }
 
-    public String getVendor_Name() {
-        return vendor_Name;
+    public String getPayMode_Name() {
+        return payMode_Name;
     }
 
-    public void setVendor_Name(String vendor_Name) {
-        vendor_Name = vendor_Name;
-    }
-
-    public String getVendor_Address() {
-        return vendor_Address;
-    }
-
-    public void setVendor_Address(String vendor_Address) {
-        vendor_Address = vendor_Address;
+    public void setPayMode_Name(String payMode_Name) {
+        this.payMode_Name = payMode_Name;
     }
 }

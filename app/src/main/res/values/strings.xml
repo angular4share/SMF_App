@@ -4,7 +4,7 @@
     <string name="title_notifications">Notifications</string>
     <string name="title_account">Account</string>
     <string name="title_setting">Setting</string>
-    <string name="title_activity_delivery">Delivery</string>
+    <string name="title_activity_delivery">Delivery Schedule</string>
     <!-- Strings used for fragments for navigation -->
     <string name="first_fragment_label">First Fragment</string>
     <string name="second_fragment_label">Second Fragment</string>
@@ -19,5 +19,5 @@
     <string name="title_activity_customer_report">CustomerReportActivity</string>
     <!--KALA Fresh-->
     <!--<string name="map_api_key">AIzaSyBSrrgh5UEcW0BRmhAtSl-CW56_2BoVchc</string>-->
-
+    <string name="close_button">Close Button for Activity</string>
 </resources>

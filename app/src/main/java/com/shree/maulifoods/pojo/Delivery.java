@@ -2,27 +2,32 @@ package com.shree.maulifoods.pojo;
 
 public class Delivery {
 
-    private String sr_No, route_Desc, requirment_Date, subs_ID, customer_Name, customer_Address,delivery_Status, prv_Bal, heading;
+    private String route_Desc, requirment_Date, subs_ID, customer_Name, customer_Address, customer_City, pinCode, delivery_Status,
+            prv_Bal, product_ID, product_Desc, extraQty, subs_Qty, issue_Qty, saleRate, time_Type,time_Slot, freq_Name, sequence;
 
-    public Delivery(String sr_No, String route_Desc, String requirment_Date, String subs_ID, String customer_Name,
-                    String customer_Address,String delivery_Status, String prv_Bal, String heading) {
-        this.sr_No = sr_No;
+    public Delivery(String route_Desc, String requirment_Date, String subs_ID, String customer_Name, String customer_Address,
+                    String customer_City, String pinCode, String delivery_Status, String prv_Bal, String product_ID,
+                    String product_Desc, String extraQty, String subs_Qty, String issue_Qty, String saleRate,
+                    String time_Type,String time_Slot,String freq_Name, String sequence) {
         this.route_Desc = route_Desc;
         this.requirment_Date = requirment_Date;
         this.subs_ID = subs_ID;
         this.customer_Name = customer_Name;
         this.customer_Address = customer_Address;
+        this.customer_City = customer_City;
+        this.pinCode = pinCode;
         this.delivery_Status = delivery_Status;
         this.prv_Bal = prv_Bal;
-        this.heading = heading;
-    }
-
-    public String getSr_No() {
-        return sr_No;
-    }
-
-    public void setSr_No(String sr_No) {
-        this.sr_No = sr_No;
+        this.product_ID = product_ID;
+        this.product_Desc = product_Desc;
+        this.extraQty = extraQty;
+        this.subs_Qty = subs_Qty;
+        this.issue_Qty = issue_Qty;
+        this.saleRate = saleRate;
+        this.time_Type = time_Type;
+        this.time_Slot = time_Slot;
+        this.freq_Name = freq_Name;
+        this.sequence = sequence;
     }
 
     public String getRoute_Desc() {
@@ -65,6 +70,22 @@ public class Delivery {
         this.customer_Address = customer_Address;
     }
 
+    public String getCustomer_City() {
+        return customer_City;
+    }
+
+    public void setCustomer_City(String customer_City) {
+        this.customer_City = customer_City;
+    }
+
+    public String getPinCode() {
+        return pinCode;
+    }
+
+    public void setPinCode(String pinCode) {
+        this.pinCode = pinCode;
+    }
+
     public String getDelivery_Status() {
         return delivery_Status;
     }
@@ -81,11 +102,83 @@ public class Delivery {
         this.prv_Bal = prv_Bal;
     }
 
-    public String getHeading() {
-        return heading;
+    public String getProduct_ID() {
+        return product_ID;
     }
 
-    public void setHeading(String heading) {
-        this.heading = heading;
+    public void setProduct_ID(String product_ID) {
+        this.product_ID = product_ID;
+    }
+
+    public String getProduct_Desc() {
+        return product_Desc;
+    }
+
+    public void setProduct_Desc(String product_Desc) {
+        this.product_Desc = product_Desc;
+    }
+
+    public String getExtraQty() {
+        return extraQty;
+    }
+
+    public void setExtraQty(String extraQty) {
+        this.extraQty = extraQty;
+    }
+
+    public String getSubs_Qty() {
+        return subs_Qty;
+    }
+
+    public void setSubs_Qty(String subs_Qty) {
+        this.subs_Qty = subs_Qty;
+    }
+
+    public String getIssue_Qty() {
+        return issue_Qty;
+    }
+
+    public void setIssue_Qty(String issue_Qty) {
+        this.issue_Qty = issue_Qty;
+    }
+
+    public String getSaleRate() {
+        return saleRate;
+    }
+
+    public void setSaleRate(String saleRate) {
+        this.saleRate = saleRate;
+    }
+
+    public String getTime_Type() {
+        return time_Type;
+    }
+
+    public void setTime_Type(String time_Type) {
+        this.time_Type = time_Type;
+    }
+
+    public String getTime_Slot() {
+        return time_Slot;
+    }
+
+    public void setTime_Slot(String time_Slot) {
+        this.time_Slot = time_Slot;
+    }
+
+    public String getFreq_Name() {
+        return freq_Name;
+    }
+
+    public void setFreq_Name(String freq_Name) {
+        this.freq_Name = freq_Name;
+    }
+
+    public String getSequence() {
+        return sequence;
+    }
+
+    public void setSequence(String sequence) {
+        this.sequence = sequence;
     }
 }

@@ -1,7 +1,6 @@
 package com.shree.maulifoods.adapter;
 
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.text.Editable;
@@ -18,21 +17,18 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.pojo.Product;
-import com.shree.maulifoods.pojo.Requirment;
 import com.shree.maulifoods.pojo.Subcribe;
-import com.shree.maulifoods.ui.activity.CustomerActivity;
+import com.shree.maulifoods.pojo.TimeSlot;
 import com.shree.maulifoods.utility.ApiInterface;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
 import com.shree.maulifoods.utility.ProgressInfo;
 import com.shree.maulifoods.utility.RESTApi;
-import com.shree.maulifoods.utility.SessionManagement;
 
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -51,28 +47,27 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
     private Calendar c;
     private int year, month, day;
     private String TAG = "***SubcriptionAdapter***";
-    private String[] productList, frequencyList, timeSlotList;
+    private String[] productList, frequencyList, timeSlotList, timeTypeArray = {"Morning", "Afternoon", "Evening"};
     private ArrayAdapter<String> adapter;
     public static ArrayList<Product> dRateArrayList = null;
-    private HashMap<Integer, String> productListMap = null, dispFreqListMap, timeSlotListMap;
+    private HashMap<Integer, String> productListMap, dispFreqListMap, timeSlotListMap;
     private ApiInterface apiService = null;
     private NetworkUtil networkUtil;
     private ProgressInfo progressInfo;
     private CommonUtil commonUtil;
     private DecimalFormat df = new DecimalFormat("#.##");
     private boolean isOkayClicked = false;
+    public static ArrayList<TimeSlot> dTimeSlotArrayList = null;
     //</editor-fold>
 
-    public SubcriptionAdapter(Context context, ArrayList<Subcribe> tempArrayList, String[] tempProductList, String[] tempFrequencyList, String[] tempTimeSlotList,
-                              HashMap<Integer, String> tempProductListMap, HashMap<Integer, String> tempDispFreqListMap, HashMap<Integer, String> tempTimeSlotListMap) {
+    public SubcriptionAdapter(Context context, ArrayList<Subcribe> tempArrayList, String[] tempProductList, String[] tempFrequencyList,
+                              HashMap<Integer, String> tempProductListMap, HashMap<Integer, String> tempDispFreqListMap) {
         this.context = context;
         this.dArrayList = tempArrayList;
         this.productList = tempProductList;
         this.frequencyList = tempFrequencyList;
-        this.timeSlotList = tempTimeSlotList;
         this.productListMap = tempProductListMap;
         this.dispFreqListMap = tempDispFreqListMap;
-        this.timeSlotListMap = tempTimeSlotListMap;
 
         apiService = RESTApi.getClient().create(ApiInterface.class);
         networkUtil = new NetworkUtil();
@@ -88,7 +83,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
     @Override
     public SubcriptionAdapter.MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.from(parent.getContext()).inflate(R.layout.subscribe_add_item_list, parent, false);
+        View view = inflater.from(parent.getContext()).inflate(R.layout.item_list_subscribe_add, parent, false);
         MyViewHolder rvViewHolder = new MyViewHolder(view);
         return rvViewHolder;
     }
@@ -97,6 +92,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
     public void onBindViewHolder(SubcriptionAdapter.MyViewHolder holder, int p) {
         int position = holder.getAdapterPosition();
 
+        adapter = null;
         adapter = new ArrayAdapter<String>(context, R.layout.custom_spinner_items, productList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner_product_name.setAdapter(adapter);
@@ -108,7 +104,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
                 if (!parent.getItemAtPosition(pos).toString().equals("")) {
-                    getProductList(productListMap.get(holder.spinner_product_name.getSelectedItemPosition()), holder.qty, holder.rate, holder.amount, position);
+                    getProduct(productListMap.get(holder.spinner_product_name.getSelectedItemPosition()), holder.qty, holder.rate, holder.amount, position);
                     Subcribe updated = dArrayList.get(position);
                     updated.setProduct_ID(productListMap.get(holder.spinner_product_name.getSelectedItemPosition()));
                     updated.setProduct_Name(parent.getItemAtPosition(pos).toString());
@@ -121,6 +117,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             }
         });
 
+        adapter = null;
         adapter = new ArrayAdapter<String>(context, R.layout.dropdown_small_item, frequencyList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         holder.spinner_frequency.setAdapter(adapter);
@@ -138,7 +135,6 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
                     dArrayList.set(position, updated);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -153,12 +149,34 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             setStartDate(holder.startDate, position);
         });
 
-        if(timeSlotList!=null) {
-            adapter = new ArrayAdapter<String>(context, R.layout.dropdown_small_item, timeSlotList);
-            adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-            holder.spinner_time_slot.setAdapter(adapter);
+        adapter = null;
+        adapter = new ArrayAdapter<String>(context, R.layout.dropdown_small_item, timeTypeArray);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        holder.spinner_time_type.setAdapter(adapter);
+        if (dArrayList.get(position).getTime_Type() != null || dArrayList.get(position).getTime_Type() != "") {
+            int Sel_Position = adapter.getPosition(dArrayList.get(position).getTime_Type());
+            holder.spinner_time_type.setSelection(Sel_Position);
         }
+        holder.spinner_time_type.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
+                if (!parent.getItemAtPosition(pos).toString().equals("")) {
+
+                    Subcribe updated = dArrayList.get(position);
+                    updated.setTime_Type(parent.getItemAtPosition(pos).toString());
+                    dArrayList.set(position, updated);
+
+                    getTimeSlot(parent.getItemAtPosition(pos).toString(), holder.spinner_time_slot, position);
+
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+            }
+        });
+
         if (dArrayList.get(position).getTine_Slot_Name() != null || dArrayList.get(position).getTine_Slot_Name() != "") {
+            Log.d(TAG,dArrayList.get(position).getTine_Slot_Name());
             int Sel_Position = adapter.getPosition(dArrayList.get(position).getTine_Slot_Name());
             holder.spinner_time_slot.setSelection(Sel_Position);
         }
@@ -172,7 +190,6 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
                     dArrayList.set(position, updated);
                 }
             }
-
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
             }
@@ -187,9 +204,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             @Override
             public void onTextChanged(CharSequence s, int start,
                                       int before, int count) {
-
             }
-
             @Override
             public void beforeTextChanged(CharSequence s, int start,
                                           int count, int after) {
@@ -224,7 +239,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
         EditText qty, startDate;
         ImageView removeImg;
         LinearLayout llItem;
-        Spinner spinner_product_name, spinner_frequency, spinner_time_slot;
+        Spinner spinner_product_name, spinner_frequency, spinner_time_type, spinner_time_slot;
 
         public MyViewHolder(View itemView) {
             super(itemView);
@@ -238,6 +253,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             amount = itemView.findViewById(R.id.tv_product_amount);
             startDate = itemView.findViewById(R.id.ed_subc_start_dt);
 
+            spinner_time_type = itemView.findViewById(R.id.spinner_time_type);
             spinner_time_slot = itemView.findViewById(R.id.spinner_time_slot);
             llItem = itemView.findViewById(R.id.ll_item);
         }
@@ -301,12 +317,12 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
 
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.DAY_OF_MONTH, 15);
+        endDate.add(Calendar.DAY_OF_MONTH, 60);
         datePickerDialog.getDatePicker().setMaxDate(endDate.getTimeInMillis());
         datePickerDialog.show();
     }
 
-    public void getProductList(String product_id, EditText edt_qty, TextView tv_rate, TextView tv_amount, int position) {
+    public void getProduct(String product_id, EditText edt_qty, TextView tv_rate, TextView tv_amount, int position) {
 
         if (networkUtil.getConnectivityStatus(context).trim() == "false") {
             commonUtil.getToast(context, "No internet connection!");
@@ -316,13 +332,13 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             return;
         } else {
             progressInfo.ProgressShow();
-            apiService.getProductList(product_id).enqueue(new Callback<ArrayList<Product>>() {
+            apiService.getProductList("0",product_id).enqueue(new Callback<ArrayList<Product>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                     dRateArrayList = response.body();
                     if (dRateArrayList.size() > 0) {
                         for (int i = 0; i < dRateArrayList.size(); i++) {
-                            tv_rate.setText(dRateArrayList.get(i).getRate());
+                            tv_rate.setText(dRateArrayList.get(i).getSaleRate());
 
                             Subcribe updated = dArrayList.get(position);
                             updated.setQty(edt_qty.getText().toString());
@@ -348,5 +364,52 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
             });
         }
     }
+
+    public void getTimeSlot(String time_type, Spinner spinner_time_slot, int position) {
+
+        if (networkUtil.getConnectivityStatus(context).trim() == "false") {
+            commonUtil.getToast(context, "No internet connection!");
+            return;
+        } else {
+            progressInfo.ProgressShow();
+            apiService.getTimeSlotList(time_type).enqueue(new Callback<ArrayList<TimeSlot>>() {
+                @Override
+                public void onResponse(Call<ArrayList<TimeSlot>> call, Response<ArrayList<TimeSlot>> response) {
+                    Log.d(TAG, "response: " + response.body());
+                    dTimeSlotArrayList = response.body();
+                    timeSlotListMap = new HashMap<Integer, String>();
+                    if (dTimeSlotArrayList.size() > 0) {
+                        timeSlotList = new String[dTimeSlotArrayList.size()];
+                        for (int i = 0; i < dTimeSlotArrayList.size(); i++) {
+                            timeSlotListMap.put(i, dTimeSlotArrayList.get(i).getSlot_ID());
+                            timeSlotList[i] = dTimeSlotArrayList.get(i).getSlot_Time();
+                        }
+
+                        adapter = new ArrayAdapter<String>(context, R.layout.dropdown_small_item, timeSlotList);
+                        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+                        spinner_time_slot.setAdapter(adapter);
+
+                        if (dArrayList.get(position).getTine_Slot_Name() != null || dArrayList.get(position).getTine_Slot_Name() != "") {
+                             int Sel_Position = adapter.getPosition(dArrayList.get(position).getTine_Slot_Name());
+                            spinner_time_slot.setSelection(Sel_Position);
+                        }
+
+                    } else {
+                        commonUtil.getToast(context, "No TimeSlot Found!");
+                    }
+                    progressInfo.ProgressHide();
+                }
+
+                @Override
+                public void onFailure(Call<ArrayList<TimeSlot>> call, Throwable t) {
+                    progressInfo.ProgressHide();
+                    Log.d(TAG, "Error: " + t.getMessage());
+                    call.cancel();
+                    commonUtil.getToast(context, "Error While Retrieve TimeSlot!");
+                }
+            });
+        }
+    }
+
 
 }

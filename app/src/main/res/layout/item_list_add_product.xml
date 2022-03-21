@@ -3,8 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="5sp"
-    android:layout_marginRight="5sp"
+    android:layout_margin="5sp"
     android:clickable="true"
     app:cardBackgroundColor="@color/white"
     app:cardCornerRadius="5dp"
@@ -19,35 +18,26 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="30sp"
+            android:layout_height="25sp"
             android:weightSum="1">
 
             <TextView
                 android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.66"
+                android:layout_height="match_parent"
+                android:layout_weight="0.92"
                 android:gravity="center_vertical"
                 android:text="Product Name"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
-                android:gravity="center_vertical"
-                android:text="Start Date"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <ImageView
                 android:id="@+id/img_remove"
                 android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_marginRight="5dp"
-                android:layout_weight="0.09"
-                android:rotation="45"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
+                android:layout_marginRight="5dp"
+                android:layout_weight="0.08"
+                android:rotation="45"
                 android:src="@drawable/ic_add_circle_black_24dp"
                 app:tint="@color/darkred" />
 
@@ -58,25 +48,14 @@
             android:layout_height="35dp"
             android:weightSum="1">
 
-            <Spinner
-                android:id="@+id/spinner_product_name"
+            <TextView
+                android:id="@+id/tv_product_desc"
                 android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65" />
-
-            <EditText
-                android:id="@+id/ed_subc_start_dt"
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
-                android:background="@color/white"
-                android:focusableInTouchMode="false"
-                android:imeOptions="actionDone"
-                android:inputType="date"
-                android:maxLength="10"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center_vertical"
                 android:text=""
-                android:textColor="@color/darkgray"
-                android:textSize="15sp" />
+                android:textSize="16sp" />
 
         </LinearLayout>
 
@@ -86,26 +65,26 @@
             android:weightSum="1">
 
             <TextView
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
                 android:gravity="center_vertical"
-                android:text="Frequency"
+                android:text="Challan Qty"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
                 android:gravity="center_vertical"
-                android:text="Qty"
+                android:text="Accept Qty"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
             <TextView
                 android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="center_vertical"
                 android:text="Rate"
@@ -114,8 +93,8 @@
 
             <TextView
                 android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.25"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
                 android:gravity="center_vertical"
                 android:text="Amount"
                 android:textColor="@color/black"
@@ -126,92 +105,44 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="35sp"
+            android:layout_height="30sp"
             android:weightSum="1">
 
-            <Spinner
-                android:id="@+id/spinner_frequency"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
-                android:textColor="@color/darkgray" />
-
-            <EditText
-                android:id="@+id/ed_product_qty"
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:background="@color/white"
-                android:imeOptions="actionDone"
-                android:inputType="numberDecimal"
-                android:maxLength="3"
-                android:text=""
-                android:textColor="@color/darkgray"
-                android:textSize="15sp" />
-
             <TextView
-                android:id="@+id/tv_product_rate"
+                android:id="@+id/tv_challan_qty"
                 android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.20"
-                android:gravity="center_vertical"
-                android:text=""
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/tv_product_amount"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="0.25"
                 android:gravity="center_vertical"
                 android:text=""
                 android:textSize="16sp" />
 
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="25sp"
-            android:weightSum="1">
+            <TextView
+                android:id="@+id/tv_qty"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.25"
+                android:gravity="center_vertical"
+                android:text=""
+                android:textSize="16sp" />
 
             <TextView
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
+                android:id="@+id/tv_rate"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
                 android:gravity="center_vertical"
-                android:text="Time Type"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
+                android:text=""
+                android:textSize="16sp" />
 
             <TextView
-                android:layout_width="0.0dip"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65"
+                android:id="@+id/tv_amount"
+                android:layout_width="0sp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.30"
                 android:gravity="center_vertical"
-                android:text="Slot Time"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="35sp"
-            android:weightSum="1">
-
-            <Spinner
-                android:id="@+id/spinner_time_type"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.35"
-                android:textColor="@color/darkgray" />
-
-            <Spinner
-                android:id="@+id/spinner_time_slot"
-                android:layout_width="0sp"
-                android:layout_height="wrap_content"
-                android:layout_weight="0.65"
-                android:textColor="@color/darkgray" />
+                android:text=""
+                android:textSize="16sp" />
 
         </LinearLayout>
 

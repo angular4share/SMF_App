@@ -74,8 +74,7 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txt_product, txt_qty, txt_uom, txt_date, txt_total_qty, txt_raise_reqirment, txt_order_status;
-        EditText et_extra_qty;
+        public TextView txt_product, txt_qty,et_extra_qty, txt_uom, txt_date, txt_total_qty, txt_raise_reqirment, txt_order_status;
         Spinner spinner_vendor;
 
         public MyViewHolder(View view) {
@@ -139,6 +138,7 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
             holder.txt_raise_reqirment.setTextColor(ContextCompat.getColor(context, R.color.lightgray));
         }
 
+        /*
         holder.et_extra_qty.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start,
@@ -166,6 +166,7 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
                 holder.et_extra_qty.setSelection(holder.et_extra_qty.getText().length());
             }
         });
+        */
 
         holder.spinner_vendor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override

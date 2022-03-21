@@ -1,15 +1,18 @@
 package com.shree.maulifoods.pojo;
 
 public class Subcribe {
+
     public String SrNo;
     public String Product_ID;
     public String Product_Name;
     public String Freq_ID;
     public String Freq_Name;
     public String Qty;
+    public String ExtraQty;
     public String Rate;
     public String Amount;
     public String Start_Date;
+    public String Time_Type;
     public String Tine_Slot_ID;
     public String Tine_Slot_Name;
 
@@ -61,6 +64,14 @@ public class Subcribe {
         Qty = qty;
     }
 
+    public String getExtraQty() {
+        return ExtraQty;
+    }
+
+    public void setExtraQty(String extraQty) {
+        ExtraQty = extraQty;
+    }
+
     public String getRate() {
         return Rate;
     }
@@ -85,6 +96,14 @@ public class Subcribe {
         Start_Date = start_Date;
     }
 
+    public String getTime_Type() {
+        return Time_Type;
+    }
+
+    public void setTime_Type(String time_Type) {
+        Time_Type = time_Type;
+    }
+
     public String getTine_Slot_ID() {
         return Tine_Slot_ID;
     }
@@ -100,4 +119,5 @@ public class Subcribe {
     public void setTine_Slot_Name(String tine_Slot_Name) {
         Tine_Slot_Name = tine_Slot_Name;
     }
+
 }

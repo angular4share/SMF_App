@@ -99,7 +99,6 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             }
         });
 
-        getCustomerList(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
         recyclerView.addOnItemTouchListener(new RecyclerTouchListener(this, recyclerView, new ClickListener() {
             @Override
@@ -111,6 +110,7 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             public void onLongClick(View view, int position) {
             }
         }));
+        getCustomer(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
     }
 
     private void openCustomerActivity(String type, int pos) {
@@ -129,7 +129,6 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             intent.putExtra("Route_ID", "");
             intent.putExtra("Route_Name", "");
             intent.putExtra("Route_Desc", "");
-            intent.putExtra("Subs_ID", "");
             intent.putExtra("Product_ID", "");
             intent.putExtra("Product_Desc", "");
             intent.putExtra("Product_Name", "");
@@ -138,6 +137,7 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             intent.putExtra("Freq_ID", "");
             intent.putExtra("Freq_Name", "");
             intent.putExtra("Freq_Days", "");
+            intent.putExtra("Time_Type", "");
             intent.putExtra("Time_Slot_ID", "");
             intent.putExtra("Time_Slot_Name", "");
             intent.putExtra("Sequence", "");
@@ -154,7 +154,6 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             intent.putExtra("Route_ID", dcustomerArrayList.get(pos).getRoute_ID());
             intent.putExtra("Route_Name", dcustomerArrayList.get(pos).getRoute_Name());
             intent.putExtra("Route_Desc", dcustomerArrayList.get(pos).getRoute_Desc());
-            intent.putExtra("Subs_ID", dcustomerArrayList.get(pos).getSubs_ID());
             intent.putExtra("Product_ID", dcustomerArrayList.get(pos).getProduct_ID());
             intent.putExtra("Product_Desc", dcustomerArrayList.get(pos).getProduct_Desc());
             intent.putExtra("Qty", dcustomerArrayList.get(pos).getQty());
@@ -162,6 +161,7 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             intent.putExtra("Freq_ID", dcustomerArrayList.get(pos).getFreq_ID());
             intent.putExtra("Freq_Name", dcustomerArrayList.get(pos).getFreq_Name());
             intent.putExtra("Freq_Days", dcustomerArrayList.get(pos).getFreq_Days());
+            intent.putExtra("Time_Type", dcustomerArrayList.get(pos).getTime_Type());
             intent.putExtra("Time_Slot_ID", dcustomerArrayList.get(pos).getTime_Slot_ID());
             intent.putExtra("Time_Slot_Name", dcustomerArrayList.get(pos).getTime_Slot_Name());
             intent.putExtra("Sequence", dcustomerArrayList.get(pos).getSequence());
@@ -175,11 +175,11 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001) {
             editsearch.setQuery("", false);
-            getCustomerList(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
+            getCustomer(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
         }
     }
 
-    public void getCustomerList(String outlet_id, String customer_id, String type) {
+    public void getCustomer(String outlet_id, String customer_id, String type) {
         if (networkUtil.getConnectivityStatus(CustomerReportActivity.this).trim() == "false") {
             commonUtil.getToast(CustomerReportActivity.this, "No internet connection!");
             return;
@@ -192,7 +192,8 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
                     Log.d(TAG, "response: " + response.body());
                     dcustomerArrayList = response.body();
                     getSupportActionBar().setTitle("Customer Creation (" + dcustomerArrayList.size() +")");
-                    if (dcustomerArrayList != null) {
+                    if (dcustomerArrayList.size()>0) {
+                        Log.d(TAG, "getTime_Type: " +dcustomerArrayList.get(0).getTime_Type());
                         dAdapter = new CustomerReportAdapter(dcustomerArrayList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {

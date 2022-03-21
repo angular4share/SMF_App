@@ -1,18 +1,13 @@
 package com.shree.maulifoods.pojo;
 
-public class Subcribe {
+public class addProduct {
     public String SrNo;
     public String Product_ID;
     public String Product_Name;
-    public String Freq_ID;
-    public String Freq_Name;
-    public String Qty;
+    public String ChallanQty;
+    public String AcceptedQty;
     public String Rate;
     public String Amount;
-    public String Start_Date;
-    public String Time_Type;
-    public String Tine_Slot_ID;
-    public String Tine_Slot_Name;
 
     public String getSrNo() {
         return SrNo;
@@ -38,28 +33,20 @@ public class Subcribe {
         Product_Name = product_Name;
     }
 
-    public String getFreq_ID() {
-        return Freq_ID;
+    public String getChallanQty() {
+        return ChallanQty;
     }
 
-    public void setFreq_ID(String freq_ID) {
-        Freq_ID = freq_ID;
+    public void setChallanQty(String challanQty) {
+        ChallanQty = challanQty;
     }
 
-    public String getFreq_Name() {
-        return Freq_Name;
+    public String getAcceptedQty() {
+        return AcceptedQty;
     }
 
-    public void setFreq_Name(String freq_Name) {
-        Freq_Name = freq_Name;
-    }
-
-    public String getQty() {
-        return Qty;
-    }
-
-    public void setQty(String qty) {
-        Qty = qty;
+    public void setAcceptedQty(String acceptedQty) {
+        AcceptedQty = acceptedQty;
     }
 
     public String getRate() {
@@ -76,37 +63,5 @@ public class Subcribe {
 
     public void setAmount(String amount) {
         Amount = amount;
-    }
-
-    public String getStart_Date() {
-        return Start_Date;
-    }
-
-    public void setStart_Date(String start_Date) {
-        Start_Date = start_Date;
-    }
-
-    public String getTime_Type() {
-        return Time_Type;
-    }
-
-    public void setTime_Type(String time_Type) {
-        Time_Type = time_Type;
-    }
-
-    public String getTine_Slot_ID() {
-        return Tine_Slot_ID;
-    }
-
-    public void setTine_Slot_ID(String tine_Slot_ID) {
-        Tine_Slot_ID = tine_Slot_ID;
-    }
-
-    public String getTine_Slot_Name() {
-        return Tine_Slot_Name;
-    }
-
-    public void setTine_Slot_Name(String tine_Slot_Name) {
-        Tine_Slot_Name = tine_Slot_Name;
     }
 }

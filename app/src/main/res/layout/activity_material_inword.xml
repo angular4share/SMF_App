@@ -15,21 +15,35 @@
             android:layout_margin="5dp"
             android:orientation="vertical">
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/MenuLayoutAppearance"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="* Choose Vendor"
-                android:padding="1dp">
+                android:background="@drawable/layout_background_border"
+                android:gravity="center"
+                android:weightSum="1">
 
-                <AutoCompleteTextView
-                    android:id="@+id/auto_txt_pvendor"
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MenuLayoutAppearance"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:imeOptions="actionDone"
-                    android:inputType="none" />
+                    android:hint="* Choose Vendor"
+                    android:padding="1dp">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <AutoCompleteTextView
+                        android:id="@+id/auto_txt_vendor"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="none" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5sp"
+                android:layout_weight="0.01"></View>
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -38,15 +52,15 @@
                 android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_inward_date"
+                    android:id="@+id/txt_challan_date"
                     style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.3"
-                    android:hint="Inward Date">
+                    android:layout_weight="0.31"
+                    android:hint="Challan Date">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_inward_date"
+                        android:id="@+id/edt_challan_date"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:focusableInTouchMode="false"
@@ -55,11 +69,49 @@
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    style="@style/MenuLayoutAppearance"
+                    android:id="@+id/txt_challan_no"
+                    style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.7"
+                    android:layout_weight="0.68"
+                    android:hint="Challan No">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_challan_no"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords"
+                        android:maxLength="15" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_margin="5dp"
+                android:layout_weight="0.01"
+                android:background="@color/gray"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/layout_background_border"
+                android:gravity="center">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/MenuLayoutAppearance"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:hint="* Choose Product"
                     android:padding="1dp">
 
@@ -71,8 +123,14 @@
                         android:inputType="none" />
 
                 </com.google.android.material.textfield.TextInputLayout>
-
             </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5sp"
+                android:layout_weight="0.01"></View>
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,87 +139,92 @@
                 android:weightSum="1">
 
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_qty"
+                    android:id="@+id/txt_challan_qty"
                     style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.22"
-                    android:hint="Received Qty">
+                    android:layout_weight="0.25"
+                    android:hint="Challan Qty">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_qty"
+                        android:id="@+id/edt_challan_qty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal"
+                        android:maxLength="6" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_leakage"
+                    android:id="@+id/txt_accepted_qty"
                     style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.19"
-                    android:hint="Leakage">
+                    android:layout_weight="0.25"
+                    android:hint="Accept Qty">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_leakage"
+                        android:id="@+id/edt_accepted_qty"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:imeOptions="actionNext"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal"
+                        android:maxLength="6" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_westage"
+                    android:id="@+id/txt_rate"
                     style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.19"
-                    android:hint="Westage">
+                    android:layout_weight="0.20"
+                    android:hint="Rate">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_westage"
+                        android:id="@+id/edt_rate"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="number" />
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxLength="5" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
                 <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_shortfall"
+                    android:id="@+id/txt_amount"
                     style="@style/TextInputLayout"
                     android:layout_width="0.0dip"
                     android:layout_height="wrap_content"
-                    android:layout_weight="0.19"
-                    android:hint="Shortfall">
+                    android:layout_weight="0.27"
+                    android:enabled="false"
+                    android:hint="Amount">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_shortfall"
+                        android:id="@+id/edt_amount"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="number" />
-
-                </com.google.android.material.textfield.TextInputLayout>
-
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/txt_total"
-                    style="@style/TextInputLayout"
-                    android:layout_width="0.0dip"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.21"
-                    android:hint="Actual Qty">
-
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/edt_total"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:imeOptions="actionNext"
-                        android:inputType="number" />
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textColor="@color/orange" />
 
                 </com.google.android.material.textfield.TextInputLayout>
 
@@ -171,15 +234,14 @@
                 android:id="@+id/tv_add_items"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
                 android:layout_marginLeft="5dp"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="5dp"
                 android:background="@color/lightgray"
                 android:drawableRight="@drawable/ic_add_circle_black_24dp"
-                android:gravity="center"
+                android:gravity="right"
                 android:padding="10dp"
-                android:text="Add Inward Product(s)"
+                android:text="Add Product(s) "
                 android:textColor="@color/darkgray"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -193,24 +255,210 @@
 
             </androidx.recyclerview.widget.RecyclerView>
 
+            <TextView android:id="@+id/txt_no_record_found"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="No Product Added"
+                android:padding="5dp"
+                android:textColor="@color/darkgray" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_margin="5dp"
+                android:layout_weight="0.01"
+                android:background="@color/gray"></View>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:weightSum="1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_total_acc_qty"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.27"
+                    android:enabled="false"
+                    android:hint="Tot Acc Qty">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_total_qty"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textColor="@color/orange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_sub_amount"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.29"
+                    android:enabled="false"
+                    android:hint="Sub Amount">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_sub_amount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textColor="@color/orange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="right"
+                android:weightSum="1">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_prev_balance"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.27"
+                    android:enabled="false"
+                    android:hint="Prev Balance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_prev_balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textColor="@color/orange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_total_balance"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.29"
+                    android:enabled="false"
+                    android:hint="Total Balance">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_total_balance"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textStyle="bold"
+                        android:textColor="@color/orange" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="5dp"></View>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <LinearLayout
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.70"
+                    android:background="@drawable/layout_background_border">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/MenuLayoutAppearance"
+                        android:layout_width="0.0dip"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="0.70"
+                        android:hint="* Choose Payment Mode"
+                        android:padding="1dp">
+
+                        <AutoCompleteTextView
+                            android:id="@+id/auto_txt_payment_mode"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:imeOptions="actionDone"
+                            android:inputType="none" />
+
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.01"></View>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_payment"
+                    style="@style/TextInputLayout"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.29"
+                    android:hint="Payment Amt">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/edt_payment"
+                        android:layout_width="match_parent"
+                        android:layout_height="50sp"
+                        android:imeOptions="actionDone"
+                        android:inputType="numberDecimal"
+                        android:maxLength="6"
+                        android:text="0"
+                        android:textColor="@color/green" />
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/btn_save"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="10dp"
+                android:layout_marginLeft="5dp"
                 android:layout_marginTop="20sp"
-                android:layout_marginRight="10dp"
+                android:layout_marginRight="5dp"
                 android:layout_marginBottom="5sp"
-                android:background="@drawable/rounded_shape"
+                android:background="@color/colorPrimary"
                 android:gravity="center"
-                android:paddingTop="8dp"
-                android:paddingBottom="8dp"
-                android:text="Save Customer"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:text="Save"
                 android:textColor="@color/white"
                 android:textSize="18sp"
                 android:textStyle="bold" />
-
 
         </LinearLayout>
 

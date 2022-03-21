@@ -35,6 +35,14 @@
             android:windowSoftInputMode="stateAlwaysHidden"></activity>
 
         <activity
+            android:name=".ui.activity.UserRegistrationActivity"
+            android:exported="false"
+            android:label="User Activation"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden"></activity>
+
+        <activity
             android:name=".ui.activity.CustomerReportActivity"
             android:exported="false"
             android:label="Customer List"
@@ -46,6 +54,14 @@
             android:label="@string/title_activity_delivery"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
+
+        <activity
+            android:name=".ui.activity.DeliveryReportActivity"
+            android:exported="false"
+            android:label="@string/title_activity_delivery"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+
         <activity
             android:name=".ui.activity.PurchaseRequirmentActivity"
             android:exported="false"

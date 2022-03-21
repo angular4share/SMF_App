@@ -4,6 +4,7 @@ import com.shree.maulifoods.pojo.Customer;
 import com.shree.maulifoods.pojo.Delivery;
 import com.shree.maulifoods.pojo.DispFrequency;
 import com.shree.maulifoods.pojo.Inword;
+import com.shree.maulifoods.pojo.PayMode;
 import com.shree.maulifoods.pojo.Product;
 import com.shree.maulifoods.pojo.Requirment;
 import com.shree.maulifoods.pojo.Route;
@@ -41,9 +42,7 @@ public interface ApiInterface {
     @GET("getVendor")
     Call<ArrayList<Vendor>> getVendor(@Query("vendorID") String Vendor_ID);
 
-    @GET("getInword")
-    Call<ArrayList<Inword>> getInword(@Query("type") String Type,
-                                      @Query("forDate") String For_Date);
+
 
     @GET("saveRequirment")
     Call<String> saveRequirment(@Query("requirment_date") String requirment_date,
@@ -55,39 +54,34 @@ public interface ApiInterface {
                                 @Query("inword_ID") String inword_ID,
                                 @Query("user_ID") String user_ID);
 
-    @GET("saveInword")
-    Call<String> saveInword(@Query("inword_id") String inword_id,
-                            @Query("product_id") String product_id,
-                            @Query("vendor_id") String vendor_id,
-                            @Query("challan_qty") String challan_qty,
-                            @Query("challan_extra_qty") String challan_extra_qty,
-                            @Query("bill_no") String bill_no,
-                            @Query("bill_date") String bill_date,
-                            @Query("user_id") String user_id);
+    @GET("getPayMode")
+    Call<ArrayList<PayMode>> getPayMode(@Query("paymodeID") String Paymode_ID);
 
 
     @GET("getDelivery")
     Call<ArrayList<Delivery>> getDelivery(@Query("type") String Type,
                                           @Query("forDate") String For_Date,
-                                          @Query("empCode") String Emp_Code);
+                                          @Query("empCode") String Emp_Code,
+                                          @Query("custCode") String Cust_Code);
 
 
     @GET("getRouteList")
     Call<ArrayList<Route>> getRouteList(@Query("outlet_id") String outlet_id);
 
     @GET("getProductList")
-    Call<ArrayList<Product>> getProductList(@Query("product_id") String product_id);
+    Call<ArrayList<Product>> getProductList(@Query("vendor_id") String vendor_id,
+                                            @Query("product_id") String product_id);
 
     @GET("getDispFrequencyList")
     Call<ArrayList<DispFrequency>> getDispFrequencyList(@Query("freq_id") String freq_id);
 
     @GET("getTimeSlotList")
-    Call<ArrayList<TimeSlot>> getTimeSlotList(@Query("slot_id") String slot_id);
+    Call<ArrayList<TimeSlot>> getTimeSlotList(@Query("Time_Type") String Time_Type);
 
     @GET("getCustomerList")
     Call<ArrayList<Customer>> getCustomerList(@Query("outlet_id") String outlet_id,
-                                          @Query("customer_id") String customer_id,
-                                          @Query("type") String type);
+                                              @Query("customer_id") String customer_id,
+                                              @Query("type") String type);
 
     @GET("saveCustomer")
     Call<String> saveCustomer(@Query("Customer_ID") String Customer_ID,
@@ -101,7 +95,6 @@ public interface ApiInterface {
                               @Query("Mobile_No2") String Mobile_No2,
                               @Query("EMail_ID") String EMail_ID,
                               @Query("Route_ID") String Route_ID,
-                              @Query("Subs_ID") String Subs_ID,
                               @Query("Sr_No") String Sr_No,
                               @Query("Product_ID") String Product_ID,
                               @Query("Qty") String Qty,
@@ -109,6 +102,39 @@ public interface ApiInterface {
                               @Query("Freq_ID") String Freq_ID,
                               @Query("Time_Slot_ID") String Time_Slot_ID,
                               @Query("User_ID") String User_ID);
+
+    @GET("getOTP")
+    Call<String> getOTP(@Query("User_Name") String User_Name,
+                        @Query("Mail_ID") String Mail_ID,
+                        @Query("Mobile_No") String Mobile_No,
+                        @Query("IMEI_No") String IMEI_No,
+                        @Query("FCMTokenID") String FCMTokenID);
+
+    @GET("setOTP")
+    Call<String> setOTP(@Query("OTPNo") String OTPNo,
+                        @Query("FCMTokenID") String FCMTokenID,
+                        @Query("Mobile_No") String Mobile_No,
+                        @Query("IMEI_No") String IMEI_No);
+
+    @GET("saveInward")
+    Call<String> saveInward(@Query("Save_Type") String Save_Type,
+                            @Query("Vendor_ID") String Vendor_ID,
+                            @Query("Bill_No") String Bill_No,
+                            @Query("Bill_Date") String Bill_Date,
+                            @Query("Sr_No") String Sr_No,
+                            @Query("ProdID") String ProdID,
+                            @Query("Challan_Qty") String Challan_Qty,
+                            @Query("Qty") String Qty,
+                            @Query("Rate") String Rate,
+                            @Query("Previoues_Balance") String Previoues_Balance,
+                            @Query("PayMode") String PayMode,
+                            @Query("PayAmt") String PayAmt,
+                            @Query("Outlet_ID") String Outlet_ID,
+                            @Query("User_ID") String User_ID);
+
+    @GET("getInward")
+    Call<ArrayList<Inword>> getInward(@Query("type") String Type,
+                                      @Query("forDate") String For_Date);
 
 }
 

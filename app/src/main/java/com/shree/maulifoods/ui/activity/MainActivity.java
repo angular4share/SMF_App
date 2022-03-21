@@ -66,8 +66,8 @@ public class MainActivity extends AppCompatActivity {
 
         coordinatorLayout = (CoordinatorLayout) findViewById(R.id.coordinatorLayout);
         bottomNavigationView = (BottomNavigationView) findViewById(R.id.bottomnavigationbar);
-        bottomNavigationView.setBackground(null);
-        bottomNavigationView.getMenu().getItem(2).setEnabled(false);
+        /*bottomNavigationView.setBackground(null);
+        bottomNavigationView.getMenu().getItem(2).setEnabled(false);*/
         getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new DashboardFragment()).commit();
 
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -80,26 +80,26 @@ public class MainActivity extends AppCompatActivity {
                         toolbar.setTitle("Shree Mauli Foods");
                         getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new DashboardFragment()).commit();
                         break;
-                    case R.id.action_notification :
-                        toolbar.setTitle("Notifications");
-                        getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new NotificationsFragment()).commit();
-                        break;
                     case R.id.action_account:
                         toolbar.setTitle("Account");
                         getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new AccountFragment()).commit();
+                        break;
+                    case R.id.action_notification :
+                        toolbar.setTitle("Notifications");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new NotificationsFragment()).commit();
                         break;
                     case R.id.action_settings:
                         toolbar.setTitle("Settings");
                         /*BottomSheetDialogFragment bottomSheetDialogFragment = BottomSheetNavigationFragment.newInstance();
                         bottomSheetDialogFragment.show(getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");*/
-                        commonUtil.getSnackbar(coordinatorLayout,"Coming Soon...","OK");
+                        //commonUtil.getSnackbar(coordinatorLayout,"Coming Soon...","OK");
                         break;
                 }
                 return true;
             }
         });
 
-        //click event over FAB
+       /* //click event over FAB
         findViewById(R.id.fab).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -109,7 +109,8 @@ public class MainActivity extends AppCompatActivity {
                 BottomSheetDialogFragment bottomSheetDialogFragment = BottomSheetNavigationFragment.newInstance();
                 bottomSheetDialogFragment.show(getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");
             }
-        });
+        });*/
+
     }
 
     @Override

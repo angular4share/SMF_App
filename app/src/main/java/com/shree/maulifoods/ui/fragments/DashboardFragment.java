@@ -18,6 +18,7 @@ import androidx.fragment.app.Fragment;
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.ui.activity.CustomerReportActivity;
 import com.shree.maulifoods.ui.activity.DeliveryActivity;
+import com.shree.maulifoods.ui.activity.DeliveryReportActivity;
 import com.shree.maulifoods.ui.activity.MaterialInwardReportActivity;
 import com.shree.maulifoods.ui.activity.PurchaseRequirmentActivity;
 import com.shree.maulifoods.utility.CommonUtil;
@@ -83,8 +84,6 @@ public class DashboardFragment extends Fragment {
             startActivity(intent, _bundle);
         });
         cv_inword.setOnClickListener(view -> {
-            //commonUtil.getToast(getContext(), "Coming Soon...");
-
             intent = new Intent(getContext(), MaterialInwardReportActivity.class);
             _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
             startActivity(intent, _bundle);
@@ -97,9 +96,7 @@ public class DashboardFragment extends Fragment {
         });
 
         cv_delivery.setOnClickListener(view -> {
-            //getFragmentManager().beginTransaction().replace(R.id.framecontainer, new DeliveryFragment()).commit();
-            //commonUtil.getToast(getContext(), "Coming Soon...");
-            intent = new Intent(getContext(), DeliveryActivity.class);
+            intent = new Intent(getContext(), DeliveryReportActivity.class);
             _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
             startActivity(intent, _bundle);
         });

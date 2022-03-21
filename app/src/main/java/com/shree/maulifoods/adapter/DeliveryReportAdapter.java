@@ -15,22 +15,18 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.pojo.Delivery;
 import com.shree.maulifoods.ui.activity.DeliveryActivity;
-import com.shree.maulifoods.ui.activity.LoginActivity;
-import com.shree.maulifoods.ui.activity.MainActivity;
-import com.shree.maulifoods.utility.CommonUtil;
-import com.shree.maulifoods.utility.ProgressInfo;
 
 import java.util.ArrayList;
 
-public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyViewHolder> {
+public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAdapter.MyViewHolder> {
 
     //<editor-fold desc="Description">
     private Context context;
     private ArrayList<Delivery> dArrayList;
-    private String TAG = "***DeliveryAdapter***";
+    private String TAG = "***DeliveryReportAdapter***";
     //</editor-fold>
 
-    public DeliveryAdapter(Context context, ArrayList<Delivery> tempArrayList) {
+    public DeliveryReportAdapter(Context context, ArrayList<Delivery> tempArrayList) {
         this.context = context;
         this.dArrayList = tempArrayList;
     }
@@ -42,7 +38,8 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txt_route_name,txt_customer, txt_customer_address, txt_city, txt_que, txt_prv_balance, txt_delivery, txt_collection;
+        public TextView txt_route_name,txt_customer, txt_customer_address, txt_city, txt_que, txt_prv_balance,
+                txt_delivery, txt_collection;
 
         public MyViewHolder(View view) {
             super(view);
@@ -78,7 +75,7 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
         holder.txt_customer_address.setText(dArrayList.get(position).getCustomer_Address());
         holder.txt_city.setText(dArrayList.get(position).getCustomer_City());
 
-        holder.txt_que.setText(dArrayList.get(position).getSr_No());
+        holder.txt_que.setText(dArrayList.get(position).getSequence());
         holder.txt_prv_balance.setText(dArrayList.get(position).getPrv_Bal());
 
         if (dArrayList.get(position).getDelivery_Status().trim().equals("Delivered")) {
@@ -99,6 +96,18 @@ public class DeliveryAdapter extends RecyclerView.Adapter<DeliveryAdapter.MyView
             public void onClick(View v) {
                 Intent intent = new Intent(context, DeliveryActivity.class);
                 intent.putExtra("Subs_ID", dArrayList.get(position).getSubs_ID());
+                intent.putExtra("Customer_Name", dArrayList.get(position).getCustomer_Name());
+                intent.putExtra("Customer_Address", dArrayList.get(position).getCustomer_Address());
+                intent.putExtra("Route_Desc", dArrayList.get(position).getRoute_Desc());
+                intent.putExtra("Seq_No", dArrayList.get(position).getSequence());
+                intent.putExtra("Product_ID", dArrayList.get(position).getProduct_ID());
+                intent.putExtra("Product_Desc", dArrayList.get(position).getProduct_Desc());
+                intent.putExtra("Subs_Qty", dArrayList.get(position).getSubs_Qty());
+                intent.putExtra("Sale_Rate", dArrayList.get(position).getSaleRate());
+                intent.putExtra("Time_Type", dArrayList.get(position).getTime_Type());
+                intent.putExtra("Time_Slot", dArrayList.get(position).getTime_Slot());
+                intent.putExtra("Freq_Name", dArrayList.get(position).getFreq_Name());
+                intent.putExtra("Extra_Qty", dArrayList.get(position).getExtraQty());
                 Bundle bundle = ActivityOptions.makeCustomAnimation(context, R.anim.fadein, R.anim.fadeout).toBundle();
                 context.startActivity(intent, bundle);
             }

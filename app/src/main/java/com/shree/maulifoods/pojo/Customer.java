@@ -3,13 +3,13 @@ package com.shree.maulifoods.pojo;
 public class Customer {
 
     private String customer_ID,customer_Name,save_Type,customer_Type, customer_Address,customer_City,pinCode,
-            mobile_No,mobile_No2,eMail_ID,route_ID, route_Name,route_Desc,subs_ID,sr_No, product_ID, product_Desc,
-            qty, start_Date, freq_ID,freq_Name,freq_Days,time_Slot_ID,time_Slot_Name,sequence;
+            mobile_No,mobile_No2,eMail_ID,route_ID, route_Name,route_Desc,sr_No, product_ID, product_Desc,
+            qty, start_Date, freq_ID,freq_Name,freq_Days,time_Type,time_Slot_ID,time_Slot_Name,sequence;
 
     public Customer(String customer_ID, String customer_Name, String save_Type, String customer_Type, String customer_Address,
                     String pinCode, String mobile_No,String mobile_No2, String eMail_ID, String route_ID, String route_Name, String route_Desc,
-                    String subs_ID, String sr_No, String product_ID, String product_Desc, String qty, String start_Date, String freq_ID,
-                    String freq_Name, String freq_Days, String time_Slot_ID, String time_Slot_Name, String sequence) {
+                    String sr_No, String product_ID, String product_Desc, String qty, String start_Date, String freq_ID,
+                    String freq_Name, String freq_Days,String time_Type,String time_Slot_ID, String time_Slot_Name, String sequence) {
         this.customer_ID = customer_ID;
         this.customer_Name = customer_Name;
         this.save_Type = save_Type;
@@ -23,7 +23,6 @@ public class Customer {
         this.route_ID = route_ID;
         this.route_Name = route_Name;
         this.route_Desc = route_Desc;
-        this.subs_ID = subs_ID;
         this.sr_No = sr_No;
         this.product_ID = product_ID;
         this.product_Desc = product_Desc;
@@ -32,6 +31,7 @@ public class Customer {
         this.freq_ID = freq_ID;
         this.freq_Name = freq_Name;
         this.freq_Days = freq_Days;
+        this.time_Type=time_Type;
         this.time_Slot_ID = time_Slot_ID;
         this.time_Slot_Name = time_Slot_Name;
         this.sequence = sequence;
@@ -141,14 +141,6 @@ public class Customer {
         this.route_Desc = route_Desc;
     }
 
-    public String getSubs_ID() {
-        return subs_ID;
-    }
-
-    public void setSubs_ID(String subs_ID) {
-        this.subs_ID = subs_ID;
-    }
-
     public String getSr_No() {
         return sr_No;
     }
@@ -211,6 +203,14 @@ public class Customer {
 
     public void setFreq_Days(String freq_Days) {
         this.freq_Days = freq_Days;
+    }
+
+    public String getTime_Type() {
+        return time_Type;
+    }
+
+    public void setTime_Type(String time_Type) {
+        this.time_Type = time_Type;
     }
 
     public String getTime_Slot_ID() {

@@ -64,10 +64,10 @@
                 android:layout_height="40dp"
                 android:layout_weight="0.50"
                 android:background="@color/lightgray"
-                android:gravity="center"
+                android:gravity="start|center"
                 android:paddingRight="10dp"
                 android:text="SHREE MAULI MILK"
-                android:textColor="@color/orange"
+                android:textColor="@color/darkorange"
                 android:textSize="18dp"
                 android:textStyle="bold" />
 

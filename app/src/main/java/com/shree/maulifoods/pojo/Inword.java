@@ -2,26 +2,29 @@ package com.shree.maulifoods.pojo;
 
 public class Inword {
 
-    private String sr_No, inword_ID,requirment_Date,mProduct_ID,mProduct_Name,order_Qty,extra_Qty,total_Qty,
-            uoM_Name,vendor_ID,vendor_Name,bill_No,bill_Date,already;
+    String sr_No, inward_ID, vendor_ID, vendor_Name, bill_No, bill_Date, product_ID, product_Desc, uoM_Name, accept_Qty,
+            challan_Qty,rate,amount,old_Amount,total_Amount, payment_Mode, payment_Amt;
 
-    public Inword(String sr_No, String inword_ID,String requirment_Date,String mProduct_ID,
-                  String mProduct_Name,String order_Qty,String extra_Qty,String total_Qty,String uoM_Name,String vendor_ID,
-                  String vendor_Name,String bill_No,String bill_Date,String already) {
+    public Inword(String sr_No, String inward_ID, String vendor_ID, String vendor_Name, String bill_No, String bill_Date,
+                  String product_ID, String product_Desc, String uoM_Name, String accept_Qty, String challan_Qty, String rate,
+                  String amount,String old_Amount, String total_Amount, String payment_Mode, String payment_Amt) {
         this.sr_No = sr_No;
-        this.inword_ID=inword_ID;
-        this.requirment_Date=requirment_Date;
-        this.mProduct_ID = mProduct_ID;
-        this.mProduct_Name = mProduct_Name;
-        this.order_Qty = order_Qty;
-        this.extra_Qty = extra_Qty;
-        this.total_Qty = total_Qty;
-        this.uoM_Name = uoM_Name;
+        this.inward_ID = inward_ID;
         this.vendor_ID = vendor_ID;
         this.vendor_Name = vendor_Name;
         this.bill_No = bill_No;
         this.bill_Date = bill_Date;
-        this.already = already;
+        this.product_ID = product_ID;
+        this.product_Desc = product_Desc;
+        this.uoM_Name = uoM_Name;
+        this.accept_Qty = accept_Qty;
+        this.challan_Qty = challan_Qty;
+        this.rate = rate;
+        this.old_Amount = old_Amount;
+        this.amount = amount;
+        this.total_Amount = total_Amount;
+        this.payment_Mode = payment_Mode;
+        this.payment_Amt = payment_Amt;
     }
 
     public String getSr_No() {
@@ -32,68 +35,12 @@ public class Inword {
         this.sr_No = sr_No;
     }
 
-    public String getInword_ID() {
-        return inword_ID;
+    public String getInward_ID() {
+        return inward_ID;
     }
 
-    public void setInword_ID(String inword_ID) {
-        this.inword_ID = inword_ID;
-    }
-
-    public String getRequirment_Date() {
-        return requirment_Date;
-    }
-
-    public void setRequirment_Date(String requirment_Date) {
-        this.requirment_Date = requirment_Date;
-    }
-
-    public String getmProduct_ID() {
-        return mProduct_ID;
-    }
-
-    public void setmProduct_ID(String mProduct_ID) {
-        this.mProduct_ID = mProduct_ID;
-    }
-
-    public String getmProduct_Name() {
-        return mProduct_Name;
-    }
-
-    public void setmProduct_Name(String mProduct_Name) {
-        this.mProduct_Name = mProduct_Name;
-    }
-
-    public String getOrder_Qty() {
-        return order_Qty;
-    }
-
-    public void setOrder_Qty(String order_Qty) {
-        this.order_Qty = order_Qty;
-    }
-
-    public String getExtra_Qty() {
-        return extra_Qty;
-    }
-
-    public void setExtra_Qty(String extra_Qty) {
-        this.extra_Qty = extra_Qty;
-    }
-
-    public String getTotal_Qty() {
-        return total_Qty;
-    }
-
-    public void setTotal_Qty(String total_Qty) {
-        this.total_Qty = total_Qty;
-    }
-
-    public String getUoM_Name() {
-        return uoM_Name;
-    }
-
-    public void setUoM_Name(String uoM_Name) {
-        this.uoM_Name = uoM_Name;
+    public void setInward_ID(String inward_ID) {
+        this.inward_ID = inward_ID;
     }
 
     public String getVendor_ID() {
@@ -128,11 +75,91 @@ public class Inword {
         this.bill_Date = bill_Date;
     }
 
-    public String getAlready() {
-        return already;
+    public String getProduct_ID() {
+        return product_ID;
     }
 
-    public void setAlready(String already) {
-        this.already = already;
+    public void setProduct_ID(String product_ID) {
+        this.product_ID = product_ID;
+    }
+
+    public String getProduct_Desc() {
+        return product_Desc;
+    }
+
+    public void setProduct_Desc(String product_Desc) {
+        this.product_Desc = product_Desc;
+    }
+
+    public String getUoM_Name() {
+        return uoM_Name;
+    }
+
+    public void setUoM_Name(String uoM_Name) {
+        this.uoM_Name = uoM_Name;
+    }
+
+    public String getAccept_Qty() {
+        return accept_Qty;
+    }
+
+    public void setAccept_Qty(String accept_Qty) {
+        this.accept_Qty = accept_Qty;
+    }
+
+    public String getChallan_Qty() {
+        return challan_Qty;
+    }
+
+    public void setChallan_Qty(String challan_Qty) {
+        this.challan_Qty = challan_Qty;
+    }
+
+    public String getRate() {
+        return rate;
+    }
+
+    public void setRate(String rate) {
+        this.rate = rate;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getOld_Amount() {
+        return old_Amount;
+    }
+
+    public void setOld_Amount(String old_Amount) {
+        this.old_Amount = old_Amount;
+    }
+
+    public String getTotal_Amount() {
+        return total_Amount;
+    }
+
+    public void setTotal_Amount(String total_Amount) {
+        this.total_Amount = total_Amount;
+    }
+
+    public String getPayment_Mode() {
+        return payment_Mode;
+    }
+
+    public void setPayment_Mode(String payment_Mode) {
+        this.payment_Mode = payment_Mode;
+    }
+
+    public String getPayment_Amt() {
+        return payment_Amt;
+    }
+
+    public void setPayment_Amt(String payment_Amt) {
+        this.payment_Amt = payment_Amt;
     }
 }

@@ -107,9 +107,10 @@ public class MaterialInwardReportActivity extends AppCompatActivity {
         });
 
         todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", Calendar.getInstance().getTime()));
-        Log.d(TAG, "todaydate " + todaydate);
         getInwordList(todaydate);
         recyclerView.setLayoutManager(new LinearLayoutManager(MaterialInwardReportActivity.this, LinearLayoutManager.VERTICAL, false));
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
+        recyclerView.setLayoutAnimation(animation);
     }
 
     public void getInwordList(String forDt) {
@@ -119,13 +120,12 @@ public class MaterialInwardReportActivity extends AppCompatActivity {
             return;
         } else {
             progressInfo.ProgressShow();
-            Log.d(TAG, "forDt: " + forDt);
-            apiInterface.getInword("Summary", forDt ).enqueue(new Callback<ArrayList<Inword>>() {
+            apiInterface.getInward("Summary", forDt).enqueue(new Callback<ArrayList<Inword>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Inword>> call, Response<ArrayList<Inword>> response) {
                     Log.d(TAG, "response: " + response.body());
                     dArrayList = response.body();
-                    if (dArrayList!=null) {
+                    if (dArrayList.size()>0) {
                         dAdapter = new InwordAdapter(MaterialInwardReportActivity.this, dArrayList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {
@@ -134,8 +134,6 @@ public class MaterialInwardReportActivity extends AppCompatActivity {
                         commonUtil.getToast(MaterialInwardReportActivity.this, "No Record Found!");
                     }
                     recyclerView.setAdapter(dAdapter);
-                    LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
-                    recyclerView.setLayoutAnimation(animation);
                     progressInfo.ProgressHide();
                 }
 

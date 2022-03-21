@@ -69,8 +69,8 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
     private ProgressInfo progressInfo;
     private CommonUtil commonUtil;
     private NetworkUtil networkUtil;
-    private String TAG = "***CustomerActivity***", Customer_ID = "", Customer_Type = "", Selected_Route = "", Subs_ID_D = "", Sr_No_D = "", ProdID_D = "",
-            ProdDesc_D = "", Qty_D = "", FreqID_D = "", FreqName_D = "", Rate_D = "", Amount_D = "", StartDt_D = "", TimeSlotID_D = "", TimeSlotName_D = "";
+    private String TAG = "***CustomerActivity***", Customer_ID = "", Selected_CustType = "", Selected_Route = "", Sr_No_D = "", ProdID_D = "",
+            ProdDesc_D = "", Qty_D = "", FreqID_D = "", FreqName_D = "", Rate_D = "", Amount_D = "", StartDt_D = "", TimeType_D = "", TimeSlotID_D = "", TimeSlotName_D = "";
     private Bundle bundle;
     private ApiInterface apiService = null;
     private Intent intent = null;
@@ -83,11 +83,11 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
     public static ArrayList<Route> dRouteArrayList = null;
     public static ArrayList<Product> dProductArrayList = null;
     public static ArrayList<DispFrequency> dDispFreqArrayList = null;
-    public static ArrayList<TimeSlot> dTimeSlotArrayList = null;
-    private static HashMap<Integer, String> routeListMap, productListMap, dispFreqListMap, timeSlotListMap;
-    private String[] spinnerRouteArray, spinnerProductArrary, spinnerDispFreqArray, spinnerTimeslotArrary;
-    private AutoCompleteTextView editTextFilledExposedDropdown;
+    private static HashMap<Integer, String> routeListMap, productListMap, dispFreqListMap;
+    private String[] spinnerRouteArray, spinnerProductArrary, spinnerDispFreqArray;
+    private AutoCompleteTextView edtTextDropdownRoute, edtTextDropdownCustType;
     private ArrayAdapter<String> adapter = null;
+    private String[] cust_TypeArray = {"Home Delivery", "Agency Sale", "Dealership"};
     //endregion
 
     @Override
@@ -123,7 +123,6 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         session.checkLogin();
         user = session.getUserDetails();
 
-        editTextFilledExposedDropdown = findViewById(R.id.auto_txt_input_lay_route);
         recyclerView = findViewById(R.id.rv_list_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
@@ -135,17 +134,9 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         edit_text_city = findViewById(R.id.edit_text_city);
         edit_text_pincode = findViewById(R.id.edit_text_pincode);
 
-        findViewById(R.id.add_address).setOnClickListener(CustomerActivity.this);
-        findViewById(R.id.tv_add_items).setOnClickListener(CustomerActivity.this);
-        findViewById(R.id.btn_save).setOnClickListener(CustomerActivity.this);
-
-        getRouteList();
-        getDispFrequencyList();
-        getTimeSlotList();
-        getProductList();
-
+        edtTextDropdownRoute = findViewById(R.id.auto_txt_input_lay_route);
         Selected_Route = "";
-        editTextFilledExposedDropdown.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        edtTextDropdownRoute.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if (position != -1) {
@@ -154,10 +145,33 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
             }
         });
 
+        edtTextDropdownCustType = findViewById(R.id.auto_txt_input_lay_cust_type);
+        adapter = null;
+        adapter = new ArrayAdapter<String>(CustomerActivity.this, R.layout.dropdown_menu_popup_item, cust_TypeArray);
+        edtTextDropdownCustType.setAdapter(adapter);
+        Selected_CustType = "";
+        edtTextDropdownCustType.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (position != -1) {
+                    Selected_CustType = cust_TypeArray[position];
+                }
+            }
+        });
+
+        findViewById(R.id.add_address).setOnClickListener(CustomerActivity.this);
+        findViewById(R.id.tv_add_items).setOnClickListener(CustomerActivity.this);
+        findViewById(R.id.btn_save).setOnClickListener(CustomerActivity.this);
+
+        getRoute();
+        getDispFrequency();
+        getProduct();
+
         if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
             Customer_ID = getIntent().getExtras().getString("Customer_ID").trim();
             edit_text_fullname.setText(getIntent().getExtras().getString("Customer_Name").trim());
-            Customer_Type = getIntent().getExtras().getString("Customer_Type").trim();
+            Selected_CustType = getIntent().getExtras().getString("Customer_Type").trim();
+            edtTextDropdownCustType.setText(Selected_CustType.trim(), false);
             edit_text_email_id.setText(getIntent().getExtras().getString("EMail_ID").trim());
             edit_text_mobile_no1.setText(getIntent().getExtras().getString("Mobile_No1").trim());
             edit_text_mobile_no2.setText(getIntent().getExtras().getString("Mobile_No2").trim());
@@ -165,13 +179,14 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
             edit_text_city.setText(getIntent().getExtras().getString("Customer_City").trim());
             edit_text_pincode.setText(getIntent().getExtras().getString("PinCode").trim());
             Selected_Route = getIntent().getExtras().getString("Route_ID").trim();
-            Subs_ID_D = getIntent().getExtras().getString("Subs_ID").trim();
+
             ProdID_D = getIntent().getExtras().getString("Product_ID").trim();
             ProdDesc_D = getIntent().getExtras().getString("Product_Desc").trim();
             Qty_D = getIntent().getExtras().getString("Qty").trim();
             StartDt_D = getIntent().getExtras().getString("Start_Date").trim();
             FreqID_D = getIntent().getExtras().getString("Freq_ID").trim();
             FreqName_D = getIntent().getExtras().getString("Freq_Name").trim();
+            TimeType_D = getIntent().getExtras().getString("Time_Type").trim();
             TimeSlotID_D = getIntent().getExtras().getString("Time_Slot_ID").trim();
             TimeSlotName_D = getIntent().getExtras().getString("Time_Slot_Name").trim();
             //Sequence = getIntent().getExtras().getString("Sequence").trim();
@@ -187,11 +202,13 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                 startActivityForResult(intent, REQUEST_CODE, bundle);
                 break;
             case R.id.tv_add_items:
-                insertMethod("", "", "", "", "1", commonUtil.getCurrentedate(1), "", "");
+                insertMethod("", "", "", "", "1", commonUtil.getCurrentedate(1), "", "", "");
                 break;
             case R.id.btn_save:
                 if (add_Product_Items.size() < 1) {
                     Toast.makeText(CustomerActivity.this, "Select Subscribe Products", Toast.LENGTH_LONG).show();
+                } else if (edtTextDropdownCustType.getText().toString().length() < 1 || Selected_CustType.equals("")) {
+                    Toast.makeText(CustomerActivity.this, "Select the Customer Type", Toast.LENGTH_LONG).show();
                 } else if (edit_text_fullname.getText().toString().length() < 2) {
                     Toast.makeText(CustomerActivity.this, "Enter the Full Name", Toast.LENGTH_LONG).show();
                 } else if (edit_text_mobile_no1.getText().toString().length() < 10) {
@@ -202,7 +219,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                     Toast.makeText(CustomerActivity.this, "Enter Valid City", Toast.LENGTH_LONG).show();
                 } else if (edit_text_pincode.getText().toString().length() < 6) {
                     Toast.makeText(CustomerActivity.this, "Enter 6 digit Pincode", Toast.LENGTH_LONG).show();
-                } else if (editTextFilledExposedDropdown.getText().toString().length() < 1 || Selected_Route.equals("")) {
+                } else if (edtTextDropdownRoute.getText().toString().length() < 1 || Selected_Route.equals("")) {
                     Toast.makeText(CustomerActivity.this, "Select the Route", Toast.LENGTH_LONG).show();
                 } else {
                     saveConfirm();
@@ -222,7 +239,8 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         alertConfirm.show();
     }
 
-    private void insertMethod(String ProdID, String ProdName, String FreqID, String FreqName, String Qty, String StartDt, String TimeSlotID, String TimeSlotName) {
+    private void insertMethod(String ProdID, String ProdName, String FreqID, String FreqName, String Qty, String StartDt,
+                              String TimeType, String TimeSlotID, String TimeSlotName) {
         Subcribe model = new Subcribe();
         model.setSrNo(String.valueOf(add_Product_Items.size() + 1));
         model.setProduct_ID(ProdID);
@@ -233,6 +251,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         model.setRate("");
         model.setAmount("");
         model.setStart_Date(StartDt);
+        model.setTime_Type(TimeType);
         model.setTine_Slot_ID(TimeSlotID);
         model.setTine_Slot_Name(TimeSlotName);
         add_Product_Items.add(model);
@@ -314,7 +333,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    public void getRouteList() {
+    public void getRoute() {
 
         if (networkUtil.getConnectivityStatus(CustomerActivity.this).trim() == "false") {
             commonUtil.getToast(CustomerActivity.this, "No internet connection!");
@@ -333,10 +352,11 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                             routeListMap.put(i, dRouteArrayList.get(i).getRoute_ID());
                             spinnerRouteArray[i] = dRouteArrayList.get(i).getRoute_Name();
                         }
+                        adapter = null;
                         adapter = new ArrayAdapter<>(CustomerActivity.this, R.layout.dropdown_menu_popup_item, spinnerRouteArray);
-                        editTextFilledExposedDropdown.setAdapter(adapter);
+                        edtTextDropdownRoute.setAdapter(adapter);
                         if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
-                            editTextFilledExposedDropdown.setText(getIntent().getExtras().getString("Route_Name").trim(), false);
+                            edtTextDropdownRoute.setText(getIntent().getExtras().getString("Route_Name").trim(), false);
                         }
                     } else {
                         commonUtil.getToast(CustomerActivity.this, "No Route Found!");
@@ -356,7 +376,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void getDispFrequencyList() {
+    public void getDispFrequency() {
 
         if (networkUtil.getConnectivityStatus(CustomerActivity.this).trim() == "false") {
             commonUtil.getToast(CustomerActivity.this, "No internet connection!");
@@ -393,52 +413,14 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
 
     }
 
-    public void getTimeSlotList() {
+    public void getProduct() {
 
         if (networkUtil.getConnectivityStatus(CustomerActivity.this).trim() == "false") {
             commonUtil.getToast(CustomerActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
-            apiService.getTimeSlotList("0").enqueue(new Callback<ArrayList<TimeSlot>>() {
-                @Override
-                public void onResponse(Call<ArrayList<TimeSlot>> call, Response<ArrayList<TimeSlot>> response) {
-                    Log.d(TAG, "response: " + response.body());
-                    dTimeSlotArrayList = response.body();
-                    timeSlotListMap = new HashMap<Integer, String>();
-                    spinnerTimeslotArrary = new String[dTimeSlotArrayList.size()];
-                    if (dTimeSlotArrayList.size() > 0) {
-                        for (int i = 0; i < dTimeSlotArrayList.size(); i++) {
-                            timeSlotListMap.put(i, dTimeSlotArrayList.get(i).getSlot_ID());
-                            spinnerTimeslotArrary[i] = dTimeSlotArrayList.get(i).getSlot_Time();
-                        }
-
-                    } else {
-                        commonUtil.getToast(CustomerActivity.this, "No TimeSlot Found!");
-                    }
-                    progressInfo.ProgressHide();
-                }
-
-                @Override
-                public void onFailure(Call<ArrayList<TimeSlot>> call, Throwable t) {
-                    progressInfo.ProgressHide();
-                    Log.d(TAG, "Error: " + t.getMessage());
-                    call.cancel();
-                    commonUtil.getToast(CustomerActivity.this, "Something Went Wrong!");
-                }
-            });
-        }
-
-    }
-
-    public void getProductList() {
-
-        if (networkUtil.getConnectivityStatus(CustomerActivity.this).trim() == "false") {
-            commonUtil.getToast(CustomerActivity.this, "No internet connection!");
-            return;
-        } else {
-            progressInfo.ProgressShow();
-            apiService.getProductList("0").enqueue(new Callback<ArrayList<Product>>() {
+            apiService.getProductList("0", "0").enqueue(new Callback<ArrayList<Product>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Product>> call, Response<ArrayList<Product>> response) {
                     Log.d(TAG, "response: " + response.body());
@@ -454,7 +436,8 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                         commonUtil.getToast(CustomerActivity.this, "No Product Found!");
                     }
                     progressInfo.ProgressHide();
-                    rvAdapter = new SubcriptionAdapter(CustomerActivity.this, add_Product_Items, spinnerProductArrary, spinnerDispFreqArray, spinnerTimeslotArrary, productListMap, dispFreqListMap, timeSlotListMap);
+                    rvAdapter = new SubcriptionAdapter(CustomerActivity.this, add_Product_Items, spinnerProductArrary,
+                            spinnerDispFreqArray, productListMap, dispFreqListMap);
                     recyclerView.setAdapter(rvAdapter);
 
                     if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
@@ -464,12 +447,14 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                         String[] FreqDesc_Items = FreqName_D.split("#");
                         String[] Qty_Items = Qty_D.split("#");
                         String[] StartDt_Items = StartDt_D.split("#");
+                        String[] TimeType_Items = TimeType_D.split("#");
                         String[] TimeSlotID_Items = TimeSlotID_D.split("#");
                         String[] TimeSlotDesc_Items = TimeSlotName_D.split("#");
                         if (ProdID_Items.length > 0) {
                             for (int i = 0; i < ProdID_Items.length; i++) {
-                                insertMethod(ProdID_Items[i].trim(), ProdDesc_Items[i].trim(), FreqID_Items[i].trim(), FreqDesc_Items[i].trim(),
-                                        Qty_Items[i].trim(), StartDt_Items[i].trim(), TimeSlotID_Items[i].trim(), TimeSlotDesc_Items[i].trim());
+                                insertMethod(ProdID_Items[i].trim(), ProdDesc_Items[i].trim(), FreqID_Items[i].trim(),
+                                        FreqDesc_Items[i].trim(), Qty_Items[i].trim(), StartDt_Items[i].trim(),
+                                        TimeType_Items[i].trim(), TimeSlotID_Items[i].trim(), TimeSlotDesc_Items[i].trim());
                             }
                         }
                     }
@@ -528,17 +513,19 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
             }
         }
 
-        Log.d(TAG, "CustID: " + Customer_ID + ", CustName: " + edit_text_fullname.getText() + ", Address: " + edit_text_address.getText() + ", City: " + edit_text_city.getText()
+        Log.d(TAG, " Customer_ID: " + Customer_ID + ", FullName: " + edit_text_fullname.getText().toString() + ", Save_Type: " + getIntent().getExtras().getString("Save_Type").trim()
+                + ", CustType: " + Selected_CustType + ", CustID: " + Customer_ID + ", CustName: " + edit_text_fullname.getText() + ", Address: " + edit_text_address.getText() + ", City: " + edit_text_city.getText()
                 + ", Mobile1: " + edit_text_mobile_no1.getText() + ", Mobile2: " + edit_text_mobile_no2.getText().toString() + ", EMail: " + edit_text_email_id.getText().toString()
-                + ", Pincode: " + edit_text_pincode.getText() + ", RouteID: " + Selected_Route + ", RouteName: " + editTextFilledExposedDropdown.getText() + ", Subs_ID_D: " + Subs_ID_D
-                + ", ProdID_D: " + ProdID_D + ", ProdDesc_D: " + ProdDesc_D + ", Qty_D: " + Qty_D + ", FreqID_D: " + FreqID_D + ", FreqName_D: " + FreqName_D
-                + ", Rate: " + Rate_D + ", Amount_D: " + Amount_D + ", StartDt_D: " + StartDt_D + ", TimeSlotID_D: " + TimeSlotID_D + ", TimeSlotName_D: " + TimeSlotName_D);
+                + ", Pincode: " + edit_text_pincode.getText() + ", RouteID: " + Selected_Route + ", RouteName: " + edtTextDropdownRoute.getText()
+                + ", Sr_No_D :" + Sr_No_D + ", ProdID_D: " + ProdID_D + ", ProdDesc_D: " + ProdDesc_D + ", Qty_D: " + Qty_D + ", FreqID_D: " + FreqID_D + ", FreqName_D: " + FreqName_D
+                + ", Rate: " + Rate_D + ", Amount_D: " + Amount_D + ", StartDt_D: " + StartDt_D + ", TimeSlotID_D: " + TimeSlotID_D + ", TimeSlotName_D: " + TimeSlotName_D
+                + ", User_Id: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
-        apiService.saveCustomer(Customer_ID, edit_text_fullname.getText().toString(), getIntent().getExtras().getString("Save_Type").trim(), "Subsribe",
+        apiService.saveCustomer(Customer_ID, edit_text_fullname.getText().toString(), getIntent().getExtras().getString("Save_Type").trim(), Selected_CustType,
                 edit_text_address.getText().toString(), edit_text_city.getText().toString(), edit_text_pincode.getText().toString(), edit_text_mobile_no1.getText().toString(),
                 edit_text_mobile_no2.getText().toString().equals("") ? "NA" : edit_text_mobile_no2.getText().toString(), edit_text_email_id.getText().toString().equals("") ? "NA" : edit_text_email_id.getText().toString(),
-                Selected_Route, Subs_ID_D, Sr_No_D, ProdID_D, Qty_D, StartDt_D, FreqID_D,TimeSlotID_D,user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<String>() {
+                Selected_Route, Sr_No_D, ProdID_D, Qty_D, StartDt_D, FreqID_D, TimeSlotID_D, user.get(SessionManagement.USER_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d(TAG, "message: " + response.message());
@@ -549,15 +536,16 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                     } else {
                         Toast.makeText(CustomerActivity.this, "Customer Modified Successfully", Toast.LENGTH_LONG).show();
                     }
+                    progressInfo.ProgressHide();
+                    onBackPressed();
                 } else if (response.body().trim().equals("Name_Exist")) {
                     Toast.makeText(CustomerActivity.this, "Customer Already Present", Toast.LENGTH_LONG).show();
                 } else if (response.body().trim().equals("Mobile_Exist")) {
                     Toast.makeText(CustomerActivity.this, "Mobile No Already Present", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(CustomerActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(CustomerActivity.this, "Something Went Wrong...", Toast.LENGTH_LONG).show();
                 }
                 progressInfo.ProgressHide();
-                onBackPressed();
             }
 
             @Override
@@ -571,10 +559,8 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
 
     @Override
     public void onBackPressed() {
-
         getIntent().putExtra("Type", "Ok");
         setResult(1001, getIntent());
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             finishAndRemoveTask();
         } else {

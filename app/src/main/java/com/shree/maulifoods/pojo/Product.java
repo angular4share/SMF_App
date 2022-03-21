@@ -2,13 +2,15 @@ package com.shree.maulifoods.pojo;
 
 public class Product {
 
-    private String sr_No, product_ID,product_Name,rate;
+    private String sr_No, product_ID,product_Name,purRate,saleRate,vendorClsAmt;
 
-    public Product(String sr_No, String product_ID, String product_Name,String rate) {
+    public Product(String sr_No, String product_ID, String product_Name,String purRate,String saleRate,String vendorClsAmt) {
         this.sr_No = sr_No;
         this.product_ID = product_ID;
         this.product_Name = product_Name;
-        this.rate = rate;
+        this.purRate = purRate;
+        this.saleRate = saleRate;
+        this.vendorClsAmt = vendorClsAmt;
     }
 
     public String getSr_No() {
@@ -35,11 +37,27 @@ public class Product {
         this.product_Name = product_Name;
     }
 
-    public String getRate() {
-        return rate;
+    public String getPurRate() {
+        return purRate;
     }
 
-    public void setRate(String rate) {
-        this.rate = rate;
+    public void setPurRate(String purRate) {
+        this.purRate = purRate;
+    }
+
+    public String getSaleRate() {
+        return saleRate;
+    }
+
+    public void setSaleRate(String saleRate) {
+        this.saleRate = saleRate;
+    }
+
+    public String getVendorClsAmt() {
+        return vendorClsAmt;
+    }
+
+    public void setVendorClsAmt(String vendorClsAmt) {
+        this.vendorClsAmt = vendorClsAmt;
     }
 }
