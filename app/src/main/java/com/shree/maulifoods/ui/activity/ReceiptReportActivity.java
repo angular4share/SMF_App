@@ -155,7 +155,7 @@ public class ReceiptReportActivity extends AppCompatActivity {
             return;
         } else {
            progressInfo.ProgressShow();
-            apiInterface.getReceipt("Receipt", forDt, forDt, user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getReceipt("Receipt", forDt+" 00:00:00", forDt+" 23:59:59", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
                     Log.d(TAG, "response: " + response.body());

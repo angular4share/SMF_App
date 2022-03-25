@@ -93,8 +93,7 @@ public class DeliveryActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_list_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        if(getIntent().getExtras().getString("Delivery_Status").trim().equals("Delivered"))
-        {
+        if (getIntent().getExtras().getString("Delivery_Status").trim().equals("Delivered")) {
             ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setEnabled(false);
             ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setBackgroundColor(ContextCompat.getColor(this, R.color.lightgray));
             ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setTextColor(ContextCompat.getColor(this, R.color.darkgray));
@@ -126,6 +125,7 @@ public class DeliveryActivity extends AppCompatActivity {
                     recyclerView.setLayoutAnimation(animation);
                     progressInfo.ProgressHide();
                 }
+
                 @Override
                 public void onFailure(Call<ArrayList<Delivery>> call, Throwable t) {
                     progressInfo.ProgressHide();
@@ -137,18 +137,9 @@ public class DeliveryActivity extends AppCompatActivity {
         }
     }
 
-    public void saveConfirm(View view) {
-        AlertDialog.Builder alertConfirm = new AlertDialog.Builder(this);
-        alertConfirm.setTitle("Save");
-        alertConfirm.setMessage("Are You Sure You Want Save?");
-        alertConfirm.setPositiveButton("YES", (dialog, which) -> {
-            saveRecord();
-        });
-        alertConfirm.setNegativeButton("NO", (dialog, which) -> dialog.cancel());
-        alertConfirm.show();
-    }
+    public void saveValidation(View view) {
 
-    private void saveRecord() {
+        int cnt = 0;
         Sr_No_D = "";
         ProdID_D = "";
         Issue_Qty_D = "";
@@ -166,6 +157,9 @@ public class DeliveryActivity extends AppCompatActivity {
                     Subs_Qty_D = dArrayList.get(i).getSubs_Qty();
                     Stock_Qty_D = dArrayList.get(i).getStock_Qty();
                     Rate_D = dArrayList.get(i).getSale_Rate();
+                    if (Double.valueOf(dArrayList.get(i).getSubs_Qty()) > 0) {
+                        cnt = 1;
+                    }
                 } else {
                     Sr_No_D = Sr_No_D + "#" + (i + 1);
                     ProdID_D = ProdID_D + "#" + dArrayList.get(i).getProduct_ID();
@@ -174,9 +168,34 @@ public class DeliveryActivity extends AppCompatActivity {
                     Subs_Qty_D = Subs_Qty_D + "#" + dArrayList.get(i).getSubs_Qty();
                     Stock_Qty_D = Stock_Qty_D + "#" + dArrayList.get(i).getStock_Qty();
                     Rate_D = Rate_D + "#" + dArrayList.get(i).getSale_Rate();
+                    if (Double.valueOf(dArrayList.get(i).getSubs_Qty()) > 0) {
+                        cnt += 1;
+                    }
                 }
             }
         }
+
+        if (dArrayList.size() < 0) {
+            Toast.makeText(DeliveryActivity.this, "Record Not Found!", Toast.LENGTH_LONG).show();
+        } else if (cnt == 0) {
+            Toast.makeText(DeliveryActivity.this, "Enter the Issue Qty!", Toast.LENGTH_LONG).show();
+        } else {
+            saveConfirm();
+        }
+    }
+
+    public void saveConfirm() {
+        AlertDialog.Builder alertConfirm = new AlertDialog.Builder(this);
+        alertConfirm.setTitle("Save");
+        alertConfirm.setMessage("Are You Sure You Want Save?");
+        alertConfirm.setPositiveButton("YES", (dialog, which) -> {
+            saveRecord();
+        });
+        alertConfirm.setNegativeButton("NO", (dialog, which) -> dialog.cancel());
+        alertConfirm.show();
+    }
+
+    private void saveRecord() {
 
         Log.d(TAG, "Subs_ID: " + getIntent().getExtras().getString("Subs_ID").trim() + ", Subs_Date: " + commonUtil.getdateyyyymmdd(getIntent().getExtras().getString("Subs_Date").trim()) +
                 ", Sr_No_D: " + Sr_No_D + ", ProdID_D: " + ProdID_D + ", Issue_Qty_D: " + Issue_Qty_D + ", Extra_Qty_D: " + Extra_Qty_D + ", Stock_Qty_D: " + Stock_Qty_D + ", Subs_Qty_D: " + Subs_Qty_D +

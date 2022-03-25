@@ -45,10 +45,9 @@ public class ReceiptActivity extends AppCompatActivity {
     SessionManagement session;
     private HashMap<String, String> user = null;
     private String TAG = "***ReceiptActivity***", Selected_Customer = "", Selected_PayMode = "";
-    private TextView txt_cust_address, lay_customer_area, txt_prev_balance;
+    private TextView txt_cust_address, lay_customer_area, txt_old_balance, txt_customer_type, txt_mobile;
     private TextInputEditText edit_cheque_no, edit_rec_amount, edit_issue_bank, edit_cheque_date;
     private ApiInterface apiInterface;
-    private Bundle bundle;
     private Intent intent = null;
     private AutoCompleteTextView auto_txt_paymode, auto_txt_customer;
     private Calendar c;
@@ -88,7 +87,9 @@ public class ReceiptActivity extends AppCompatActivity {
 
         txt_cust_address = ((TextView) findViewById(R.id.txt_cust_address));
         lay_customer_area = ((TextView) findViewById(R.id.txt_customer_area));
-        txt_prev_balance = ((TextView) findViewById(R.id.txt_prev_balance));
+        txt_customer_type = ((TextView) findViewById(R.id.lay_receipt_txt_customer_type));
+        txt_mobile = ((TextView) findViewById(R.id.lay_receipt_txt_mobile));
+        txt_old_balance = ((TextView) findViewById(R.id.txt_old_balance));
 
         auto_txt_customer = (AutoCompleteTextView) findViewById(R.id.auto_txt_customer);
         auto_txt_customer.setOnItemClickListener((parent, view, position, id) -> {
@@ -156,21 +157,21 @@ public class ReceiptActivity extends AppCompatActivity {
                 public void onResponse(Call<ArrayList<PayMode>> call, Response<ArrayList<PayMode>> response) {
                     Log.d(TAG, "response: " + response.body());
                     dPayModeArrayList = response.body();
-                    payModeMap = new HashMap<Integer, String>();
-                    spinnerpayModeArrary = new String[dPayModeArrayList.size()];
                     if (dPayModeArrayList.size() > 0) {
+                        payModeMap = new HashMap<Integer, String>();
+                        spinnerpayModeArrary = new String[dPayModeArrayList.size()];
                         for (int i = 0; i < dPayModeArrayList.size(); i++) {
                             payModeMap.put(i, dPayModeArrayList.get(i).getPayMode_ID());
                             spinnerpayModeArrary[i] = dPayModeArrayList.get(i).getPayMode_Name();
                         }
+                        adapter = null;
+                        adapter = new ArrayAdapter<>(ReceiptActivity.this, R.layout.dropdown_menu_popup_item, spinnerpayModeArrary);
+                        auto_txt_paymode.setThreshold(1);
+                        auto_txt_paymode.setAdapter(adapter);
                     } else {
                         commonUtil.getToast(ReceiptActivity.this, "No Product Found!");
                     }
                     progressInfo.ProgressHide();
-                    adapter = null;
-                    adapter = new ArrayAdapter<>(ReceiptActivity.this, R.layout.dropdown_menu_popup_item, spinnerpayModeArrary);
-                    auto_txt_paymode.setThreshold(1);
-                    auto_txt_paymode.setAdapter(adapter);
                 }
 
                 @Override
@@ -190,28 +191,28 @@ public class ReceiptActivity extends AppCompatActivity {
             commonUtil.getToast(ReceiptActivity.this, "No internet connection!");
             return;
         } else {
-            //Log.d(TAG, "USER_ID: " + user.get(SessionManagement.USER_ID) +",OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID));
+            Log.d(TAG, "USER_ID: " + user.get(SessionManagement.USER_ID) + ",OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID));
             progressInfo.ProgressShow();
             apiInterface.getReceipt("Customer", "0", "0", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
                     Log.d(TAG, "response: " + response.body());
                     dCustomerArrayList = response.body();
-                    spinnerCustomerMap = new HashMap<String, String>();
-                    spinnerCustomerArrary = new String[dCustomerArrayList.size()];
                     if (dCustomerArrayList.size() > 0) {
+                        spinnerCustomerMap = new HashMap<String, String>();
+                        spinnerCustomerArrary = new String[dCustomerArrayList.size()];
                         for (int i = 0; i < dCustomerArrayList.size(); i++) {
                             spinnerCustomerArrary[i] = dCustomerArrayList.get(i).getCustomer_Name();
                             spinnerCustomerMap.put(dCustomerArrayList.get(i).getCustomer_Name(), dCustomerArrayList.get(i).getCustomer_ID());
                         }
+                        adapter = null;
+                        adapter = new ArrayAdapter<>(ReceiptActivity.this, R.layout.dropdown_menu_popup_item, spinnerCustomerArrary);
+                        auto_txt_customer.setThreshold(1);
+                        auto_txt_customer.setAdapter(adapter);
                     } else {
                         commonUtil.getToast(ReceiptActivity.this, "No Customer Found!");
                     }
                     progressInfo.ProgressHide();
-                    adapter = null;
-                    adapter = new ArrayAdapter<>(ReceiptActivity.this, R.layout.dropdown_menu_popup_item, spinnerCustomerArrary);
-                    auto_txt_customer.setThreshold(1);
-                    auto_txt_customer.setAdapter(adapter);
                 }
 
                 @Override
@@ -228,7 +229,9 @@ public class ReceiptActivity extends AppCompatActivity {
     public void getActiveCustomerDetails(String custCode) {
         txt_cust_address.setText("");
         lay_customer_area.setText("");
-        txt_prev_balance.setText("0");
+        txt_old_balance.setText("");
+        txt_mobile.setText("");
+        txt_customer_type.setText("");
         if (networkUtil.getConnectivityStatus(ReceiptActivity.this).trim() == "false") {
             commonUtil.getToast(ReceiptActivity.this, "No internet connection!");
             return;
@@ -242,9 +245,13 @@ public class ReceiptActivity extends AppCompatActivity {
                     if (dCustomerArrayList.size() > 0) {
                         txt_cust_address.setText(dCustomerArrayList.get(0).getCustomer_Address());
                         lay_customer_area.setText(dCustomerArrayList.get(0).getRoute_Desc());
-                        txt_prev_balance.setText(dCustomerArrayList.get(0).getCls_Balance());
-                        if (Double.valueOf(dCustomerArrayList.get(0).getCls_Balance()) < 0) {
-                            txt_prev_balance.setTextColor(getResources().getColor(R.color.green));
+                        txt_old_balance.setText(dCustomerArrayList.get(0).getCls_Balance());
+                        txt_mobile.setText(dCustomerArrayList.get(0).getMobile_No());
+                        txt_customer_type.setText(dCustomerArrayList.get(0).getCustomer_Type());
+                        if (Double.valueOf(dCustomerArrayList.get(0).getCls_Balance()) > 0) {
+                            txt_old_balance.setTextColor(getResources().getColor(R.color.darkred));
+                        } else {
+                            txt_old_balance.setTextColor(getResources().getColor(R.color.green));
                         }
                     } else {
                         commonUtil.getToast(ReceiptActivity.this, "No Customer Details Found!");
@@ -263,7 +270,7 @@ public class ReceiptActivity extends AppCompatActivity {
         }
     }
 
-    public void saveConfirm(View view) {
+    public void saveConfirm() {
         AlertDialog.Builder alertConfirm = new AlertDialog.Builder(this);
         alertConfirm.setTitle("Save");
         alertConfirm.setMessage("Are You Sure You Want Save?");
@@ -274,19 +281,34 @@ public class ReceiptActivity extends AppCompatActivity {
         alertConfirm.show();
     }
 
+    public void saveValidation(View view) {
+        if (Selected_Customer.equals("") || auto_txt_customer.getText().toString().trim().equals("")) {
+            Toast.makeText(ReceiptActivity.this, "Select the Customer!", Toast.LENGTH_LONG).show();
+        } else if (Selected_PayMode.equals("") || auto_txt_paymode.getText().toString().trim().equals("")) {
+            Toast.makeText(ReceiptActivity.this, "Select the PayMode!", Toast.LENGTH_LONG).show();
+        } else if (!auto_txt_paymode.getText().toString().trim().equals("") && (edit_rec_amount.getText().toString().trim().equals("0") || edit_rec_amount.getText().toString().trim().equals("") || edit_rec_amount.getText() == null)) {
+            commonUtil.getToast(ReceiptActivity.this, "Enter Valid Rec Amount!");
+        } else if (auto_txt_paymode.getText().toString().trim().equals("Cheque") && edit_cheque_no.getText().toString().length() < 6) {
+            commonUtil.getToast(ReceiptActivity.this, "Enter Valid Cheque No!");
+        } else if (auto_txt_paymode.getText().toString().trim().equals("Cheque") && (edit_issue_bank.getText().toString().trim().equals("0") || edit_issue_bank.getText().toString().trim().equals("") || edit_issue_bank.getText() == null)) {
+            commonUtil.getToast(ReceiptActivity.this, "Enter Valid Cheque Issued Bank!");
+        } else {
+            saveConfirm();
+        }
+    }
+
     private void saveRecord() {
 
-        Log.d(TAG, "saveRecord: Cust ID: " + getIntent().getExtras().getString("Subs_ID").trim() +
-                ", Rec Dt: " + commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)) +
-                ", PayMode: " + Selected_PayMode + ", Prev Balance: " + txt_prev_balance.getText().toString() +
+        Log.d(TAG, "saveRecord: Cust ID: " + Selected_Customer.trim() + ", Rec Dt: " + commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)) +
+                ", PayMode: " + Selected_PayMode + ", Prev Balance: " + txt_old_balance.getText().toString() +
                 ", Rec Amount: " + edit_rec_amount.getText().toString() + ", Cheque No: " + edit_cheque_no.getText().toString() +
                 ", Cheque Date: " + commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()) +
                 ", Issue Bank: " + edit_issue_bank.getText().toString() + ", USER ID: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
-        apiInterface.saveReceipt(getIntent().getExtras().getString("Subs_ID").trim(),
-                commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)), Selected_PayMode, txt_prev_balance.getText().toString(),
-                edit_rec_amount.getText().toString(), edit_cheque_no.getText().toString(), commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()),
+        apiInterface.saveReceipt(Selected_Customer.trim(), commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)),
+                Selected_PayMode, txt_old_balance.getText().toString(), edit_rec_amount.getText().toString(),
+                edit_cheque_no.getText().toString(), commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()),
                 edit_issue_bank.getText().toString(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {

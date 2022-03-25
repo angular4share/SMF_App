@@ -7,10 +7,10 @@
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_app_start.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_customer.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_customer_report.xml" value="0.22083333333333333" />
-        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_delivery.xml" value="0.1" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_delivery.xml" value="0.22" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_material_inword.xml" value="0.22083333333333333" />
-        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_receipt.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_receipt.xml" value="0.25" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_receipt_report.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_user_registration.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_dashboard.xml" value="0.16" />
@@ -18,7 +18,8 @@
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/item_list_subscribe_add.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_customer_list_row.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_delivery_list_row.xml" value="0.22083333333333333" />
-        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_receipt_list_row.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_inword_list_row.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_receipt_list_row.xml" value="0.25" />
       </map>
     </option>
   </component>
