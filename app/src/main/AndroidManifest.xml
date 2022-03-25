@@ -28,61 +28,67 @@
         android:usesCleartextTraffic="true">
 
         <activity
+            android:name=".ui.activity.ReceiptActivity"
+            android:exported="false"
+            android:label="Payment Receipt"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity"/>
+
+        <activity
+            android:name=".ui.activity.ReceiptReportActivity"
+            android:exported="false"
+            android:label="Payment Receipt"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.activity.CustomerActivity"
             android:exported="false"
             android:label="Customer"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.activity.UserRegistrationActivity"
             android:exported="false"
             android:label="User Activation"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"></activity>
-
+            android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".ui.activity.CustomerReportActivity"
             android:exported="false"
             android:label="Customer List"
             android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity"></activity>
+            tools:ignore="LockedOrientationActivity" />
         <activity
             android:name=".ui.activity.DeliveryActivity"
             android:exported="false"
             android:label="@string/title_activity_delivery"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.DeliveryReportActivity"
             android:exported="false"
             android:label="@string/title_activity_delivery"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.PurchaseRequirmentActivity"
             android:exported="false"
             android:label="Purchase Requirment"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.MaterialInwardActivity"
             android:exported="false"
             android:label="Material Inward"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.MaterialInwardReportActivity"
             android:exported="false"
             android:label="Material Inward"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
-
         <activity
             android:name=".ui.activity.AppStartActivity"
             android:label="@string/app_name"
@@ -102,7 +108,6 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" />
-
         <activity
             android:name=".ui.activity.MainActivity"
             android:label="@string/app_name"

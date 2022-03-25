@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -52,11 +53,10 @@ public class DeliveryActivity extends AppCompatActivity {
     private Intent intent = null;
     SessionManagement session;
     private HashMap<String, String> user = null;
-    private ArrayList<Delivery> dArrayList = null;
+    private ArrayList<Delivery> dArrayList = new ArrayList<Delivery>();
     private RecyclerView recyclerView;
     private DeliveryProductAdapter rvAdapter;
     private TextView txt_seqno, txt_route, txt_customer, txt_customer_address;
-    private DecimalFormat df = new DecimalFormat("#.##");
     //endregion
 
     @Override
@@ -93,42 +93,14 @@ public class DeliveryActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.rv_list_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
+        if(getIntent().getExtras().getString("Delivery_Status").trim().equals("Delivered"))
+        {
+            ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setEnabled(false);
+            ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setBackgroundColor(ContextCompat.getColor(this, R.color.lightgray));
+            ((TextView) findViewById(R.id.lay_delivery_listview_item_txt_save)).setTextColor(ContextCompat.getColor(this, R.color.darkgray));
+        }
         getDelivery(getIntent().getExtras().getString("Subs_Date").trim(), getIntent().getExtras().getString("Subs_ID").trim());
-        /*String[] ProdID_Items = getIntent().getExtras().getString("Product_ID").trim().split("#");
-        String[] ProdDesc_Items = getIntent().getExtras().getString("Product_Desc").trim().split("#");
-        String[] Subs_Qty_Items = getIntent().getExtras().getString("Subs_Qty").trim().split("#");
-        String[] Sale_Rate_Items = getIntent().getExtras().getString("Sale_Rate").trim().split("#");
-        String[] Freq_Name_Items = getIntent().getExtras().getString("Freq_Name").trim().split("#");
-        String[] Time_Type_Items = getIntent().getExtras().getString("Time_Type").trim().split("#");
-        String[] Time_Slot_Items = getIntent().getExtras().getString("Time_Slot").trim().split("#");
-        String[] Stock_Qty_Items = getIntent().getExtras().getString("Stock_Qty").trim().split("#");
-        if (ProdID_Items.length > 0) {
-            for (int i = 0; i < ProdID_Items.length; i++) {
-                insertMethod(ProdID_Items[i].trim(), ProdDesc_Items[i].trim(), Freq_Name_Items[i].trim(),
-                        Subs_Qty_Items[i].trim(), Subs_Qty_Items[i].trim(),Stock_Qty_Items[i].trim(),
-                        Sale_Rate_Items[i].trim(),Time_Type_Items[i].trim(), Time_Slot_Items[i].trim());
-            }
-        }*/
     }
-
-/*    private void insertMethod(String ProdID, String ProdDesc, String FreqName, String Qty, String ExtraQty,
-                              String StockQty, String SaleRate, String TimeType, String TimeSlotName) {
-        Subcribe model = new Subcribe();
-        model.setSrNo(String.valueOf(dArrayList.size() + 1));
-        model.setProduct_ID(ProdID);
-        model.setProduct_Name(ProdDesc);
-        model.setFreq_Name(FreqName);
-        model.setSubsQty(Qty);
-        model.setIssueQty(Qty);
-        model.setExtraQty(ExtraQty);
-        model.setStockQty(StockQty);
-        model.setRate(SaleRate);
-        model.setAmount(df.format(Double.valueOf(Qty) * Double.valueOf(SaleRate)));
-        model.setTime_Type(TimeType);
-        model.setTine_Slot_Name(TimeSlotName);
-        dArrayList.add(model);
-        rvAdapter.notifyDataSetChanged();
-    }*/
 
     public void getDelivery(String subs_Date, String subs_ID) {
 
@@ -154,7 +126,6 @@ public class DeliveryActivity extends AppCompatActivity {
                     recyclerView.setLayoutAnimation(animation);
                     progressInfo.ProgressHide();
                 }
-
                 @Override
                 public void onFailure(Call<ArrayList<Delivery>> call, Throwable t) {
                     progressInfo.ProgressHide();
@@ -191,24 +162,24 @@ public class DeliveryActivity extends AppCompatActivity {
                     Sr_No_D = String.valueOf((i + 1));
                     ProdID_D = dArrayList.get(i).getProduct_ID();
                     Issue_Qty_D = dArrayList.get(i).getIssue_Qty();
-                    Stock_Qty_D = dArrayList.get(i).getStockQty();
+                    Extra_Qty_D = dArrayList.get(i).getExtra_Qty();
                     Subs_Qty_D = dArrayList.get(i).getSubs_Qty();
-                    Stock_Qty_D = dArrayList.get(i).getStockQty();
-                    Rate_D = dArrayList.get(i).getSaleRate();
+                    Stock_Qty_D = dArrayList.get(i).getStock_Qty();
+                    Rate_D = dArrayList.get(i).getSale_Rate();
                 } else {
                     Sr_No_D = Sr_No_D + "#" + (i + 1);
                     ProdID_D = ProdID_D + "#" + dArrayList.get(i).getProduct_ID();
                     Issue_Qty_D = Issue_Qty_D + "#" + dArrayList.get(i).getIssue_Qty();
-                    Stock_Qty_D = Stock_Qty_D + "#" + dArrayList.get(i).getStockQty();
+                    Extra_Qty_D = Extra_Qty_D + "#" + dArrayList.get(i).getExtra_Qty();
                     Subs_Qty_D = Subs_Qty_D + "#" + dArrayList.get(i).getSubs_Qty();
-                    Stock_Qty_D = Stock_Qty_D + "#" + dArrayList.get(i).getStockQty();
-                    Rate_D = Rate_D + "#" + dArrayList.get(i).getSaleRate();
+                    Stock_Qty_D = Stock_Qty_D + "#" + dArrayList.get(i).getStock_Qty();
+                    Rate_D = Rate_D + "#" + dArrayList.get(i).getSale_Rate();
                 }
             }
         }
 
         Log.d(TAG, "Subs_ID: " + getIntent().getExtras().getString("Subs_ID").trim() + ", Subs_Date: " + commonUtil.getdateyyyymmdd(getIntent().getExtras().getString("Subs_Date").trim()) +
-                ", Sr_No_D: " + Sr_No_D + ", ProdID_D: " + ProdID_D + ", Issue_Qty_D: " + Issue_Qty_D + ", Stock_Qty_D: " + Stock_Qty_D + ", Subs_Qty_D: " + Subs_Qty_D +
+                ", Sr_No_D: " + Sr_No_D + ", ProdID_D: " + ProdID_D + ", Issue_Qty_D: " + Issue_Qty_D + ", Extra_Qty_D: " + Extra_Qty_D + ", Stock_Qty_D: " + Stock_Qty_D + ", Subs_Qty_D: " + Subs_Qty_D +
                 ", Stock_Qty_D: " + Stock_Qty_D + ", Rate_D " + Rate_D + ", OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID) + ", User_Id: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
@@ -221,17 +192,17 @@ public class DeliveryActivity extends AppCompatActivity {
                 Log.d(TAG, "message: " + response.message());
                 Log.d(TAG, "body: " + response.body());
                 if (response.body().equals("Success")) {
+                    progressInfo.ProgressHide();
                     Toast.makeText(DeliveryActivity.this, "Record Saved Successfully", Toast.LENGTH_LONG).show();
+                    intent = new Intent(DeliveryActivity.this, DeliveryReportActivity.class);
+                    Bundle _bundle = ActivityOptions.makeCustomAnimation(DeliveryActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
+                    startActivity(intent, _bundle);
                 } else if (response.body().trim().equals("AlreadyExist")) {
                     Toast.makeText(DeliveryActivity.this, "Already Delivered", Toast.LENGTH_LONG).show();
                 } else {
                     Toast.makeText(DeliveryActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                 }
                 progressInfo.ProgressHide();
-
-                intent = new Intent(DeliveryActivity.this, DeliveryReportActivity.class);
-                Bundle _bundle = ActivityOptions.makeCustomAnimation(DeliveryActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
-                startActivity(intent, _bundle);
             }
 
             @Override

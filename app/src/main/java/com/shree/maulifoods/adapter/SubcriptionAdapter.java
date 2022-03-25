@@ -41,7 +41,6 @@ import retrofit2.Response;
 
 public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.MyViewHolder> {
 
-    //<editor-fold desc="Description">
     private Context context;
     private ArrayList<Subcribe> dArrayList;
     private Calendar c;
@@ -51,14 +50,13 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
     private ArrayAdapter<String> adapter;
     public static ArrayList<Product> dRateArrayList = null;
     private HashMap<Integer, String> productListMap, dispFreqListMap, timeSlotListMap;
-    private ApiInterface apiService = null;
+    private ApiInterface apiService;
     private NetworkUtil networkUtil;
     private ProgressInfo progressInfo;
     private CommonUtil commonUtil;
     private DecimalFormat df = new DecimalFormat("#.##");
     private boolean isOkayClicked = false;
     public static ArrayList<TimeSlot> dTimeSlotArrayList = null;
-    //</editor-fold>
 
     public SubcriptionAdapter(Context context, ArrayList<Subcribe> tempArrayList, String[] tempProductList, String[] tempFrequencyList,
                               HashMap<Integer, String> tempProductListMap, HashMap<Integer, String> tempDispFreqListMap) {
@@ -339,14 +337,13 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
                     if (dRateArrayList.size() > 0) {
                         for (int i = 0; i < dRateArrayList.size(); i++) {
                             tv_rate.setText(dRateArrayList.get(i).getSaleRate());
-
                             Subcribe updated = dArrayList.get(position);
                             updated.setIssueQty(edt_qty.getText().toString());
                             updated.setRate(tv_rate.getText().toString());
-                            updated.setAmount(df.format(Double.valueOf(edt_qty.getText().toString()) * Double.valueOf(tv_rate.getText().toString())));
+                            String Amt=df.format(Double.valueOf(edt_qty.getText().toString()) * Double.valueOf(tv_rate.getText().toString()));
+                            updated.setAmount(Amt);
                             dArrayList.set(position, updated);
-
-                            tv_amount.setText(df.format(Double.valueOf(edt_qty.getText().toString()) * Double.valueOf(tv_rate.getText().toString())));
+                            tv_amount.setText(Amt);
                         }
                     } else {
                         commonUtil.getToast(context, "No Rate Found!");

@@ -436,8 +436,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
                         commonUtil.getToast(CustomerActivity.this, "No Product Found!");
                     }
                     progressInfo.ProgressHide();
-                    rvAdapter = new SubcriptionAdapter(CustomerActivity.this, add_Product_Items, spinnerProductArrary,
-                            spinnerDispFreqArray, productListMap, dispFreqListMap);
+                    rvAdapter = new SubcriptionAdapter(CustomerActivity.this, add_Product_Items, spinnerProductArrary,spinnerDispFreqArray, productListMap, dispFreqListMap);
                     recyclerView.setAdapter(rvAdapter);
 
                     if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {

@@ -6,6 +6,7 @@ import com.shree.maulifoods.pojo.DispFrequency;
 import com.shree.maulifoods.pojo.Inword;
 import com.shree.maulifoods.pojo.PayMode;
 import com.shree.maulifoods.pojo.Product;
+import com.shree.maulifoods.pojo.Receipt;
 import com.shree.maulifoods.pojo.Requirment;
 import com.shree.maulifoods.pojo.Route;
 import com.shree.maulifoods.pojo.TimeSlot;
@@ -63,7 +64,6 @@ public interface ApiInterface {
                                           @Query("empCode") String empCode,
                                           @Query("custCode") String custCode,
                                           @Query("outletID") String outletID);
-
 
     @GET("getRouteList")
     Call<ArrayList<Route>> getRouteList(@Query("outlet_id") String outlet_id);
@@ -150,6 +150,26 @@ public interface ApiInterface {
                               @Query("Rate") String Rate,
                               @Query("User_ID") String User_ID,
                               @Query("Outlet_ID") String Outlet_ID);
+
+    @GET("getReceipt")
+    Call<ArrayList<Receipt>> getReceipt(@Query("type") String type,
+                                        @Query("fromDt") String fromDt,
+                                        @Query("toDt") String toDt,
+                                        @Query("empID") String empID,
+                                        @Query("custID") String custID,
+                                        @Query("outletID") String outletID);
+
+    @GET("saveReceipt")
+    Call<String> saveReceipt(@Query("Customer_ID") String Customer_ID,
+                             @Query("Receipt_Dt") String Receipt_Dt,
+                             @Query("Payment_Mode") String Payment_Mode,
+                             @Query("Prev_Balance") String Prev_Balance,
+                             @Query("Receipt_Amount") String Receipt_Amount,
+                             @Query("Cheque_No") String Cheque_No,
+                             @Query("Cheque_Date") String Cheque_Date,
+                             @Query("Cheque_IssueBank") String Cheque_IssueBank,
+                             @Query("Outlet_ID") String Outlet_ID,
+                             @Query("User_ID") String User_ID);
 
 }
 

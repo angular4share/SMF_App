@@ -47,18 +47,9 @@
             <TextView
                 android:layout_width="0.0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.22"
+                android:layout_weight="0.18"
                 android:gravity="center_vertical"
-                android:text="Subs Qty"
-                android:textColor="@color/black"
-                android:textSize="15sp" />
-
-            <TextView
-                android:layout_width="0.0dip"
-                android:layout_height="match_parent"
-                android:layout_weight="0.22"
-                android:gravity="center_vertical"
-                android:text="Issue Qty"
+                android:text="Stock"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
 
@@ -67,6 +58,24 @@
                 android:layout_height="match_parent"
                 android:layout_weight="0.20"
                 android:gravity="center_vertical"
+                android:text="Subs Qty"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.20"
+                android:gravity="center_vertical"
+                android:text="Issue Qty"
+                android:textColor="@color/black"
+                android:textSize="15sp" />
+
+            <TextView
+                android:layout_width="0.0dip"
+                android:layout_height="match_parent"
+                android:layout_weight="0.18"
+                android:gravity="center_vertical"
                 android:text="Rate"
                 android:textColor="@color/black"
                 android:textSize="15sp" />
@@ -74,7 +83,7 @@
             <TextView
                 android:layout_width="0.0dip"
                 android:layout_height="match_parent"
-                android:layout_weight="0.36"
+                android:layout_weight="0.24"
                 android:gravity="center_vertical"
                 android:text="Amount"
                 android:textColor="@color/black"
@@ -89,10 +98,18 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/tv_subs_Qty"
+                android:id="@+id/tv_stock_qty"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.22"
+                android:layout_weight="0.18"
+                android:text=""
+                android:textSize="16sp" />
+
+            <TextView
+                android:id="@+id/tv_subs_qty"
+                android:layout_width="0sp"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.20"
                 android:text=""
                 android:textSize="16sp" />
 
@@ -100,14 +117,15 @@
                 android:id="@+id/ed_issue_qty"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.22"
+                android:layout_weight="0.20"
                 android:background="@drawable/et_style"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="6"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="3dp"
+                android:paddingLeft="3dp"
                 android:text=""
-                android:paddingLeft="5dp"
-                android:layout_marginRight="5dp"
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 
@@ -115,7 +133,8 @@
                 android:id="@+id/tv_sale_rate"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_weight="0.18"
+                android:paddingLeft="3dp"
                 android:text=""
                 android:textSize="16sp" />
 
@@ -123,7 +142,7 @@
                 android:id="@+id/tv_sale_amount"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.36"
+                android:layout_weight="0.24"
                 android:text=""
                 android:textSize="16sp" />
 
@@ -147,7 +166,7 @@
             <TextView
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.55"
+                android:layout_weight="0.56"
                 android:gravity="center_vertical"
                 android:text="Time Slot"
                 android:textColor="@color/black"
@@ -156,7 +175,7 @@
             <TextView
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_weight="0.19"
                 android:gravity="center_vertical"
                 android:text="NextDay Extra Qty"
                 android:textColor="@color/black"
@@ -181,21 +200,21 @@
                 android:id="@+id/tv_time_slot"
                 android:layout_width="0sp"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.55"
+                android:layout_weight="0.56"
                 android:text=""
-                android:textSize="15sp" />
+                android:textSize="16sp" />
 
             <EditText
                 android:id="@+id/ed_extra_qty"
                 android:layout_width="0.0dip"
                 android:layout_height="wrap_content"
-                android:layout_weight="0.20"
+                android:layout_weight="0.19"
                 android:background="@drawable/et_style"
                 android:imeOptions="actionDone"
                 android:inputType="number"
                 android:maxLength="6"
                 android:text=""
-                android:paddingLeft="5dp"
+                android:paddingLeft="3dp"
                 android:textColor="@color/darkgray"
                 android:textSize="16sp" />
 

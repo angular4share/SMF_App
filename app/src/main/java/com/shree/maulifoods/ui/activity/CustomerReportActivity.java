@@ -85,13 +85,13 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
         linearLayout = findViewById(R.id.linearLayout);
         txt_no_record_found = findViewById(R.id.txt_no_record_found);
 
-        fab = findViewById(R.id.fab);
         recyclerView = findViewById(R.id.recycler_view);
 
         editsearch = (SearchView) findViewById(R.id.search_view);
         editsearch.setQueryHint(Html.fromHtml("<small>Enter Customer</small>"));
         editsearch.setOnQueryTextListener(this);
 
+        fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

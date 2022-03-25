@@ -21,6 +21,7 @@ import com.shree.maulifoods.ui.activity.DeliveryActivity;
 import com.shree.maulifoods.ui.activity.DeliveryReportActivity;
 import com.shree.maulifoods.ui.activity.MaterialInwardReportActivity;
 import com.shree.maulifoods.ui.activity.PurchaseRequirmentActivity;
+import com.shree.maulifoods.ui.activity.ReceiptReportActivity;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
 import com.shree.maulifoods.utility.SessionManagement;
@@ -33,7 +34,7 @@ public class DashboardFragment extends Fragment {
     private String TAG = "***DashboardFragment***";
     private CommonUtil commonUtil;
     private NetworkUtil networkUtil;
-    private CardView cv_sales, cv_collection, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock;
+    private CardView cv_sales, cv_receipts, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock;
     SessionManagement session;
     private TextView txtUserName, txtMobile, txtEmail;
     private HashMap<String, String> user = null;
@@ -64,7 +65,7 @@ public class DashboardFragment extends Fragment {
 
         editProfileB = root.findViewById(R.id.editProfileB);
         cv_sales = root.findViewById(R.id.cv_sales);
-        cv_collection = root.findViewById(R.id.cv_collection);
+        cv_receipts = root.findViewById(R.id.cv_receipts);
         cv_requirment = root.findViewById(R.id.cv_requirment);
         cv_inword = root.findViewById(R.id.cv_inword);
         cv_enquiry = root.findViewById(R.id.cv_enquiry);
@@ -75,10 +76,13 @@ public class DashboardFragment extends Fragment {
         editProfileB.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
 
         cv_sales.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
-        cv_collection.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_receipts.setOnClickListener(view -> {
+            intent = new Intent(getContext(), ReceiptReportActivity.class);
+            _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
+            startActivity(intent, _bundle);
+        });
 
         cv_requirment.setOnClickListener(view -> {
-            //commonUtil.getToast(getContext(), "Coming Soon...");
             intent = new Intent(getContext(), PurchaseRequirmentActivity.class);
             _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
             startActivity(intent, _bundle);

@@ -26,42 +26,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <!--<ImageButton
-        android:id="@+id/backB"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
-        android:layout_marginStart="16dp"
-         android:background="?attr/selectableItemBackground"
-        android:padding="8dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:gravity="center_horizontal"
-        android:letterSpacing="0.025"
-        android:text="Shree Mauli Foods"
-        android:textColor="@color/white"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        app:layout_constraintStart_toEndOf="@+id/backB"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageButton
-        android:id="@+id/logOutB"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="16dp"
-        android:background="?attr/selectableItemBackground"
-        android:padding="8dp"
-        android:src="@drawable/ic_log_out"
-        app:layout_constraintCircleRadius="24dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />-->
-
     <androidx.cardview.widget.CardView
         android:id="@+id/cardView"
         android:layout_width="match_parent"
@@ -95,7 +59,6 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
             <TextView
                 android:id="@+id/txtMobile"
                 android:layout_width="wrap_content"
@@ -128,28 +91,6 @@
                 android:textColor="@color/colorPrimary"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent" />
-
-           <!-- <com.google.android.material.button.MaterialButton
-                 android:id="@+id/todoB"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="16dp"
-                 android:layout_marginBottom="8dp"
-                 android:text="TODO LIST"
-                 app:layout_constraintBottom_toBottomOf="parent"
-                 app:layout_constraintStart_toStartOf="parent" />
-
-             <com.google.android.material.button.MaterialButton
-                 android:id="@+id/editProfileB"
-                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                 android:layout_width="wrap_content"
-                 android:layout_height="wrap_content"
-                 android:layout_marginStart="8dp"
-                 android:text="EDIT PROFILE"
-                 android:textColor="@color/purple_500"
-                 app:layout_constraintBottom_toBottomOf="@+id/todoB"
-                 app:layout_constraintStart_toEndOf="@+id/todoB" />-->
-
 
             <ImageButton
                 android:id="@+id/profileB"
@@ -187,7 +128,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"
@@ -231,7 +172,7 @@
         </androidx.cardview.widget.CardView>
 
         <androidx.cardview.widget.CardView
-            android:id="@+id/cv_collection"
+            android:id="@+id/cv_receipts"
             android:layout_width="0sp"
             android:layout_height="160dp"
             android:layout_weight="0.5"
@@ -266,7 +207,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="COLLECTIONS"
+                    android:text="Receipts"
                     android:textAllCaps="true"
                     android:textColor="@color/colorPrimary"
                     android:textSize="14sp"
@@ -302,7 +243,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"
@@ -417,7 +358,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="5dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"
@@ -534,7 +475,7 @@
             android:layout_marginTop="5dp"
             android:layout_marginStart="20dp"
             android:layout_marginBottom="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:elevation="12dp"
             android:focusable="true"

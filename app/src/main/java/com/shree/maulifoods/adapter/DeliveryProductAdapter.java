@@ -1,44 +1,18 @@
 package com.shree.maulifoods.adapter;
 
-import android.app.DatePickerDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.pojo.Delivery;
-import com.shree.maulifoods.pojo.Product;
-import com.shree.maulifoods.pojo.Subcribe;
-import com.shree.maulifoods.pojo.TimeSlot;
-import com.shree.maulifoods.utility.ApiInterface;
-import com.shree.maulifoods.utility.CommonUtil;
-import com.shree.maulifoods.utility.NetworkUtil;
-import com.shree.maulifoods.utility.ProgressInfo;
-import com.shree.maulifoods.utility.RESTApi;
-
 import java.text.DecimalFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProductAdapter.MyViewHolder> {
 
@@ -48,6 +22,7 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
 
     public DeliveryProductAdapter(ArrayList<Delivery> tempArrayList) {
         this.dArrayList = tempArrayList;
+        df.setDecimalSeparatorAlwaysShown(false);
     }
 
     @Override
@@ -63,15 +38,16 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
         int position = holder.getAdapterPosition();
 
         holder.tv_product_name.setText(dArrayList.get(position).getProduct_Desc());
-        holder.tv_subs_Qty.setText(dArrayList.get(position).getSubs_Qty());
+        holder.tv_stock_qty.setText(dArrayList.get(position).getStock_Qty());
+        holder.tv_subs_qty.setText(dArrayList.get(position).getSubs_Qty());
         holder.ed_issue_qty.setText(dArrayList.get(position).getIssue_Qty());
-        holder.tv_sale_rate.setText(dArrayList.get(position).getSaleRate());
-       // holder.tv_sale_amount.setText(String.valueOf(Double.valueOf(dArrayList.get(position).getIssue_Qty()) * Double.valueOf(dArrayList.get(position).getSaleRate())));
-
+        holder.ed_extra_qty.setText(dArrayList.get(position).getExtra_Qty());
+        holder.tv_sale_rate.setText(dArrayList.get(position).getSale_Rate());
+        holder.tv_sale_amount.setText(df.format(Double.valueOf(dArrayList.get(position).getSubs_Qty()) * Double.valueOf(dArrayList.get(position).getSale_Rate())));
         holder.tv_frequency.setText(dArrayList.get(position).getFreq_Name());
         holder.tv_time_slot.setText(dArrayList.get(position).getTime_Type() + " " + dArrayList.get(position).getTime_Slot());
-        holder.ed_extra_qty.setText(dArrayList.get(position).getExtraQty());
 
+        //Event
         holder.ed_issue_qty.addTextChangedListener(new TextWatcher() {
             @Override
             public void onTextChanged(CharSequence s, int start,
@@ -90,15 +66,42 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
 
                 Delivery updated = dArrayList.get(position);
                 updated.setIssue_Qty(String.valueOf(Qty));
-                updated.setSaleRate(holder.tv_sale_rate.getText().toString());
+                updated.setSale_Rate(holder.tv_sale_rate.getText().toString());
+                updated.setStock_Qty(holder.tv_stock_qty.getText().toString());
                 dArrayList.set(position, updated);
-
+                Log.d(TAG,"position: " + Qty);
                 holder.tv_sale_amount.setText(df.format(Qty * Double.valueOf(holder.tv_sale_rate.getText().toString())));
                 holder.ed_issue_qty.requestFocusFromTouch();
                 holder.ed_issue_qty.setSelection(holder.ed_issue_qty.getText().length());
             }
         });
 
+        holder.ed_extra_qty.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start,
+                                          int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                Integer Qty = s.toString().trim().equals("") ? 0 : Integer.valueOf(s.toString().trim());
+
+                Delivery updated = dArrayList.get(position);
+                updated.setExtra_Qty(String.valueOf(Qty));
+                updated.setSale_Rate(holder.tv_sale_rate.getText().toString());
+                updated.setStock_Qty(holder.tv_stock_qty.getText().toString());
+                dArrayList.set(position, updated);
+                Log.d(TAG,"position: " + Qty);
+                holder.ed_extra_qty.requestFocusFromTouch();
+                holder.ed_extra_qty.setSelection(holder.ed_extra_qty.getText().length());
+            }
+        });
     }
 
     @Override
@@ -107,14 +110,15 @@ public class DeliveryProductAdapter extends RecyclerView.Adapter<DeliveryProduct
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
-        TextView tv_product_name, tv_subs_Qty, tv_sale_rate, tv_sale_amount, tv_frequency, tv_time_slot;
+        TextView tv_product_name, tv_stock_qty,tv_subs_qty, tv_sale_rate, tv_sale_amount, tv_frequency, tv_time_slot;
         EditText ed_issue_qty, ed_extra_qty;
 
         public MyViewHolder(View itemView) {
             super(itemView);
 
             tv_product_name = itemView.findViewById(R.id.tv_product_name);
-            tv_subs_Qty = itemView.findViewById(R.id.tv_subs_Qty);
+            tv_stock_qty = itemView.findViewById(R.id.tv_stock_qty);
+            tv_subs_qty = itemView.findViewById(R.id.tv_subs_qty);
             ed_issue_qty = itemView.findViewById(R.id.ed_issue_qty);
             tv_sale_rate = itemView.findViewById(R.id.tv_sale_rate);
             tv_sale_amount = itemView.findViewById(R.id.tv_sale_amount);
