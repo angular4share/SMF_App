@@ -10,9 +10,9 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="5sp"
         android:layout_marginRight="5sp"
-        app:cardBackgroundColor="@color/white"
-        android:foreground="?android:attr/selectableItemBackground"
         android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
         app:cardCornerRadius="5dp"
         app:cardUseCompatPadding="true">
 
@@ -144,32 +144,49 @@
                 <TextView
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.18"
+                    android:layout_weight="0.16"
                     android:gravity="center_vertical"
-                    android:text="Mobile"
+                    android:text="Contact"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_receipt_txt_contact"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.24"
+                    android:gravity="center_vertical"
+                    android:text="NA"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.06"
+                    android:gravity="center_vertical"
+                    android:text="Ph"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/lay_receipt_txt_mobile"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.35"
+                    android:layout_weight="0.25"
                     android:gravity="center_vertical"
                     android:textColor="@color/darkgray" />
 
                 <TextView
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.25"
+                    android:layout_weight="0.14"
                     android:gravity="center_vertical"
-                    android:text="Old Balance"
+                    android:text="Old Bal"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/lay_receipt_txt_old_balance"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.22"
+                    android:layout_weight="0.15"
                     android:gravity="center_vertical"
                     android:text="0"
                     android:textColor="@color/darkred"
@@ -194,23 +211,41 @@
                     android:id="@+id/lay_receipt_txt_paymode"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.35"
+                    android:layout_weight="0.21"
                     android:gravity="center_vertical"
                     android:textColor="@color/orange" />
 
                 <TextView
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.30"
+                    android:layout_weight="0.17"
                     android:gravity="center_vertical"
-                    android:text="Receipt Amount"
+                    android:text="Rec Amt"
                     android:textColor="@color/black" />
 
                 <TextView
                     android:id="@+id/lay_receipt_txt_receipt_amt"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.17"
+                    android:layout_weight="0.14"
+                    android:gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="Closing"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_receipt_txt_cls_amt"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
                     android:gravity="center_vertical"
                     android:text="0"
                     android:textColor="@color/green"
@@ -281,6 +316,29 @@
                     android:layout_weight="0.52"
                     android:gravity="center_vertical"
                     android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:layout_margin="5sp"
+                android:weightSum="1">
+
+                <TextView
+                    android:id="@+id/lay_receipt_txt_print"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:background="@color/colorPrimary"
+                    android:clickable="true"
+                    android:focusableInTouchMode="false"
+                    android:gravity="center"
+                    android:text="PRINT RECEIPT"
+                    android:textColor="@color/white"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

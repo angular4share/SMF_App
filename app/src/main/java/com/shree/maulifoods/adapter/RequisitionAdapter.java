@@ -64,7 +64,6 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
         Log.d(TAG, "Login Status " + session.isLoggedIn());
         session.checkLogin();
         user = session.getUserDetails();
-
     }
 
     public void filterList(ArrayList<Requirment> filterllist) {

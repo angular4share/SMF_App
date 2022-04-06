@@ -11,7 +11,7 @@ import retrofit2.converter.scalars.ScalarsConverterFactory;
 
 public class RESTApi {
 
-    private static String BASE_URL = "http://192.168.179.51:82/api/";
+    private static String BASE_URL = "http://192.168.0.107:82/api/";
     //private static String BASE_URL = "http://202.21.34.204:8080/SMF/api/";
     //private static String BASE_URL = "http://groupsurya.com:8080/SMF/api/";
 

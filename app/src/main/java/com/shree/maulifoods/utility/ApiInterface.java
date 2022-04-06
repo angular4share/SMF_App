@@ -171,5 +171,13 @@ public interface ApiInterface {
                              @Query("Outlet_ID") String Outlet_ID,
                              @Query("User_ID") String User_ID);
 
+    @GET("createInvoicePDF")
+    Call<String> createInvoicePDF(@Query("invID") String invID
+    );
+
+    @GET("createReceiptPDF")
+    Call<String> createReceiptPDF(@Query("recID") String recID
+    );
+
 }
 

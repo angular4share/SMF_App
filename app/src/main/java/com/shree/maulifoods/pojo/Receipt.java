@@ -3,13 +3,13 @@ package com.shree.maulifoods.pojo;
 public class Receipt {
 
     private String srNo, receipt_No, receipt_Dt, customer_ID, customer_Name, customer_Type,
-            mobile_No, customer_Address, customer_City, payMode_Name, route_Desc, cls_Balance,
+            mobile_No, customer_Address, customer_City, payMode_Name, route_Desc,old_Balance, cls_Balance,
             receive_Amount, cheque_No, cheque_Date, cheque_IssueBank;
 
     public Receipt(String srNo, String receipt_No, String receipt_Dt, String customer_ID,
                    String customer_Name, String customer_Type, String mobile_No,
                    String customer_Address, String customer_City, String payMode_Name,
-                   String route_Desc, String cls_Balance, String receive_Amount,
+                   String route_Desc,String old_Balance, String cls_Balance, String receive_Amount,
                    String cheque_No, String cheque_Date, String cheque_IssueBank) {
         this.srNo = srNo;
         this.receipt_No = receipt_No;
@@ -22,6 +22,7 @@ public class Receipt {
         this.customer_City = customer_City;
         this.route_Desc = route_Desc;
         this.payMode_Name = payMode_Name;
+        this.old_Balance = old_Balance;
         this.cls_Balance = cls_Balance;
         this.receive_Amount = receive_Amount;
         this.cheque_No = cheque_No;
@@ -115,6 +116,14 @@ public class Receipt {
 
     public void setRoute_Desc(String route_Desc) {
         this.route_Desc = route_Desc;
+    }
+
+    public String getOld_Balance() {
+        return old_Balance;
+    }
+
+    public void setOld_Balance(String old_Balance) {
+        this.old_Balance = old_Balance;
     }
 
     public String getCls_Balance() {

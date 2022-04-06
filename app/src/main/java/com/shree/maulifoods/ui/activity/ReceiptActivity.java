@@ -1,10 +1,28 @@
 package com.shree.maulifoods.ui.activity;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.Rect;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
+import android.os.StrictMode;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,8 +32,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.shree.maulifoods.R;
@@ -28,6 +49,9 @@ import com.shree.maulifoods.utility.ProgressInfo;
 import com.shree.maulifoods.utility.RESTApi;
 import com.shree.maulifoods.utility.SessionManagement;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -44,7 +68,7 @@ public class ReceiptActivity extends AppCompatActivity {
     private NetworkUtil networkUtil;
     SessionManagement session;
     private HashMap<String, String> user = null;
-    private String TAG = "***ReceiptActivity***", Selected_Customer = "", Selected_PayMode = "";
+    private String TAG = "***ReceiptActivity***", Selected_Customer = "", Selected_PayMode = "", file_name_path = "";
     private TextView txt_cust_address, lay_customer_area, txt_old_balance, txt_customer_type, txt_mobile;
     private TextInputEditText edit_cheque_no, edit_rec_amount, edit_issue_bank, edit_cheque_date;
     private ApiInterface apiInterface;
@@ -140,8 +164,8 @@ public class ReceiptActivity extends AppCompatActivity {
                         edit_cheque_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
                 }, year, month, day);
-        dpd.getDatePicker().setMinDate(System.currentTimeMillis());
-        dpd.getDatePicker().setMaxDate(System.currentTimeMillis() + 1000 * 60 * 60 * 24 * 5);
+        dpd.getDatePicker().setMinDate(System.currentTimeMillis()-1000 * 60 * 60 * 24 * 31);
+        dpd.getDatePicker().setMaxDate(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
         dpd.show();
     }
 

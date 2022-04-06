@@ -73,7 +73,6 @@ public class InwordAdapter extends RecyclerView.Adapter<InwordAdapter.MyViewHold
             txt_total_balance= view.findViewById(R.id.lay_inword_listview_item_txt_total_balance);
             txt_payment_mode = view.findViewById(R.id.lay_inword_listview_item_txt_payment_mode);
             txt_payment_amt = view.findViewById(R.id.lay_inword_listview_item_txt_payment_amt);
-
         }
     }
 

@@ -330,7 +330,6 @@
             android:weightSum="1">
 
             <TextView
-                android:id="@+id/lay_delivery_listview_item_txt_save"
                 android:layout_width="0.0dip"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
