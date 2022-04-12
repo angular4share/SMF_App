@@ -147,7 +147,7 @@ public class DeliveryReportActivity extends AppCompatActivity {
             return;
         } else {
             progressInfo.ProgressShow();
-            apiInterface.getDelivery("Summary", forDt, user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Delivery>>() {
+            apiInterface.getDelivery("Summary", forDt, user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Delivery>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Delivery>> call, Response<ArrayList<Delivery>> response) {
                     Log.d(TAG, "response: " + response.body());

@@ -109,7 +109,7 @@ public class DeliveryActivity extends AppCompatActivity {
         } else {
             progressInfo.ProgressShow();
             apiInterface.getDelivery("Details", commonUtil.getdateyyyymmdd(subs_Date), user.get(SessionManagement.USER_ID),
-                    subs_ID.trim(), user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Delivery>>() {
+                    subs_ID.trim(), user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Delivery>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Delivery>> call, Response<ArrayList<Delivery>> response) {
                     Log.d(TAG, "response: " + response.body());
@@ -199,13 +199,13 @@ public class DeliveryActivity extends AppCompatActivity {
 
         Log.d(TAG, "Subs_ID: " + getIntent().getExtras().getString("Subs_ID").trim() + ", Subs_Date: " + commonUtil.getdateyyyymmdd(getIntent().getExtras().getString("Subs_Date").trim()) +
                 ", Sr_No_D: " + Sr_No_D + ", ProdID_D: " + ProdID_D + ", Issue_Qty_D: " + Issue_Qty_D + ", Extra_Qty_D: " + Extra_Qty_D + ", Stock_Qty_D: " + Stock_Qty_D + ", Subs_Qty_D: " + Subs_Qty_D +
-                ", Stock_Qty_D: " + Stock_Qty_D + ", Rate_D " + Rate_D + ", OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID) + ", User_Id: " + user.get(SessionManagement.USER_ID));
+                ", Stock_Qty_D: " + Stock_Qty_D + ", Rate_D " + Rate_D + ", OUTLET_ID: " + user.get(SessionManagement.COMPANY_ID) + ", User_Id: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
         apiInterface.saveDelivery(getIntent().getExtras().getString("Subs_ID").trim(),
                 commonUtil.getdateyyyymmdd(getIntent().getExtras().getString("Subs_Date").trim()), "Subscribe",
                 getIntent().getExtras().getString("Prv_Balance").trim(), Sr_No_D, ProdID_D, Subs_Qty_D, Issue_Qty_D,
-                Stock_Qty_D, Extra_Qty_D, Rate_D, user.get(SessionManagement.USER_ID), user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<String>() {
+                Stock_Qty_D, Extra_Qty_D, Rate_D, user.get(SessionManagement.USER_ID), user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d(TAG, "message: " + response.message());

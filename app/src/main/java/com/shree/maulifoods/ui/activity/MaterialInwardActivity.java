@@ -477,13 +477,13 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                 ", challan_Dt: " + commonUtil.getdateyyyymmdd(edt_inward_date.getText().toString()) + ", Sr_No: " + Sr_No_D +
                 ", ProdID_D: " + ProdID_D + ", Challan_Qty_D: " + Challan_Qty_D + ", Qty_D: " + Qty_D + ", Rate_D: " + Rate_D +
                 ", Selected_Paymode: " + Selected_Paymode + ", edt_payment.getText().toString(): " + edt_payment.getText().toString() +
-                ", OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID) + ", User_Id: " + user.get(SessionManagement.USER_ID));
+                ", OUTLET_ID: " + user.get(SessionManagement.COMPANY_ID) + ", User_Id: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
         apiInterface.saveInward("S", Selected_Vendor, edt_challan_no.getText().toString(),
                 commonUtil.getdateyyyymmdd(edt_inward_date.getText().toString()), Sr_No_D, ProdID_D, Challan_Qty_D, Qty_D, Rate_D,
                 edt_prev_balance.getText().toString(), Selected_Paymode, edt_payment.getText().toString(),
-                user.get(SessionManagement.OUTLET_ID), user.get(SessionManagement.USER_ID)).enqueue(new Callback<String>() {
+                user.get(SessionManagement.COMPANY_ID), user.get(SessionManagement.USER_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d(TAG, "message: " + response.message());

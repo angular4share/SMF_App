@@ -41,11 +41,6 @@
         </provider>
 
         <activity
-            android:name=".utility.PDFViewerActivity"
-            android:exported="false"
-            android:windowSoftInputMode="stateAlwaysHidden"
-            tools:ignore="LockedOrientationActivity" />
-        <activity
             android:name=".ui.activity.ReceiptActivity"
             android:exported="false"
             android:label="Payment Receipt"

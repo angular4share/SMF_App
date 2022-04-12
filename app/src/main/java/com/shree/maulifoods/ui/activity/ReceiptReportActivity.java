@@ -1,7 +1,13 @@
 package com.shree.maulifoods.ui.activity;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
 import android.app.ActivityOptions;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
@@ -11,8 +17,13 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
+import android.widget.Toast;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -43,7 +54,6 @@ public class ReceiptReportActivity extends AppCompatActivity {
     private NetworkUtil networkUtil;
     SessionManagement session;
     private HashMap<String, String> user = null;
-    private String TAG = "***ReceiptReportActivity***", todaydate = "";
     private RecyclerView recyclerView;
     public static ArrayList<Receipt> dArrayList = null;
     private TextView txt_no_record_found;
@@ -52,12 +62,20 @@ public class ReceiptReportActivity extends AppCompatActivity {
     private Intent intent = null;
     private SearchView editsearch;
     private FloatingActionButton fab;
-    //endregion
+    private static final int PERMISSION_REQUEST_CODE = 200;
+    private String TAG="***ReceiptReportActivity***",todaydate="";
+     //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_receipt_report);
+
+        if (checkPermission()) {
+            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
+        } else {
+            requestPermission();
+        }
 
         getSupportActionBar().setTitle("Payment Receipt");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -155,7 +173,7 @@ public class ReceiptReportActivity extends AppCompatActivity {
             return;
         } else {
            progressInfo.ProgressShow();
-            apiInterface.getReceipt("Receipt", forDt+" 00:00:00", forDt+" 23:59:59", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getReceipt("Receipt", forDt+" 00:00:00", forDt+" 23:59:59", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
                     Log.d(TAG, "response: " + response.body());
@@ -220,5 +238,39 @@ public class ReceiptReportActivity extends AppCompatActivity {
             getReceiptList(todaydate);
         }
     }
+
+    private boolean checkPermission() {
+        // checking of permissions.
+        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
+        int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
+        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
+    }
+
+    private void requestPermission() {
+        // requesting permissions if not provided.
+        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == PERMISSION_REQUEST_CODE) {
+            if (grantResults.length > 0) {
+
+                // after requesting permissions we are showing
+                // users a toast message of permission granted.
+                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                if (writeStorage && readStorage) {
+                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Permission Denined.", Toast.LENGTH_SHORT).show();
+                    finish();
+                }
+            }
+        }
+    }
+
 
 }

@@ -25,7 +25,9 @@ public class SessionManagement {
     public static final String MOBILENO = "MobileNo";
     public static final String EMAILID = "EMaildID";
     public static final String LOGIN_TYPE = "LoginType";
-    public static final String OUTLET_ID = "OutletID";
+    public static final String COMPANY_ID = "CompanyID";
+    public static final String COMPANY_NAME = "CompanyName";
+    public static final String COMPANY_ADDRESS = "CompanyAddress";
     public static final String USER_LAT = "Lattitude";
     public static final String USER_LANG = "Longitude";
     public static final String USER_CITY = "City";
@@ -38,14 +40,17 @@ public class SessionManagement {
         editor = pref.edit();
     }
 
-    public void createLoginSession(String user_id, String username, String mobileno, String emailid, String login_type,String outlet_id) {
+    public void createLoginSession(String user_id, String username, String mobileno, String emailid, String login_type,
+                                   String outlet_id,String outlet_name,String company_address) {
         editor.putBoolean(IS_LOGIN, true);
         editor.putString(USER_ID, user_id);
         editor.putString(USER_NAME, username);
         editor.putString(MOBILENO, mobileno);
         editor.putString(EMAILID, emailid);
         editor.putString(LOGIN_TYPE, login_type);
-        editor.putString(OUTLET_ID, outlet_id);
+        editor.putString(COMPANY_ID, outlet_id);
+        editor.putString(COMPANY_NAME, outlet_name);
+        editor.putString(COMPANY_ADDRESS, company_address);
         editor.commit();
     }
 
@@ -90,7 +95,9 @@ public class SessionManagement {
         user.put(MOBILENO, pref.getString(MOBILENO, null));
         user.put(EMAILID, pref.getString(EMAILID, null));
         user.put(LOGIN_TYPE, pref.getString(LOGIN_TYPE, null));
-        user.put(OUTLET_ID, pref.getString(OUTLET_ID, null));
+        user.put(COMPANY_ID, pref.getString(COMPANY_ID, null));
+        user.put(COMPANY_NAME, pref.getString(COMPANY_NAME, null));
+        user.put(COMPANY_ADDRESS, pref.getString(COMPANY_ADDRESS, null));
         return user;
     }
 

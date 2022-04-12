@@ -340,7 +340,7 @@ public class CustomerActivity extends AppCompatActivity implements View.OnClickL
             return;
         } else {
             progressInfo.ProgressShow();
-            apiService.getRouteList(user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Route>>() {
+            apiService.getRouteList(user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Route>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Route>> call, Response<ArrayList<Route>> response) {
                     Log.d(TAG, "response: " + response.body());

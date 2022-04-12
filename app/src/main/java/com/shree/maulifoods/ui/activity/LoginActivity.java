@@ -117,7 +117,8 @@ public class LoginActivity extends AppCompatActivity {
                             if (list.login_Type.trim().equals("A") || list.login_Type.trim().equals("U")) {
                                 closeKeyBoard();
                                 //commonUtil.getToastLongTime(LoginActivity.this, "Success");
-                                session.createLoginSession(UID.trim(), UName.trim(), MobileNo.trim(), EmailID.trim(), list.login_Type.trim(),list.outlet_ID.trim());
+                                session.createLoginSession(UID.trim(), UName.trim(), MobileNo.trim(), EmailID.trim(), list.login_Type.trim(),
+                                        list.company_ID.trim(),list.company_Name.trim(),list.company_Address.trim());
                                 intent = new Intent(LoginActivity.this, MainActivity.class);
                                 intent.putExtra("IMEINo", getIntent().getExtras().getString("IMEINo"));
                                 bundle = ActivityOptions.makeCustomAnimation(LoginActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();

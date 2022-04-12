@@ -215,9 +215,9 @@ public class ReceiptActivity extends AppCompatActivity {
             commonUtil.getToast(ReceiptActivity.this, "No internet connection!");
             return;
         } else {
-            Log.d(TAG, "USER_ID: " + user.get(SessionManagement.USER_ID) + ",OUTLET_ID: " + user.get(SessionManagement.OUTLET_ID));
+            Log.d(TAG, "USER_ID: " + user.get(SessionManagement.USER_ID) + ",OUTLET_ID: " + user.get(SessionManagement.COMPANY_ID));
             progressInfo.ProgressShow();
-            apiInterface.getReceipt("Customer", "0", "0", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getReceipt("Customer", "0", "0", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
                     Log.d(TAG, "response: " + response.body());
@@ -261,7 +261,7 @@ public class ReceiptActivity extends AppCompatActivity {
             return;
         } else {
             progressInfo.ProgressShow();
-            apiInterface.getReceipt("Customer", "0", "0", user.get(SessionManagement.USER_ID), custCode, user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getReceipt("Customer", "0", "0", user.get(SessionManagement.USER_ID), custCode, user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
                 @Override
                 public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
                     Log.d(TAG, "response: " + response.body());
@@ -333,7 +333,7 @@ public class ReceiptActivity extends AppCompatActivity {
         apiInterface.saveReceipt(Selected_Customer.trim(), commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)),
                 Selected_PayMode, txt_old_balance.getText().toString(), edit_rec_amount.getText().toString(),
                 edit_cheque_no.getText().toString(), commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()),
-                edit_issue_bank.getText().toString(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.OUTLET_ID)).enqueue(new Callback<String>() {
+                edit_issue_bank.getText().toString(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d(TAG, "message: " + response.message());

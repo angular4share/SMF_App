@@ -110,7 +110,7 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
             public void onLongClick(View view, int position) {
             }
         }));
-        getCustomer(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
+        getCustomer(user.get(SessionManagement.COMPANY_ID), "0", "Summary");
     }
 
     private void openCustomerActivity(String type, int pos) {
@@ -175,7 +175,7 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1001) {
             editsearch.setQuery("", false);
-            getCustomer(user.get(SessionManagement.OUTLET_ID), "0", "Summary");
+            getCustomer(user.get(SessionManagement.COMPANY_ID), "0", "Summary");
         }
     }
 

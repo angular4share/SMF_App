@@ -4,13 +4,13 @@ public class Receipt {
 
     private String srNo, receipt_No, receipt_Dt, customer_ID, customer_Name, customer_Type,
             mobile_No, customer_Address, customer_City, payMode_Name, route_Desc,old_Balance, cls_Balance,
-            receive_Amount, cheque_No, cheque_Date, cheque_IssueBank;
+            receive_Amount, cheque_No, cheque_Date, cheque_IssueBank,receive_Amount_InWords;
 
     public Receipt(String srNo, String receipt_No, String receipt_Dt, String customer_ID,
                    String customer_Name, String customer_Type, String mobile_No,
                    String customer_Address, String customer_City, String payMode_Name,
                    String route_Desc,String old_Balance, String cls_Balance, String receive_Amount,
-                   String cheque_No, String cheque_Date, String cheque_IssueBank) {
+                   String cheque_No, String cheque_Date, String cheque_IssueBank,String receive_Amount_InWords) {
         this.srNo = srNo;
         this.receipt_No = receipt_No;
         this.receipt_Dt = receipt_Dt;
@@ -28,6 +28,7 @@ public class Receipt {
         this.cheque_No = cheque_No;
         this.cheque_Date = cheque_Date;
         this.cheque_IssueBank = cheque_IssueBank;
+        this.receive_Amount_InWords = receive_Amount_InWords;
     }
 
     public String getSrNo() {
@@ -165,4 +166,13 @@ public class Receipt {
     public void setCheque_IssueBank(String cheque_IssueBank) {
         this.cheque_IssueBank = cheque_IssueBank;
     }
+
+    public String getReceive_Amount_InWords() {
+        return receive_Amount_InWords;
+    }
+
+    public void setReceive_Amount_InWords(String receive_Amount_InWords) {
+        this.receive_Amount_InWords = receive_Amount_InWords;
+    }
+
 }
