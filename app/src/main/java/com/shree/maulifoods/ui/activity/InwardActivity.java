@@ -7,12 +7,9 @@ import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.AnimationUtils;
-import android.view.animation.LayoutAnimationController;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -26,15 +23,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.shree.maulifoods.R;
-import com.shree.maulifoods.adapter.InwordAdapter;
-import com.shree.maulifoods.adapter.SubcriptionAdapter;
+import com.shree.maulifoods.adapter.InwardAdapter;
 import com.shree.maulifoods.adapter.addProductAdapter;
-import com.shree.maulifoods.pojo.Inword;
+import com.shree.maulifoods.pojo.Inward;
 import com.shree.maulifoods.pojo.PayMode;
 import com.shree.maulifoods.pojo.Product;
-import com.shree.maulifoods.pojo.Subcribe;
 import com.shree.maulifoods.pojo.Vendor;
 import com.shree.maulifoods.pojo.addProduct;
 import com.shree.maulifoods.utility.ApiInterface;
@@ -49,17 +43,15 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
-import devs.mulham.horizontalcalendar.HorizontalCalendar;
-import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MaterialInwardActivity extends AppCompatActivity implements View.OnClickListener {
+public class InwardActivity extends AppCompatActivity implements View.OnClickListener {
 
     //region Description
     private ProgressInfo progressInfo;
-    private InwordAdapter dAdapter;
+    private InwardAdapter dAdapter;
     private CommonUtil commonUtil;
     private NetworkUtil networkUtil;
     SessionManagement session;
@@ -67,7 +59,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
     private String TAG = "***MaterialInwardActivity***", Selected_Vendor = "", Selected_Product = "", Selected_Paymode = "", Sr_No_D = "",
             ProdID_D = "", Challan_Qty_D = "", Qty_D = "", Rate_D = "";
     private RecyclerView recyclerView;
-    public static ArrayList<Inword> dArrayList = null;
+    public static ArrayList<Inward> dArrayList = null;
     private ApiInterface apiInterface;
     private static HashMap<Integer, String> vendorList, paymodeList, productList;
     public static ArrayList<Vendor> dVendorArrayList = null;
@@ -89,7 +81,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_material_inword);
+        setContentView(R.layout.activity_inword);
 
         getSupportActionBar().setTitle("Material Inward");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -99,7 +91,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
         apiInterface = RESTApi.getClient().create(ApiInterface.class);
         commonUtil = new CommonUtil();
         session = new SessionManagement(getApplicationContext());
-        progressInfo = new ProgressInfo(MaterialInwardActivity.this);
+        progressInfo = new ProgressInfo(InwardActivity.this);
         networkUtil = new NetworkUtil();
 
         c = Calendar.getInstance();
@@ -114,7 +106,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
         recyclerView = findViewById(R.id.rv_list_item);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
 
-        rvAdapter = new addProductAdapter(MaterialInwardActivity.this, add_Product_Items);
+        rvAdapter = new addProductAdapter(InwardActivity.this, add_Product_Items);
         recyclerView.setAdapter(rvAdapter);
 
         auto_txt_product = (AutoCompleteTextView) findViewById(R.id.auto_txt_product);
@@ -324,8 +316,8 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
 
     public void getVendorList() {
 
-        if (networkUtil.getConnectivityStatus(MaterialInwardActivity.this).trim() == "false") {
-            commonUtil.getToast(MaterialInwardActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(InwardActivity.this).trim() == "false") {
+            commonUtil.getToast(InwardActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
@@ -342,13 +334,13 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                             spinnerVendeorArray[i] = dVendorArrayList.get(i).getVendor_Name();
                         }
                         adapter = null;
-                        adapter = new ArrayAdapter<>(MaterialInwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerVendeorArray);
+                        adapter = new ArrayAdapter<>(InwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerVendeorArray);
                         auto_txt_vendor.setAdapter(adapter);
                         if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
                             auto_txt_vendor.setText(getIntent().getExtras().getString("Vendor_Name").trim(), false);
                         }
                     } else {
-                        commonUtil.getToast(MaterialInwardActivity.this, "No Vendor Found!");
+                        commonUtil.getToast(InwardActivity.this, "No Vendor Found!");
                     }
                     progressInfo.ProgressHide();
                 }
@@ -358,7 +350,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(MaterialInwardActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(InwardActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -366,8 +358,8 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
 
     public void getPayModeList() {
 
-        if (networkUtil.getConnectivityStatus(MaterialInwardActivity.this).trim() == "false") {
-            commonUtil.getToast(MaterialInwardActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(InwardActivity.this).trim() == "false") {
+            commonUtil.getToast(InwardActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
@@ -384,13 +376,13 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                             spinnerPaymodeArray[i] = dPaymodeArrayList.get(i).getPayMode_Name();
                         }
                         adapter = null;
-                        adapter = new ArrayAdapter<>(MaterialInwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerPaymodeArray);
+                        adapter = new ArrayAdapter<>(InwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerPaymodeArray);
                         auto_txt_payment_mode.setAdapter(adapter);
                         if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
                             auto_txt_payment_mode.setText(getIntent().getExtras().getString("PayMode_Name").trim(), false);
                         }
                     } else {
-                        commonUtil.getToast(MaterialInwardActivity.this, "No PayMode Found!");
+                        commonUtil.getToast(InwardActivity.this, "No PayMode Found!");
                     }
                     progressInfo.ProgressHide();
                 }
@@ -400,7 +392,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(MaterialInwardActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(InwardActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -408,8 +400,8 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
 
     public void getProductList(String vendorID) {
 
-        if (networkUtil.getConnectivityStatus(MaterialInwardActivity.this).trim() == "false") {
-            commonUtil.getToast(MaterialInwardActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(InwardActivity.this).trim() == "false") {
+            commonUtil.getToast(InwardActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
@@ -427,13 +419,13 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                             spinnerProductArrary[i] = dProductArrayList.get(i).getProduct_Name();
                         }
                         adapter = null;
-                        adapter = new ArrayAdapter<>(MaterialInwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerProductArrary);
+                        adapter = new ArrayAdapter<>(InwardActivity.this, R.layout.dropdown_menu_popup_item, spinnerProductArrary);
                         auto_txt_product.setAdapter(adapter);
                         if (getIntent().getExtras().getString("Save_Type").trim().equals("U")) {
                             auto_txt_product.setText(getIntent().getExtras().getString("Product_Name").trim(), false);
                         }
                     } else {
-                        commonUtil.getToast(MaterialInwardActivity.this, "No Product Found!");
+                        commonUtil.getToast(InwardActivity.this, "No Product Found!");
                     }
                     progressInfo.ProgressHide();
                 }
@@ -443,7 +435,7 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(MaterialInwardActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(InwardActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -489,16 +481,16 @@ public class MaterialInwardActivity extends AppCompatActivity implements View.On
                 Log.d(TAG, "message: " + response.message());
                 Log.d(TAG, "body: " + response.body());
                 if (response.body().equals("Success")) {
-                    Toast.makeText(MaterialInwardActivity.this, "Record Saved Successfully", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InwardActivity.this, "Record Saved Successfully", Toast.LENGTH_LONG).show();
                 } else if (response.body().trim().equals("AlreadyExist")) {
-                    Toast.makeText(MaterialInwardActivity.this, "Bill No Already Present", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InwardActivity.this, "Bill No Already Present", Toast.LENGTH_LONG).show();
                 } else {
-                    Toast.makeText(MaterialInwardActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                    Toast.makeText(InwardActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
                 }
                 progressInfo.ProgressHide();
 
-                Intent intent = new Intent(MaterialInwardActivity.this, MaterialInwardReportActivity.class);
-                Bundle _bundle = ActivityOptions.makeCustomAnimation(MaterialInwardActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
+                Intent intent = new Intent(InwardActivity.this, InwardReportActivity.class);
+                Bundle _bundle = ActivityOptions.makeCustomAnimation(InwardActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
                 startActivity(intent, _bundle);
             }
 

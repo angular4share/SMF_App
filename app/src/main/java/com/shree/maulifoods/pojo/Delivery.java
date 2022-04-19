@@ -3,12 +3,13 @@ package com.shree.maulifoods.pojo;
 public class Delivery {
 
     private String route_Desc, requirment_Date, subs_ID, customer_Name, customer_Address, customer_City, pinCode, delivery_Status,
-            prv_Bal, product_ID, product_Desc, subs_Qty, issue_Qty,stock_Qty, extra_Qty, sale_Rate, time_Type,time_Slot, freq_Name, sequence;
+            payMode_Name,receive_Amount,old_Balance,cls_Balance, product_ID, product_Desc, subs_Qty, issue_Qty,stock_Qty, extra_Qty, sale_Rate, time_Type,time_Slot, freq_Name, sequence;
 
     public Delivery(String route_Desc, String requirment_Date, String subs_ID, String customer_Name,
                     String customer_Address, String customer_City, String pinCode, String delivery_Status,
-                    String prv_Bal, String product_ID, String product_Desc, String subs_Qty, String issue_Qty,
-                    String stock_Qty, String extra_Qty, String sale_Rate, String time_Type, String time_Slot,
+                    String payMode_Name,String receive_Amount,String old_Balance,String cls_Balance, String product_ID,
+                    String product_Desc, String subs_Qty, String issue_Qty,String stock_Qty, String extra_Qty,
+                    String sale_Rate, String time_Type, String time_Slot,
                     String freq_Name, String sequence) {
         this.route_Desc = route_Desc;
         this.requirment_Date = requirment_Date;
@@ -18,7 +19,10 @@ public class Delivery {
         this.customer_City = customer_City;
         this.pinCode = pinCode;
         this.delivery_Status = delivery_Status;
-        this.prv_Bal = prv_Bal;
+        this.payMode_Name = payMode_Name;
+        this.receive_Amount = receive_Amount;
+        this.old_Balance = old_Balance;
+        this.cls_Balance = cls_Balance;
         this.product_ID = product_ID;
         this.product_Desc = product_Desc;
         this.subs_Qty = subs_Qty;
@@ -96,12 +100,36 @@ public class Delivery {
         this.delivery_Status = delivery_Status;
     }
 
-    public String getPrv_Bal() {
-        return prv_Bal;
+    public String getPayMode_Name() {
+        return payMode_Name;
     }
 
-    public void setPrv_Bal(String prv_Bal) {
-        this.prv_Bal = prv_Bal;
+    public void setPayMode_Name(String payMode_Name) {
+        this.payMode_Name = payMode_Name;
+    }
+
+    public String getReceive_Amount() {
+        return receive_Amount;
+    }
+
+    public void setReceive_Amount(String receive_Amount) {
+        this.receive_Amount = receive_Amount;
+    }
+
+    public String getOld_Balance() {
+        return old_Balance;
+    }
+
+    public void setOld_Balance(String old_Balance) {
+        this.old_Balance = old_Balance;
+    }
+
+    public String getCls_Balance() {
+        return cls_Balance;
+    }
+
+    public void setCls_Balance(String cls_Balance) {
+        this.cls_Balance = cls_Balance;
     }
 
     public String getProduct_ID() {

@@ -117,7 +117,6 @@ public class DeliveryReportActivity extends AppCompatActivity {
             @Override
             public void onClick(View view, int position) {
             }
-
             @Override
             public void onLongClick(View view, int position) {
             }
@@ -131,7 +130,6 @@ public class DeliveryReportActivity extends AppCompatActivity {
             public boolean onQueryTextSubmit(String query) {
                 return false;
             }
-
             @Override
             public boolean onQueryTextChange(String newText) {
                 filter("Name", newText);
@@ -153,6 +151,16 @@ public class DeliveryReportActivity extends AppCompatActivity {
                     Log.d(TAG, "response: " + response.body());
                     dArrayList = response.body();
                     if (dArrayList.size() > 0) {
+                        double Tot_Collection_Amt=0.0;
+                        int Tot_Delivery_Qty=0;
+                        for(int i = 0; i < dArrayList.size(); i++){
+                            Tot_Collection_Amt+= Double.valueOf(dArrayList.get(i).getReceive_Amount());
+                            if (dArrayList.get(i).getDelivery_Status().trim().equals("Delivered")) {
+                                Tot_Delivery_Qty+= 1;
+                            }
+                        }
+                        ((TextView)findViewById(R.id.txt_total_collection_amt)).setText(String.valueOf(Tot_Collection_Amt));
+                        ((TextView)findViewById(R.id.txt_total_delivery_qty)).setText(String.valueOf(Tot_Delivery_Qty));
                         dAdapter = new DeliveryReportAdapter(DeliveryReportActivity.this, dArrayList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {
@@ -208,6 +216,7 @@ public class DeliveryReportActivity extends AppCompatActivity {
             }
         }
         if (filteredlist.isEmpty()) {
+            dAdapter.filterList(filteredlist);
             txt_no_record_found.setVisibility(View.VISIBLE);
             Toast.makeText(this, "No Data Found..", Toast.LENGTH_SHORT).show();
         } else {

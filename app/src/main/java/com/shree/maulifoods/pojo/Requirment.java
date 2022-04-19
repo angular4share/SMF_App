@@ -1,15 +1,12 @@
 package com.shree.maulifoods.pojo;
 
 public class Requirment {
-    private String sr_No, requirment_Date,mProduct_ID,mProduct_Name,order_Qty,extra_Qty,total_Qty,uoM_Name,uoM_ID,
-            order_Status,vendor_Name,inword_ID,validity;
+    private String sr_No, mProduct_ID,mProduct_Name,order_Qty,extra_Qty,total_Qty,uoM_Name,uoM_ID,
+            order_Status,inword_ID;
 
-    public Requirment(String sr_No, String requirment_Date, String mProduct_ID, String mProduct_Name, String order_Qty,
-                      String extra_Qty, String total_Qty, String uoM_Name, String uoM_ID, String order_Status,String vendor_Name,
-                      String inword_ID,String validity) {
+    public Requirment(String sr_No, String mProduct_ID, String mProduct_Name, String order_Qty,String extra_Qty,
+                      String total_Qty, String uoM_Name, String uoM_ID, String order_Status,String inword_ID) {
         this.sr_No = sr_No;
-
-        this.requirment_Date = requirment_Date;
         this.mProduct_ID = mProduct_ID;
         this.mProduct_Name = mProduct_Name;
         this.order_Qty = order_Qty;
@@ -18,9 +15,7 @@ public class Requirment {
         this.uoM_Name = uoM_Name;
         this.uoM_ID = uoM_ID;
         this.order_Status = order_Status;
-        this.vendor_Name = vendor_Name;
         this.inword_ID=inword_ID;
-        this.validity=validity;
     }
 
     public String getSr_No() {
@@ -29,14 +24,6 @@ public class Requirment {
 
     public void setSr_No(String sr_No) {
         this.sr_No = sr_No;
-    }
-
-    public String getRequirment_Date() {
-        return requirment_Date;
-    }
-
-    public void setRequirment_Date(String requirment_Date) {
-        this.requirment_Date = requirment_Date;
     }
 
     public String getmProduct_ID() {
@@ -103,14 +90,6 @@ public class Requirment {
         this.order_Status = order_Status;
     }
 
-    public String getVendor_Name() {
-        return vendor_Name;
-    }
-
-    public void setVendor_Name(String vendor_Name) {
-        this.vendor_Name = vendor_Name;
-    }
-
     public String getInword_ID() {
         return inword_ID;
     }
@@ -119,11 +98,5 @@ public class Requirment {
         this.inword_ID = inword_ID;
     }
 
-    public String getValidity() {
-        return validity;
-    }
 
-    public void setValidity(String validity) {
-        this.validity = validity;
-    }
 }

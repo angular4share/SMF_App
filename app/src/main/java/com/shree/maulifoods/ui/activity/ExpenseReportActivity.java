@@ -1,11 +1,7 @@
 package com.shree.maulifoods.ui.activity;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
 import android.app.ActivityOptions;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.format.DateFormat;
@@ -15,70 +11,55 @@ import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LayoutAnimationController;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shree.maulifoods.R;
-import com.shree.maulifoods.adapter.ReceiptReportAdapter;
-import com.shree.maulifoods.pojo.Receipt;
+import com.shree.maulifoods.adapter.ExpenseReportAdapter;
+import com.shree.maulifoods.pojo.Expense;
 import com.shree.maulifoods.utility.ApiInterface;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
 import com.shree.maulifoods.utility.ProgressInfo;
 import com.shree.maulifoods.utility.RESTApi;
 import com.shree.maulifoods.utility.SessionManagement;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
-
 import devs.mulham.horizontalcalendar.HorizontalCalendar;
 import devs.mulham.horizontalcalendar.utils.HorizontalCalendarListener;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReceiptReportActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class ExpenseReportActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //region Description
     private ProgressInfo progressInfo;
-    private ReceiptReportAdapter dAdapter;
+    private ExpenseReportAdapter dAdapter;
     private CommonUtil commonUtil;
     private NetworkUtil networkUtil;
     SessionManagement session;
     private HashMap<String, String> user = null;
+    private String TAG = "***ExpenseReportActivity***", todaydate = "";
     private RecyclerView recyclerView;
-    public static ArrayList<Receipt> dreceiptArrayList = null;
+    public static ArrayList<Expense> dexpenseArrayList = null;
     private TextView txt_no_record_found;
     private ApiInterface apiInterface;
     private Bundle bundle;
     private Intent intent = null;
     private SearchView editsearch;
     private FloatingActionButton fab;
-    private static final int PERMISSION_REQUEST_CODE = 200;
-    private String TAG = "***ReceiptReportActivity***", todaydate = "";
     //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receipt_report);
+        setContentView(R.layout.activity_expense_report);
 
-        if (checkPermission()) {
-            Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
-        } else {
-            requestPermission();
-        }
-
-        getSupportActionBar().setTitle("Payment Receipt");
+        getSupportActionBar().setTitle("Expense");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0.0f);
         getSupportActionBar().show();
@@ -97,7 +78,7 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
         apiInterface = RESTApi.getClient().create(ApiInterface.class);
         commonUtil = new CommonUtil();
         session = new SessionManagement(getApplicationContext());
-        progressInfo = new ProgressInfo(ReceiptReportActivity.this);
+        progressInfo = new ProgressInfo(ExpenseReportActivity.this);
         networkUtil = new NetworkUtil();
 
         Log.d(TAG, "Login Status " + session.isLoggedIn());
@@ -110,71 +91,61 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
             @Override
             public void onDateSelected(Calendar date, int position) {
                 todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", date));
-                getReceiptList(todaydate);
+                getExpenseList(todaydate);
             }
         });
 
         todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", Calendar.getInstance().getTime()));
-        getReceiptList(todaydate);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        getExpenseList(todaydate);
 
         editsearch = (SearchView) findViewById(R.id.search_view);
-        editsearch.setQueryHint(Html.fromHtml("<small>Search Customer Name</small>"));
+        editsearch.setQueryHint(Html.fromHtml("<small>Search Expense Head</small>"));
         editsearch.setOnQueryTextListener(this);
 
         fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                openReceiptActivity();
-            }
-        });
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if (dy > 0 && fab.getVisibility() == View.VISIBLE) {
-                    fab.hide();
-                } else if (dy < 0 && fab.getVisibility() != View.VISIBLE) {
-                    fab.show();
-                }
+                openExpenseActivity();
             }
         });
     }
 
-    private void openReceiptActivity() {
-        intent = new Intent(ReceiptReportActivity.this, ReceiptActivity.class);
-        intent.putExtra("Save_Type", "S");
-        bundle = ActivityOptions.makeCustomAnimation(ReceiptReportActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
+    private void openExpenseActivity() {
+        intent = new Intent(ExpenseReportActivity.this, ExpenseActivity.class);
+        bundle = ActivityOptions.makeCustomAnimation(ExpenseReportActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
         startActivityForResult(intent, 1001, bundle);
     }
 
-    public void getReceiptList(String forDt) {
+    public void getExpenseList(String forDt) {
 
-        if (networkUtil.getConnectivityStatus(ReceiptReportActivity.this).trim() == "false") {
-            commonUtil.getToast(ReceiptReportActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(ExpenseReportActivity.this).trim() == "false") {
+            commonUtil.getToast(ExpenseReportActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
-            apiInterface.getReceipt("Receipt", forDt + " 00:00:00", forDt + " 23:59:59", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getExpense( forDt, forDt , user.get(SessionManagement.COMPANY_ID),"Summary").enqueue(
+                    new Callback<ArrayList<Expense>>() {
                 @Override
-                public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
+                public void onResponse(Call<ArrayList<Expense>> call, Response<ArrayList<Expense>> response) {
                     Log.d(TAG, "response: " + response.body());
-                    dreceiptArrayList = response.body();
-                    if (dreceiptArrayList.size() > 0) {
-                        double Tot_Rec_Amt = 0.0;
-                        getSupportActionBar().setTitle("Payment Receipt(" + dreceiptArrayList.size() + ")");
-                        for (int i = 0; i < dreceiptArrayList.size(); i++) {
-                            Tot_Rec_Amt += Double.valueOf(dreceiptArrayList.get(i).getReceive_Amount());
+                    dexpenseArrayList = response.body();
+                    if (dexpenseArrayList.size() > 0) {
+
+                        double Tot_Exps_Amt = 0.0;
+                        getSupportActionBar().setTitle("Expense(" + dexpenseArrayList.size() + ")");
+                        for (int i = 0; i < dexpenseArrayList.size(); i++) {
+                            Tot_Exps_Amt += Double.valueOf(dexpenseArrayList.get(i).getExpense_Amount());
                         }
-                        ((TextView) findViewById(R.id.txt_total_rec_amount)).setText(String.valueOf(Tot_Rec_Amt));
-                        dAdapter = new ReceiptReportAdapter(ReceiptReportActivity.this, dreceiptArrayList);
+                        ((TextView) findViewById(R.id.txt_total_expense_amount)).setText(String.valueOf(Tot_Exps_Amt));
+
+                        dAdapter = new ExpenseReportAdapter(ExpenseReportActivity.this, dexpenseArrayList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {
-                        ((TextView) findViewById(R.id.txt_total_rec_amount)).setText("0/-");
                         dAdapter = null;
                         txt_no_record_found.setVisibility(View.VISIBLE);
-                        commonUtil.getToast(ReceiptReportActivity.this, "No Record Found!");
+                        commonUtil.getToast(ExpenseReportActivity.this, "No Record Found!");
                     }
                     recyclerView.setAdapter(dAdapter);
                     LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
@@ -183,11 +154,11 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<Receipt>> call, Throwable t) {
+                public void onFailure(Call<ArrayList<Expense>> call, Throwable t) {
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(ReceiptReportActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(ExpenseReportActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -225,39 +196,8 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
         if (requestCode == 1001) {
             editsearch.setQuery("", false);
             todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", Calendar.getInstance().getTime()));
-            getReceiptList(todaydate);
+            getExpenseList(todaydate);
         }
     }
-
-    private boolean checkPermission() {
-        // checking of permissions.
-        int permission1 = ContextCompat.checkSelfPermission(getApplicationContext(), WRITE_EXTERNAL_STORAGE);
-        int permission2 = ContextCompat.checkSelfPermission(getApplicationContext(), READ_EXTERNAL_STORAGE);
-        return permission1 == PackageManager.PERMISSION_GRANTED && permission2 == PackageManager.PERMISSION_GRANTED;
-    }
-
-    private void requestPermission() {
-        // requesting permissions if not provided.
-        ActivityCompat.requestPermissions(this, new String[]{WRITE_EXTERNAL_STORAGE, READ_EXTERNAL_STORAGE}, PERMISSION_REQUEST_CODE);
-    }
-
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == PERMISSION_REQUEST_CODE) {
-            if (grantResults.length > 0) {
-                boolean writeStorage = grantResults[0] == PackageManager.PERMISSION_GRANTED;
-                boolean readStorage = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
-                if (writeStorage && readStorage) {
-                    Toast.makeText(this, "Permission Granted..", Toast.LENGTH_SHORT).show();
-                } else {
-                    Toast.makeText(this, "Permission Denined.", Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        }
-    }
-
 
 }

@@ -17,15 +17,13 @@ import androidx.fragment.app.Fragment;
 
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.ui.activity.CustomerReportActivity;
-import com.shree.maulifoods.ui.activity.DeliveryActivity;
 import com.shree.maulifoods.ui.activity.DeliveryReportActivity;
-import com.shree.maulifoods.ui.activity.MaterialInwardReportActivity;
-import com.shree.maulifoods.ui.activity.PurchaseRequirmentActivity;
+import com.shree.maulifoods.ui.activity.ExpenseReportActivity;
+import com.shree.maulifoods.ui.activity.InwardReportActivity;
+import com.shree.maulifoods.ui.activity.RequirmentActivity;
 import com.shree.maulifoods.ui.activity.ReceiptReportActivity;
 import com.shree.maulifoods.utility.CommonUtil;
-import com.shree.maulifoods.utility.NetworkUtil;
 import com.shree.maulifoods.utility.SessionManagement;
-
 import java.util.HashMap;
 
 public class DashboardFragment extends Fragment {
@@ -33,8 +31,7 @@ public class DashboardFragment extends Fragment {
     //region Description
     private String TAG = "***DashboardFragment***";
     private CommonUtil commonUtil;
-    private NetworkUtil networkUtil;
-    private CardView cv_sales, cv_receipts, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock;
+    private CardView cv_sales, cv_receipts, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock, cv_product, cv_vendor;
     SessionManagement session;
     private TextView txtUserName, txtMobile, txtEmail;
     private HashMap<String, String> user = null;
@@ -72,6 +69,8 @@ public class DashboardFragment extends Fragment {
         cv_delivery = root.findViewById(R.id.cv_delivery);
         cv_expense = root.findViewById(R.id.cv_expense);
         cv_stock = root.findViewById(R.id.cv_stock);
+        cv_product = root.findViewById(R.id.cv_product);
+        cv_vendor = root.findViewById(R.id.cv_vendor);
 
         editProfileB.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
 
@@ -83,12 +82,12 @@ public class DashboardFragment extends Fragment {
         });
 
         cv_requirment.setOnClickListener(view -> {
-            intent = new Intent(getContext(), PurchaseRequirmentActivity.class);
+            intent = new Intent(getContext(), RequirmentActivity.class);
             _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
             startActivity(intent, _bundle);
         });
         cv_inword.setOnClickListener(view -> {
-            intent = new Intent(getContext(), MaterialInwardReportActivity.class);
+            intent = new Intent(getContext(), InwardReportActivity.class);
             _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
             startActivity(intent, _bundle);
         });
@@ -105,8 +104,16 @@ public class DashboardFragment extends Fragment {
             startActivity(intent, _bundle);
         });
 
-        cv_expense.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_expense.setOnClickListener(view ->
+        {
+            intent = new Intent(getContext(), ExpenseReportActivity.class);
+            _bundle = ActivityOptions.makeCustomAnimation(getContext(), R.anim.fadein, R.anim.fadeout).toBundle();
+            startActivity(intent, _bundle);
+        });
+
         cv_stock.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_product.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_vendor.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
 
         return root;
     }

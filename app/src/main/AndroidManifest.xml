@@ -41,6 +41,18 @@
         </provider>
 
         <activity
+            android:name=".ui.activity.ExpenseActivity"
+            android:exported="false"
+            android:label="Expense"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
+            android:name=".ui.activity.ExpenseReportActivity"
+            android:exported="false"
+            android:label="Expense"
+            android:windowSoftInputMode="stateAlwaysHidden"
+            tools:ignore="LockedOrientationActivity" />
+        <activity
             android:name=".ui.activity.ReceiptActivity"
             android:exported="false"
             android:label="Payment Receipt"
@@ -84,19 +96,19 @@
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.activity.PurchaseRequirmentActivity"
+            android:name=".ui.activity.RequirmentActivity"
             android:exported="false"
             android:label="Purchase Requirment"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.activity.MaterialInwardActivity"
+            android:name=".ui.activity.InwardActivity"
             android:exported="false"
             android:label="Material Inward"
             android:windowSoftInputMode="stateAlwaysHidden"
             tools:ignore="LockedOrientationActivity" />
         <activity
-            android:name=".ui.activity.MaterialInwardReportActivity"
+            android:name=".ui.activity.InwardReportActivity"
             android:exported="false"
             android:label="Material Inward"
             android:windowSoftInputMode="stateAlwaysHidden"

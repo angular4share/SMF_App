@@ -15,6 +15,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.pojo.Delivery;
 import com.shree.maulifoods.ui.activity.DeliveryActivity;
+import com.shree.maulifoods.ui.activity.ReceiptActivity;
+import com.shree.maulifoods.ui.activity.ReceiptReportActivity;
 
 import java.util.ArrayList;
 
@@ -38,8 +40,8 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txt_route_name,txt_customer, txt_customer_address, txt_city, txt_que, txt_prv_balance,
-                txt_delivery, txt_collection;
+        public TextView txt_route_name, txt_customer, txt_customer_address, txt_city, txt_que, txt_prv_balance,
+                txt_delivery, txt_collection, txt_paymode, txt_receipt_amt, txt_cls_amt;
 
         public MyViewHolder(View view) {
             super(view);
@@ -51,6 +53,10 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
 
             txt_que = view.findViewById(R.id.lay_delivery_listview_item_txt_que);
             txt_prv_balance = view.findViewById(R.id.lay_delivery_listview_item_txt_prv_balance);
+
+            txt_paymode = view.findViewById(R.id.lay_delivery_listview_item_txt_paymode);
+            txt_receipt_amt = view.findViewById(R.id.lay_delivery_listview_item_txt_receipt_amt);
+            txt_cls_amt = view.findViewById(R.id.lay_delivery_listview_item_txt_cls_amt);
 
             txt_collection = view.findViewById(R.id.lay_delivery_listview_item_txt_collection);
             txt_delivery = view.findViewById(R.id.lay_delivery_listview_item_txt_delivery);
@@ -76,10 +82,22 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
         holder.txt_city.setText(dArrayList.get(position).getCustomer_City());
 
         holder.txt_que.setText(dArrayList.get(position).getSequence());
-        holder.txt_prv_balance.setText(dArrayList.get(position).getPrv_Bal());
+        holder.txt_prv_balance.setText(dArrayList.get(position).getOld_Balance());
+        if (Double.valueOf(dArrayList.get(position).getOld_Balance()) > 0) {
+            holder.txt_prv_balance.setTextColor(ContextCompat.getColor(context, R.color.darkred));
+        } else {
+            holder.txt_prv_balance.setTextColor(ContextCompat.getColor(context, R.color.green));
+        }
+        holder.txt_paymode.setText(dArrayList.get(position).getPayMode_Name());
+        holder.txt_receipt_amt.setText(dArrayList.get(position).getReceive_Amount());
+        holder.txt_cls_amt.setText(dArrayList.get(position).getCls_Balance());
+        if (Double.valueOf(dArrayList.get(position).getOld_Balance()) > 0) {
+            holder.txt_cls_amt.setTextColor(ContextCompat.getColor(context, R.color.darkred));
+        } else {
+            holder.txt_cls_amt.setTextColor(ContextCompat.getColor(context, R.color.green));
+        }
 
         if (dArrayList.get(position).getDelivery_Status().trim().equals("Delivered")) {
-            //holder.txt_delivery.setEnabled(false);
             holder.txt_delivery.setTextColor(ContextCompat.getColor(context, R.color.green));
             holder.txt_delivery.setText("DELIVERED");
         }
@@ -87,7 +105,13 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
         holder.txt_collection.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //alertConfirm(position, holder.ed_bill_date.getText().toString().trim(),holder.txt_save);
+                Intent intent = new Intent(context, ReceiptActivity.class);
+                intent.putExtra("Save_Type", "D");
+                intent.putExtra("Customer_ID", "0");
+                intent.putExtra("Customer_Name", "");
+                intent.putExtra("Customer_Type", "");
+                Bundle bundle = ActivityOptions.makeCustomAnimation(context, R.anim.fadein, R.anim.fadeout).toBundle();
+                context.startActivity(intent, bundle);
             }
         });
 
@@ -96,12 +120,14 @@ public class DeliveryReportAdapter extends RecyclerView.Adapter<DeliveryReportAd
             public void onClick(View v) {
                 Intent intent = new Intent(context, DeliveryActivity.class);
                 intent.putExtra("Subs_ID", dArrayList.get(position).getSubs_ID());
-                intent.putExtra("Subs_Date",dArrayList.get(position).getRequirment_Date());
+                intent.putExtra("Subs_Date", dArrayList.get(position).getRequirment_Date());
                 intent.putExtra("Customer_Name", dArrayList.get(position).getCustomer_Name());
                 intent.putExtra("Customer_Address", dArrayList.get(position).getCustomer_Address());
                 intent.putExtra("Route_Desc", dArrayList.get(position).getRoute_Desc());
                 intent.putExtra("Seq_No", dArrayList.get(position).getSequence());
-                intent.putExtra("Prv_Balance", dArrayList.get(position).getPrv_Bal());
+                intent.putExtra("Prv_Balance", dArrayList.get(position).getOld_Balance());
+                intent.putExtra("Rec_Amount", dArrayList.get(position).getReceive_Amount());
+                intent.putExtra("Cls_Balance", dArrayList.get(position).getCls_Balance());
                 intent.putExtra("Delivery_Status", dArrayList.get(position).getDelivery_Status());
                 Bundle bundle = ActivityOptions.makeCustomAnimation(context, R.anim.fadein, R.anim.fadeout).toBundle();
                 context.startActivity(intent, bundle);

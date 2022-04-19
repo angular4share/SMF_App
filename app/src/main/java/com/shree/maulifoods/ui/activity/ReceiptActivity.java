@@ -6,6 +6,7 @@ import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -28,6 +29,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -42,6 +45,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.pojo.PayMode;
 import com.shree.maulifoods.pojo.Receipt;
+import com.shree.maulifoods.pojo.Subcribe;
 import com.shree.maulifoods.utility.ApiInterface;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
@@ -82,6 +86,7 @@ public class ReceiptActivity extends AppCompatActivity {
     private ArrayAdapter<String> adapter = null;
     private String[] spinnerpayModeArrary, spinnerCustomerArrary;
     private HashMap<String, String> spinnerCustomerMap = null;
+    private Bundle _bundle;
     //</editor-fold>
 
     @Override
@@ -94,6 +99,11 @@ public class ReceiptActivity extends AppCompatActivity {
         getSupportActionBar().setElevation(0.0f);
         getSupportActionBar().show();
 
+        c = Calendar.getInstance();
+        year = c.get(Calendar.YEAR);
+        month = c.get(Calendar.MONTH);
+        day = c.get(Calendar.DAY_OF_MONTH);
+
         apiInterface = RESTApi.getClient().create(ApiInterface.class);
         commonUtil = new CommonUtil();
         progressInfo = new ProgressInfo(ReceiptActivity.this);
@@ -103,11 +113,6 @@ public class ReceiptActivity extends AppCompatActivity {
         Log.d(TAG, "Login Status " + session.isLoggedIn());
         session.checkLogin();
         user = session.getUserDetails();
-
-        c = Calendar.getInstance();
-        year = c.get(Calendar.YEAR);
-        month = c.get(Calendar.MONTH);
-        day = c.get(Calendar.DAY_OF_MONTH);
 
         txt_cust_address = ((TextView) findViewById(R.id.txt_cust_address));
         lay_customer_area = ((TextView) findViewById(R.id.txt_customer_area));
@@ -164,8 +169,12 @@ public class ReceiptActivity extends AppCompatActivity {
                         edit_cheque_date.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year);
                     }
                 }, year, month, day);
-        dpd.getDatePicker().setMinDate(System.currentTimeMillis()-1000 * 60 * 60 * 24 * 31);
-        dpd.getDatePicker().setMaxDate(System.currentTimeMillis() + 1000 * 60 * 60 * 24);
+
+        Calendar minDays = (Calendar) c.clone();
+        minDays.add(Calendar.DATE, -100);
+
+        dpd.getDatePicker().setMinDate(minDays.getTimeInMillis());
+        dpd.getDatePicker().setMaxDate(System.currentTimeMillis() - 1000);
         dpd.show();
     }
 
@@ -323,41 +332,46 @@ public class ReceiptActivity extends AppCompatActivity {
 
     private void saveRecord() {
 
-        Log.d(TAG, "saveRecord: Cust ID: " + Selected_Customer.trim() + ", Rec Dt: " + commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)) +
+        Log.d(TAG, "saveRecord: Cust ID: " + Selected_Customer + ", Rec Dt: " + commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)) +
                 ", PayMode: " + Selected_PayMode + ", Prev Balance: " + txt_old_balance.getText().toString() +
                 ", Rec Amount: " + edit_rec_amount.getText().toString() + ", Cheque No: " + edit_cheque_no.getText().toString() +
                 ", Cheque Date: " + commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()) +
                 ", Issue Bank: " + edit_issue_bank.getText().toString() + ", USER ID: " + user.get(SessionManagement.USER_ID));
 
         progressInfo.ProgressShow();
-        apiInterface.saveReceipt(Selected_Customer.trim(), commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)),
+        apiInterface.saveReceipt(Selected_Customer, commonUtil.getdateyyyymmdd(commonUtil.getCurrentedate(0)),
                 Selected_PayMode, txt_old_balance.getText().toString(), edit_rec_amount.getText().toString(),
                 edit_cheque_no.getText().toString(), commonUtil.getdateyyyymmdd(edit_cheque_date.getText().toString()),
-                edit_issue_bank.getText().toString(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<String>() {
-            @Override
-            public void onResponse(Call<String> call, Response<String> response) {
-                Log.d(TAG, "message: " + response.message());
-                Log.d(TAG, "body: " + response.body());
-                if (response.body().equals("Success")) {
-                    progressInfo.ProgressHide();
-                    Toast.makeText(ReceiptActivity.this, "Record Saved Successfully", Toast.LENGTH_LONG).show();
-                    intent = new Intent(ReceiptActivity.this, ReceiptReportActivity.class);
-                    Bundle _bundle = ActivityOptions.makeCustomAnimation(ReceiptActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
-                    startActivity(intent, _bundle);
-                } else if (response.body().trim().equals("AlreadyExist")) {
-                    Toast.makeText(ReceiptActivity.this, "Already Saved", Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(ReceiptActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
-                }
-                progressInfo.ProgressHide();
-            }
+                edit_issue_bank.getText().toString(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.COMPANY_ID)).enqueue(
+                new Callback<String>() {
+                    @Override
+                    public void onResponse(Call<String> call, Response<String> response) {
+                        Log.d(TAG, "message: " + response.message());
+                        Log.d(TAG, "body: " + response.body());
+                        if (response.body().equals("Success")) {
+                            progressInfo.ProgressHide();
+                            Toast.makeText(ReceiptActivity.this, "Record Saved Successfully", Toast.LENGTH_LONG).show();
+                            if (getIntent().getExtras().getString("Save_Type").trim().equals("S")) {
+                                intent = new Intent(ReceiptActivity.this, ReceiptReportActivity.class);
+                            } else if (getIntent().getExtras().getString("Save_Type").trim().equals("D")) {
+                                intent = new Intent(ReceiptActivity.this, DeliveryReportActivity.class);
+                            }
+                            _bundle = ActivityOptions.makeCustomAnimation(ReceiptActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
+                            startActivity(intent, _bundle);
+                        } else if (response.body().trim().equals("AlreadyExist")) {
+                            Toast.makeText(ReceiptActivity.this, "Already Saved", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(ReceiptActivity.this, "Something Went Wrong", Toast.LENGTH_LONG).show();
+                        }
+                        progressInfo.ProgressHide();
+                    }
 
-            @Override
-            public void onFailure(Call<String> call, Throwable t) {
-                Log.d(TAG, "Error: " + t.getMessage());
-                progressInfo.ProgressHide();
-            }
-        });
+                    @Override
+                    public void onFailure(Call<String> call, Throwable t) {
+                        Log.d(TAG, "Error: " + t.getMessage());
+                        progressInfo.ProgressHide();
+                    }
+                });
 
     }
 

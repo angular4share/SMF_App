@@ -213,7 +213,7 @@
                     android:layout_height="match_parent"
                     android:layout_weight="0.22"
                     android:gravity="center_vertical"
-                    android:textColor="@color/orange" />
+                    android:textColor="@color/darkgray" />
 
                 <TextView
                     android:layout_width="0.0dip"

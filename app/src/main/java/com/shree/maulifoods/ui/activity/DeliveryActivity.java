@@ -48,7 +48,6 @@ public class DeliveryActivity extends AppCompatActivity {
     private NetworkUtil networkUtil;
     private String TAG = "***DeliveryActivity***", Sr_No_D = "", ProdID_D = "", Issue_Qty_D = "", Stock_Qty_D = "",
             Subs_Qty_D = "", Extra_Qty_D = "", Rate_D = "";
-    private Bundle bundle;
     private ApiInterface apiInterface = null;
     private Intent intent = null;
     SessionManagement session;

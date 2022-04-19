@@ -66,24 +66,18 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
         user = session.getUserDetails();
     }
 
-    public void filterList(ArrayList<Requirment> filterllist) {
-        dArrayList = filterllist;
-        notifyDataSetChanged();
-    }
-
     public class MyViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView txt_product, txt_qty,et_extra_qty, txt_uom, txt_date, txt_total_qty, txt_raise_reqirment, txt_order_status;
+        public TextView txt_srno, txt_product, txt_qty, et_extra_qty, txt_uom, txt_total_qty, txt_raise_reqirment, txt_order_status;
         Spinner spinner_vendor;
 
         public MyViewHolder(View view) {
             super(view);
 
+            txt_srno = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_srno);
             txt_product = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_product);
             txt_qty = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_qty);
             txt_uom = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_uom);
-
-            txt_date = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_date);
             et_extra_qty = view.findViewById(R.id.lay_purchase_requisition_listview_item_et_extra_qty);
 
             txt_total_qty = view.findViewById(R.id.lay_purchase_requisition_listview_item_txt_total_qty);
@@ -106,11 +100,10 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
 
         int position = holder.getAdapterPosition();
 
+        holder.txt_srno.setText(dArrayList.get(position).getSr_No());
         holder.txt_product.setText(dArrayList.get(position).getmProduct_Name());
         holder.txt_qty.setText(dArrayList.get(position).getOrder_Qty());
         holder.txt_uom.setText(dArrayList.get(position).getUoM_Name());
-
-        holder.txt_date.setText(dArrayList.get(position).getRequirment_Date());
         holder.et_extra_qty.setText(dArrayList.get(position).getExtra_Qty());
 
         holder.txt_total_qty.setText(dArrayList.get(position).getTotal_Qty());
@@ -120,52 +113,15 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
         if (dArrayList.get(position).getOrder_Status().equals("Pending for Raise")) {
             holder.txt_order_status.setTextColor(ContextCompat.getColor(context, R.color.darkred));
         } else if (dArrayList.get(position).getOrder_Status().equals("Pending for Inward")) {
-            holder.spinner_vendor.setSelection(adapter.getPosition(dArrayList.get(position).getVendor_Name()));
             holder.txt_raise_reqirment.setText("MODIFY");
             holder.txt_order_status.setTextColor(ContextCompat.getColor(context, R.color.yellow));
             holder.spinner_vendor.setEnabled(false);
         } else if (dArrayList.get(position).getOrder_Status().equals("Order Completed")) {
-            holder.spinner_vendor.setSelection(adapter.getPosition(dArrayList.get(position).getVendor_Name()));
             holder.txt_order_status.setTextColor(ContextCompat.getColor(context, R.color.green));
             holder.txt_raise_reqirment.setEnabled(false);
             holder.et_extra_qty.setEnabled(false);
             holder.spinner_vendor.setEnabled(false);
         }
-
-        if (dArrayList.get(position).getValidity().equals("Expired")) {
-            holder.txt_raise_reqirment.setEnabled(false);
-            holder.txt_raise_reqirment.setTextColor(ContextCompat.getColor(context, R.color.lightgray));
-        }
-
-        /*
-        holder.et_extra_qty.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void onTextChanged(CharSequence s, int start,
-                                      int before, int count) {
-
-            }
-
-            @Override
-            public void beforeTextChanged(CharSequence s, int start,
-                                          int count, int after) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                Double Extra_Qty = s.toString().trim().equals("") ? 0.0 : Double.valueOf(s.toString().trim());
-                Double TotalQty = Double.valueOf(holder.txt_qty.getText().toString()) + Extra_Qty;
-                holder.txt_total_qty.setText(String.valueOf(TotalQty));
-                Requirment updated = dArrayList.get(position);
-                updated.setExtra_Qty(String.valueOf(Extra_Qty));
-                updated.setTotal_Qty(String.valueOf(TotalQty));
-                dArrayList.set(position, updated);
-
-                holder.et_extra_qty.requestFocusFromTouch();
-                holder.et_extra_qty.setSelection(holder.et_extra_qty.getText().length());
-            }
-        });
-        */
 
         holder.spinner_vendor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -211,14 +167,12 @@ public class RequisitionAdapter extends RecyclerView.Adapter<RequisitionAdapter.
 
         Requirment selected_row = dArrayList.get(position);
 
-        Log.d(TAG, "Req Date " + commonUtil.getdateyyyymmdd(selected_row.getRequirment_Date()) + ", Vendor_Id "
-                + Vendor_Id + ", Product_ID " + selected_row.getmProduct_ID() + ", Order_Qty " + selected_row.getOrder_Qty() + ", Extra_Qty "
-                + selected_row.getExtra_Qty() + ", UoM_ID " + selected_row.getUoM_ID() + ", Inword_ID " + selected_row.getInword_ID());
+        Log.d(TAG, "Vendor_Id " + Vendor_Id + ", Product_ID " + selected_row.getmProduct_ID() + ", Order_Qty " + selected_row.getOrder_Qty()
+                + ", Extra_Qty " + selected_row.getExtra_Qty() + ", UoM_ID " + selected_row.getUoM_ID() + ", Inword_ID " + selected_row.getInword_ID());
 
         progressInfo.ProgressShow();
-        apiInterface.saveRequirment(commonUtil.getdateyyyymmdd(selected_row.getRequirment_Date()), Vendor_Id,
-                selected_row.getmProduct_ID(), selected_row.getOrder_Qty(), selected_row.getExtra_Qty(),
-                selected_row.getUoM_ID(), selected_row.getInword_ID(),user.get(SessionManagement.USER_ID)).enqueue(new Callback<String>() {
+        apiInterface.saveRequirment(Vendor_Id, selected_row.getmProduct_ID(), selected_row.getOrder_Qty(), selected_row.getExtra_Qty(),
+                selected_row.getUoM_ID(), selected_row.getInword_ID(), user.get(SessionManagement.USER_ID), user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<String>() {
             @Override
             public void onResponse(Call<String> call, Response<String> response) {
                 Log.d(TAG, "message: " + response.message());

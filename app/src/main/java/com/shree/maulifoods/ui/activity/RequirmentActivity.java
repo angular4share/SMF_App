@@ -34,7 +34,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PurchaseRequirmentActivity extends AppCompatActivity {
+public class RequirmentActivity extends AppCompatActivity {
 
     //region Description
     private ProgressInfo progressInfo;
@@ -58,7 +58,7 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_purchase_requirment);
 
-        getSupportActionBar().setTitle("Purchase Requirment");
+        getSupportActionBar().setTitle("Requirment");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0.0f);
         getSupportActionBar().show();
@@ -66,14 +66,14 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
         apiInterface = RESTApi.getClient().create(ApiInterface.class);
         commonUtil = new CommonUtil();
         session = new SessionManagement(getApplicationContext());
-        progressInfo = new ProgressInfo(PurchaseRequirmentActivity.this);
+        progressInfo = new ProgressInfo(RequirmentActivity.this);
         networkUtil = new NetworkUtil();
 
         Calendar startDate = Calendar.getInstance();
-        startDate.add(Calendar.DAY_OF_MONTH, -7);
+        startDate.add(Calendar.DAY_OF_MONTH, -8);
 
         Calendar endDate = Calendar.getInstance();
-        endDate.add(Calendar.DAY_OF_MONTH, 21);
+        endDate.add(Calendar.DAY_OF_MONTH, 7);
 
         HorizontalCalendar horizontalCalendar = new HorizontalCalendar.Builder(this, R.id.calendarView)
                 .range(startDate, endDate)
@@ -83,13 +83,11 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
         Log.d(TAG, "Login Status " + session.isLoggedIn());
         session.checkLogin();
 
-        //String name = spinner.getSelectedItem().toString();
-        //String id = spinnerMap.get(spinner.getSelectedItemPosition());
-
         txt_no_record_found = (TextView) findViewById(R.id.txt_no_record_found);
         recyclerView = findViewById(R.id.recycler_view);
-        getVendorList();
+        recyclerView.setLayoutManager(new LinearLayoutManager(RequirmentActivity.this, LinearLayoutManager.VERTICAL, false));
 
+        getVendorList();
         horizontalCalendar.setCalendarListener(new HorizontalCalendarListener() {
             @Override
             public void onDateSelected(Calendar date, int position) {
@@ -97,14 +95,12 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
                 getPurchaseRequisitionList(todaydate);
             }
         });
-
-        recyclerView.setLayoutManager(new LinearLayoutManager(PurchaseRequirmentActivity.this, LinearLayoutManager.VERTICAL, false));
     }
 
     public void getPurchaseRequisitionList(String forDt) {
 
-        if (networkUtil.getConnectivityStatus(PurchaseRequirmentActivity.this).trim() == "false") {
-            commonUtil.getToast(PurchaseRequirmentActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(RequirmentActivity.this).trim() == "false") {
+            commonUtil.getToast(RequirmentActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
@@ -114,13 +110,19 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
                 public void onResponse(Call<ArrayList<Requirment>> call, Response<ArrayList<Requirment>> response) {
                     Log.d(TAG, "response: " + response.body());
                     dPurReqArrayList = response.body();
-                    if (dPurReqArrayList != null) {
-                        dAdapter = new RequisitionAdapter(PurchaseRequirmentActivity.this, dPurReqArrayList, spinnerArray, vendorList);
+                    if (dPurReqArrayList.size()>0) {
+                        double Tot_Req_Qry= 0.0;
+                        getSupportActionBar().setTitle("Requirment(" + dPurReqArrayList.size() + ")");
+                        for (int i = 0; i < dPurReqArrayList.size(); i++) {
+                            Tot_Req_Qry += Double.valueOf(dPurReqArrayList.get(i).getTotal_Qty());
+                        }
+                        ((TextView) findViewById(R.id.txt_total_requirment_qty)).setText(String.valueOf(Tot_Req_Qry));
+                        dAdapter = new RequisitionAdapter(RequirmentActivity.this, dPurReqArrayList, spinnerArray, vendorList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {
                         dAdapter = null;
                         txt_no_record_found.setVisibility(View.VISIBLE);
-                        commonUtil.getToast(PurchaseRequirmentActivity.this, "No Record Found!");
+                        commonUtil.getToast(RequirmentActivity.this, "No Record Found!");
                     }
                     recyclerView.setAdapter(dAdapter);
                     LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
@@ -133,7 +135,7 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(PurchaseRequirmentActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(RequirmentActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -141,8 +143,8 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
 
     public void getVendorList() {
 
-        if (networkUtil.getConnectivityStatus(PurchaseRequirmentActivity.this).trim() == "false") {
-            commonUtil.getToast(PurchaseRequirmentActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(RequirmentActivity.this).trim() == "false") {
+            commonUtil.getToast(RequirmentActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
@@ -159,7 +161,7 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
                             spinnerArray[i] = dVendorArrayList.get(i).getVendor_Name();
                         }
                     } else {
-                        commonUtil.getToast(PurchaseRequirmentActivity.this, "No Vendor Found!");
+                        commonUtil.getToast(RequirmentActivity.this, "No Vendor Found!");
                     }
                     progressInfo.ProgressHide();
 
@@ -173,7 +175,7 @@ public class PurchaseRequirmentActivity extends AppCompatActivity {
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(PurchaseRequirmentActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(RequirmentActivity.this, "Something Went Wrong!");
                 }
             });
         }

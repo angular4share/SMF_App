@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/lightgray">
+
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5sp"
+        android:layout_marginRight="5sp"
+        android:clickable="true"
+        android:foreground="?android:attr/selectableItemBackground"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="5dp"
+        app:cardUseCompatPadding="true">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="5sp"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="25dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.10"
+                    android:gravity="center_vertical"
+                    android:text="Date"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_dt"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.16"
+                    android:gravity="center_vertical"
+                    android:text="EntryBy"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_entry_by"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.41"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_srno"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.08"
+                    android:gravity="center"
+                    android:text="1"
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30dp"
+                android:gravity="center_vertical"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.17"
+                    android:gravity="center_vertical"
+                    android:text="Expense"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_expense_name"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.49"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.16"
+                    android:gravity="center_vertical"
+                    android:text="Amount"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_expense_amount"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.18"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textStyle="bold"
+                    android:textColor="@color/darkred" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.16"
+                    android:gravity="center_vertical"
+                    android:text="Remark"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_expense_txt_remark"
+                    android:layout_width="0.0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.79"
+                    android:gravity="center_vertical"
+                    android:text=""
+                    android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+</RelativeLayout>

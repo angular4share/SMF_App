@@ -8,170 +8,106 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5sp"
-        android:layout_marginRight="5sp"
         android:clickable="true"
-        app:cardBackgroundColor="@color/white"
-        app:cardCornerRadius="5dp"
-        app:cardUseCompatPadding="true">
+        app:cardBackgroundColor="@color/white">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="5sp"
+            android:layout_marginLeft="10sp"
+            android:layout_marginRight="10sp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="20sp"
-                android:weightSum="1">
-
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.23"
-                    android:text="Date"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.45"
-                    android:text="Product Name"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.16"
-                    android:text="Qty"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.16"
-                    android:text="Extra"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="fill_parent"
                 android:layout_height="25sp"
                 android:weightSum="1.0">
 
                 <TextView
-                    android:id="@+id/lay_purchase_requisition_listview_item_txt_date"
+                    android:id="@+id/lay_purchase_requisition_listview_item_txt_srno"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.23"
-                    android:text="05/11/2021"
+                    android:layout_weight="0.05"
+                    android:gravity="center_vertical"
+                    android:text="1"
                     android:textColor="@color/darkgray" />
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_txt_product"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.45"
-                    android:text="Cow Milk"
+                    android:layout_weight="0.40"
+                    android:gravity="center_vertical"
+                    android:text="Product"
                     android:textColor="@color/darkgray" />
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_txt_qty"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.16"
-                    android:text="1000"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="0"
                     android:textColor="@color/darkgray" />
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_et_extra_qty"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.16"
-                    android:text="1000"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="0"
                     android:textColor="@color/darkgray" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="25sp"
-                android:weightSum="1">
-
-                <TextView
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.17"
-                    android:gravity="center_vertical"
-                    android:text="Total"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0sp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.13"
-                    android:gravity="center_vertical"
-                    android:text="UOM"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-                <TextView
-                    android:layout_width="0.0dip"
-                    android:layout_height="match_parent"
-                    android:layout_weight="0.65"
-                    android:gravity="center_vertical"
-                    android:text="Vendor Name"
-                    android:textColor="@color/black"
-                    android:textSize="14sp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="30sp"
-                android:weightSum="1">
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_txt_total_qty"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.17"
+                    android:layout_weight="0.15"
                     android:gravity="center_vertical"
-                    android:text="1100"
+                    android:text="0"
                     android:textColor="@color/darkgray" />
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_txt_uom"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.13"
+                    android:layout_weight="0.10"
                     android:gravity="center_vertical"
                     android:text="Ltr"
                     android:textColor="@color/darkgray" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="30sp"
+                android:visibility="gone"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.25"
+                    android:gravity="center_vertical"
+                    android:text="Vendor Name"
+                    android:textColor="@color/black"
+                    android:textSize="14sp" />
 
                 <androidx.appcompat.widget.AppCompatSpinner
                     android:id="@+id/lay_purchase_requisition_listview_item_spinner_vendor"
                     android:layout_width="0.0dip"
                     android:layout_height="match_parent"
                     android:layout_centerHorizontal="true"
-                    android:layout_weight="0.70"
+                    android:layout_weight="0.75"
                     android:padding="2dp" />
-
-
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="25sp"
+                android:layout_height="30sp"
+                android:visibility="gone"
                 android:weightSum="1">
 
                 <TextView
@@ -191,8 +127,8 @@
                     android:gravity="center_vertical"
                     android:text="Pending for Raise"
                     android:textColor="@color/darkgray"
-                    android:textStyle="bold"
-                    android:textSize="15sp" />
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/lay_purchase_requisition_listview_item_txt_raise_reqirment"
@@ -206,13 +142,21 @@
                     android:clickable="true"
                     android:gravity="center"
                     android:text="RAISE"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="14sp" />
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1sp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@color/lightgray"></View>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </RelativeLayout>

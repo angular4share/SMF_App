@@ -27,8 +27,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.shree.maulifoods.R;
-import com.shree.maulifoods.adapter.ReceiptReportAdapter;
-import com.shree.maulifoods.pojo.Receipt;
+import com.shree.maulifoods.adapter.InwardAdapter;
+import com.shree.maulifoods.pojo.Inward;
 import com.shree.maulifoods.utility.ApiInterface;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
@@ -46,31 +46,31 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class ReceiptReportActivity extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class InwardReportActivity extends AppCompatActivity implements SearchView.OnQueryTextListener{
 
     //region Description
     private ProgressInfo progressInfo;
-    private ReceiptReportAdapter dAdapter;
+    private InwardAdapter dAdapter;
     private CommonUtil commonUtil;
     private NetworkUtil networkUtil;
     SessionManagement session;
     private HashMap<String, String> user = null;
+    private String TAG = "***MaterialInwardReportActivity***", todaydate;
     private RecyclerView recyclerView;
-    public static ArrayList<Receipt> dreceiptArrayList = null;
+    public static ArrayList<Inward> dinwardArrayList = null;
     private TextView txt_no_record_found;
     private ApiInterface apiInterface;
-    private Bundle bundle;
-    private Intent intent = null;
-    private SearchView editsearch;
     private FloatingActionButton fab;
+    private Bundle bundle;
+    private SearchView editsearch;
+    private Intent intent = null;
     private static final int PERMISSION_REQUEST_CODE = 200;
-    private String TAG = "***ReceiptReportActivity***", todaydate = "";
     //endregion
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_receipt_report);
+        setContentView(R.layout.activity_inword_report);
 
         if (checkPermission()) {
             Toast.makeText(this, "Permission Granted", Toast.LENGTH_SHORT).show();
@@ -78,7 +78,7 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
             requestPermission();
         }
 
-        getSupportActionBar().setTitle("Payment Receipt");
+        getSupportActionBar().setTitle("Material Inward");
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setElevation(0.0f);
         getSupportActionBar().show();
@@ -97,12 +97,27 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
         apiInterface = RESTApi.getClient().create(ApiInterface.class);
         commonUtil = new CommonUtil();
         session = new SessionManagement(getApplicationContext());
-        progressInfo = new ProgressInfo(ReceiptReportActivity.this);
+        progressInfo = new ProgressInfo(InwardReportActivity.this);
         networkUtil = new NetworkUtil();
+
+        editsearch = (SearchView) findViewById(R.id.search_view);
+        editsearch.setQueryHint(Html.fromHtml("<small>Find Bill No</small>"));
+        editsearch.setOnQueryTextListener(this);
 
         Log.d(TAG, "Login Status " + session.isLoggedIn());
         session.checkLogin();
         user = session.getUserDetails();
+
+        fab = findViewById(R.id.fab);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                intent = new Intent(InwardReportActivity.this, InwardActivity.class);
+                intent.putExtra("Save_Type", "0");
+                bundle = ActivityOptions.makeCustomAnimation(InwardReportActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
+                startActivityForResult(intent, 1001, bundle);
+            }
+        });
 
         recyclerView = findViewById(R.id.recycler_view);
         txt_no_record_found = (TextView) findViewById(R.id.txt_no_record_found);
@@ -110,25 +125,16 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
             @Override
             public void onDateSelected(Calendar date, int position) {
                 todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", date));
-                getReceiptList(todaydate);
+                getInwordList(todaydate);
             }
         });
 
         todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", Calendar.getInstance().getTime()));
-        getReceiptList(todaydate);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        getInwordList(todaydate);
+        recyclerView.setLayoutManager(new LinearLayoutManager(InwardReportActivity.this, LinearLayoutManager.VERTICAL, false));
+        LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
+        recyclerView.setLayoutAnimation(animation);
 
-        editsearch = (SearchView) findViewById(R.id.search_view);
-        editsearch.setQueryHint(Html.fromHtml("<small>Search Customer Name</small>"));
-        editsearch.setOnQueryTextListener(this);
-
-        fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                openReceiptActivity();
-            }
-        });
         recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
@@ -142,52 +148,45 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
         });
     }
 
-    private void openReceiptActivity() {
-        intent = new Intent(ReceiptReportActivity.this, ReceiptActivity.class);
-        intent.putExtra("Save_Type", "S");
-        bundle = ActivityOptions.makeCustomAnimation(ReceiptReportActivity.this, R.anim.fadein, R.anim.fadeout).toBundle();
-        startActivityForResult(intent, 1001, bundle);
-    }
+    public void getInwordList(String forDt) {
 
-    public void getReceiptList(String forDt) {
-
-        if (networkUtil.getConnectivityStatus(ReceiptReportActivity.this).trim() == "false") {
-            commonUtil.getToast(ReceiptReportActivity.this, "No internet connection!");
+        if (networkUtil.getConnectivityStatus(InwardReportActivity.this).trim() == "false") {
+            commonUtil.getToast(InwardReportActivity.this, "No internet connection!");
             return;
         } else {
             progressInfo.ProgressShow();
-            apiInterface.getReceipt("Receipt", forDt + " 00:00:00", forDt + " 23:59:59", user.get(SessionManagement.USER_ID), "0", user.get(SessionManagement.COMPANY_ID)).enqueue(new Callback<ArrayList<Receipt>>() {
+            apiInterface.getInward("Summary", forDt).enqueue(new Callback<ArrayList<Inward>>() {
                 @Override
-                public void onResponse(Call<ArrayList<Receipt>> call, Response<ArrayList<Receipt>> response) {
+                public void onResponse(Call<ArrayList<Inward>> call, Response<ArrayList<Inward>> response) {
                     Log.d(TAG, "response: " + response.body());
-                    dreceiptArrayList = response.body();
-                    if (dreceiptArrayList.size() > 0) {
-                        double Tot_Rec_Amt = 0.0;
-                        getSupportActionBar().setTitle("Payment Receipt(" + dreceiptArrayList.size() + ")");
-                        for (int i = 0; i < dreceiptArrayList.size(); i++) {
-                            Tot_Rec_Amt += Double.valueOf(dreceiptArrayList.get(i).getReceive_Amount());
+                    dinwardArrayList = response.body();
+                    if (dinwardArrayList.size()>0) {
+                        double Tot_Acc_Qty=0.0,Tot_Bill_Qty=0.0;
+                        for(int i = 0; i < dinwardArrayList.size(); i++){
+                            Tot_Bill_Qty+= Double.valueOf(dinwardArrayList.get(i).getChallan_Qty());
+                            Tot_Acc_Qty+= Double.valueOf(dinwardArrayList.get(i).getAccept_Qty());
                         }
-                        ((TextView) findViewById(R.id.txt_total_rec_amount)).setText(String.valueOf(Tot_Rec_Amt));
-                        dAdapter = new ReceiptReportAdapter(ReceiptReportActivity.this, dreceiptArrayList);
+                        ((TextView)findViewById(R.id.txt_total_challan_qty)).setText(String.valueOf(Tot_Bill_Qty));
+                        ((TextView)findViewById(R.id.txt_total_accepted_qty)).setText(String.valueOf(Tot_Acc_Qty));
+
+                        getSupportActionBar().setTitle("Inward("+dinwardArrayList.size()+")");
+                        dAdapter = new InwardAdapter(InwardReportActivity.this, dinwardArrayList);
                         txt_no_record_found.setVisibility(View.GONE);
                     } else {
-                        ((TextView) findViewById(R.id.txt_total_rec_amount)).setText("0/-");
                         dAdapter = null;
                         txt_no_record_found.setVisibility(View.VISIBLE);
-                        commonUtil.getToast(ReceiptReportActivity.this, "No Record Found!");
+                        commonUtil.getToast(InwardReportActivity.this, "No Record Found!");
                     }
                     recyclerView.setAdapter(dAdapter);
-                    LayoutAnimationController animation = AnimationUtils.loadLayoutAnimation(recyclerView.getContext(), R.anim.layout_animation_from_bottom);
-                    recyclerView.setLayoutAnimation(animation);
                     progressInfo.ProgressHide();
                 }
 
                 @Override
-                public void onFailure(Call<ArrayList<Receipt>> call, Throwable t) {
+                public void onFailure(Call<ArrayList<Inward>> call, Throwable t) {
                     progressInfo.ProgressHide();
                     Log.d(TAG, "Error: " + t.getMessage());
                     call.cancel();
-                    commonUtil.getToast(ReceiptReportActivity.this, "Something Went Wrong!");
+                    commonUtil.getToast(InwardReportActivity.this, "Something Went Wrong!");
                 }
             });
         }
@@ -199,6 +198,7 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
             case android.R.id.home:
                 finish();
                 break;
+
         }
         return true;
     }
@@ -225,7 +225,7 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
         if (requestCode == 1001) {
             editsearch.setQuery("", false);
             todaydate = String.valueOf(DateFormat.format("yyyy-MM-dd", Calendar.getInstance().getTime()));
-            getReceiptList(todaydate);
+            getInwordList(todaydate);
         }
     }
 
@@ -258,6 +258,5 @@ public class ReceiptReportActivity extends AppCompatActivity implements SearchVi
             }
         }
     }
-
 
 }

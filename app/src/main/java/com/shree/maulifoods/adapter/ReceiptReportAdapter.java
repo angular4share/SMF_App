@@ -22,7 +22,10 @@ import androidx.core.content.FileProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.shree.maulifoods.R;
+import com.shree.maulifoods.pojo.Customer;
 import com.shree.maulifoods.pojo.Receipt;
+import com.shree.maulifoods.ui.activity.CustomerReportActivity;
+import com.shree.maulifoods.ui.activity.ReceiptReportActivity;
 import com.shree.maulifoods.utility.SessionManagement;
 
 import java.io.File;
@@ -37,18 +40,23 @@ import java.util.StringTokenizer;
 
 public class ReceiptReportAdapter extends RecyclerView.Adapter<ReceiptReportAdapter.MyViewHolder> {
 
+    //<editor-fold desc="Description">
     private Context context;
     private ArrayList<Receipt> dArrayList;
+    private ArrayList<Receipt> arrayList;
     private String TAG = "***ReceiptReportAdapter***";
     int pageHeight = 520; // 1120
     int pagewidth = 792;
     private Bitmap bmp, scaledbmp;
     SessionManagement session;
-    private HashMap<String, String> user ;
+    private HashMap<String, String> user;
+    //</editor-fold>
 
     public ReceiptReportAdapter(Context context, ArrayList<Receipt> tempArrayList) {
         this.context = context;
         this.dArrayList = tempArrayList;
+        this.arrayList = new ArrayList<Receipt>();
+        this.arrayList.addAll(ReceiptReportActivity.dreceiptArrayList);
 
         bmp = BitmapFactory.decodeResource(context.getResources(), R.drawable.klogo);
         scaledbmp = Bitmap.createScaledBitmap(bmp, 80, 80, true);
@@ -142,6 +150,22 @@ public class ReceiptReportAdapter extends RecyclerView.Adapter<ReceiptReportAdap
     @Override
     public int getItemCount() {
         return dArrayList == null ? 0 : dArrayList.size();
+    }
+
+    // Filter Class
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        ReceiptReportActivity.dreceiptArrayList.clear();
+        if (charText.length() == 0) {
+            ReceiptReportActivity.dreceiptArrayList.addAll(arrayList);
+        } else {
+            for (Receipt objFilter : arrayList) {
+                if (objFilter.getCustomer_Name().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    ReceiptReportActivity.dreceiptArrayList.add(objFilter);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
     private void generatePDF(String recNo, String recDt, String custName, String recAmt, String recAmtInWords, String remark) {

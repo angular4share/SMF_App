@@ -140,7 +140,66 @@
                     android:gravity="center_vertical"
                     android:text="0"
                     android:textStyle="bold"
-                    android:textColor="@color/darkorange" />
+                    android:textColor="@color/green" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="35dp"
+                android:weightSum="1">
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.18"
+                    android:gravity="center_vertical"
+                    android:text="PayMode"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_paymode"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.22"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/darkgray" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.16"
+                    android:gravity="center_vertical"
+                    android:text="RecAmt"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_receipt_amt"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.14"
+                    android:gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="Closing"
+                    android:textColor="@color/black" />
+
+                <TextView
+                    android:id="@+id/lay_delivery_listview_item_txt_cls_amt"
+                    android:layout_width="0.0dip"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.15"
+                    android:gravity="center_vertical"
+                    android:text="0"
+                    android:textColor="@color/green"
+                    android:textStyle="bold" />
 
             </LinearLayout>
 

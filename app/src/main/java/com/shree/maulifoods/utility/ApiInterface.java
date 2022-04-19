@@ -3,7 +3,8 @@ package com.shree.maulifoods.utility;
 import com.shree.maulifoods.pojo.Customer;
 import com.shree.maulifoods.pojo.Delivery;
 import com.shree.maulifoods.pojo.DispFrequency;
-import com.shree.maulifoods.pojo.Inword;
+import com.shree.maulifoods.pojo.Expense;
+import com.shree.maulifoods.pojo.Inward;
 import com.shree.maulifoods.pojo.PayMode;
 import com.shree.maulifoods.pojo.Product;
 import com.shree.maulifoods.pojo.Receipt;
@@ -16,13 +17,8 @@ import com.shree.maulifoods.pojo.Vendor;
 import java.util.ArrayList;
 import java.util.List;
 
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.http.GET;
-import retrofit2.http.Multipart;
-import retrofit2.http.POST;
-import retrofit2.http.Part;
 import retrofit2.http.Query;
 
 public interface ApiInterface {
@@ -45,14 +41,14 @@ public interface ApiInterface {
 
 
     @GET("saveRequirment")
-    Call<String> saveRequirment(@Query("requirment_date") String requirment_date,
-                                @Query("vendor_id") String vendor_id,
+    Call<String> saveRequirment(@Query("vendor_id") String vendor_id,
                                 @Query("product_id") String product_id,
                                 @Query("qty") String qty,
                                 @Query("extra_qty") String extra_qty,
                                 @Query("uom_id") String uom_id,
                                 @Query("inword_ID") String inword_ID,
-                                @Query("user_ID") String user_ID);
+                                @Query("user_ID") String user_ID,
+                                @Query("outletID") String outletID);
 
     @GET("getPayMode")
     Call<ArrayList<PayMode>> getPayMode(@Query("paymodeID") String Paymode_ID);
@@ -133,7 +129,7 @@ public interface ApiInterface {
                             @Query("User_ID") String User_ID);
 
     @GET("getInward")
-    Call<ArrayList<Inword>> getInward(@Query("type") String Type,
+    Call<ArrayList<Inward>> getInward(@Query("type") String Type,
                                       @Query("forDate") String For_Date);
 
     @GET("saveDelivery")
@@ -178,6 +174,30 @@ public interface ApiInterface {
     @GET("createReceiptPDF")
     Call<String> createReceiptPDF(@Query("recID") String recID
     );
+
+    @GET("getExpense")
+    Call<ArrayList<Expense>> getExpense(@Query("fromDt") String fromDt,
+                                        @Query("toDt") String toDt,
+                                        @Query("outletID") String outletID,
+                                        @Query("type") String type);
+
+    @GET("saveExpense")
+    Call<String> saveExpense(@Query("Exp_Req_Date") String Exp_Req_Date,
+                             @Query("Exp_ID") String Exp_ID,
+                             @Query("Exp_Amount") String Exp_Amount,
+                             @Query("PayMode_ID") String PayMode_ID,
+                             @Query("Cheque_No") String Cheque_No,
+                             @Query("Cheque_Date") String Cheque_Date,
+                             @Query("Cheque_IssueBank") String Cheque_IssueBank,
+                             @Query("Remark") String Remark,
+                             @Query("User_ID") String User_ID,
+                             @Query("Outlet_ID") String Outlet_ID);
+
+    @GET("saveExpenseHead")
+    Call<String> saveExpenseHead(@Query("Sys_Dt") String Sys_Dt,
+                                 @Query("Exp_Name") String Exp_Name,
+                                 @Query("Remark") String Remark,
+                                 @Query("User_ID") String User_ID);
 
 }
 

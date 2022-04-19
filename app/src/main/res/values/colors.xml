@@ -16,8 +16,8 @@
     <color name="green">#20d420</color>
     <color name="yellow">#F6BE00</color>
     <color name="darkred">#FF0000</color>
-    <color name="lightgray">#F8F8F8</color>
-    <color name="gray">#A9A9A9</color>
-    <color name="black_fade">#C4000000</color>
+    <color name="lightgray">#F0F0F0</color>
+    <color name="gray">#A8A8A8</color>
+    <color name="blue">#0000FF</color>
 
 </resources>

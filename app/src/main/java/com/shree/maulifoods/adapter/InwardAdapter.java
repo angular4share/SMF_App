@@ -1,52 +1,33 @@
 package com.shree.maulifoods.adapter;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.DatePicker;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import androidx.appcompat.app.AlertDialog;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.shree.maulifoods.R;
-import com.shree.maulifoods.pojo.Inword;
-import com.shree.maulifoods.ui.activity.CustomerReportActivity;
-import com.shree.maulifoods.utility.ApiInterface;
-import com.shree.maulifoods.utility.CommonUtil;
-import com.shree.maulifoods.utility.NetworkUtil;
-import com.shree.maulifoods.utility.ProgressInfo;
-import com.shree.maulifoods.utility.RESTApi;
-import com.shree.maulifoods.utility.SessionManagement;
+import com.shree.maulifoods.pojo.Inward;
+import com.shree.maulifoods.pojo.Receipt;
+import com.shree.maulifoods.ui.activity.InwardReportActivity;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.HashMap;
+import java.util.Locale;
 
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-public class InwordAdapter extends RecyclerView.Adapter<InwordAdapter.MyViewHolder> {
+public class InwardAdapter extends RecyclerView.Adapter<InwardAdapter.MyViewHolder> {
 
     //<editor-fold desc="Description">
     private Context context;
-    private ArrayList<Inword> dArrayList;
+    private ArrayList<Inward> dArrayList;
+    private ArrayList<Inward> arrayList;
     private String TAG = "***InwordAdapter***";
     //</editor-fold>
 
-    public InwordAdapter(Context context, ArrayList<Inword> tempArrayList) {
+    public InwardAdapter(Context context, ArrayList<Inward> tempArrayList) {
         this.context = context;
         this.dArrayList = tempArrayList;
-
+        this.arrayList = new ArrayList<Inward>();
+        this.arrayList.addAll(InwardReportActivity.dinwardArrayList);
     }
 
     public class MyViewHolder extends RecyclerView.ViewHolder {
@@ -109,6 +90,21 @@ public class InwordAdapter extends RecyclerView.Adapter<InwordAdapter.MyViewHold
     @Override
     public int getItemCount() {
         return dArrayList == null ? 0 : dArrayList.size();
+    }
+
+    public void filter(String charText) {
+        charText = charText.toLowerCase(Locale.getDefault());
+        InwardReportActivity.dinwardArrayList.clear();
+        if (charText.length() == 0) {
+            InwardReportActivity.dinwardArrayList.addAll(arrayList);
+        } else {
+            for (Inward objFilter : arrayList) {
+                if (objFilter.getBill_No().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    InwardReportActivity.dinwardArrayList.add(objFilter);
+                }
+            }
+        }
+        notifyDataSetChanged();
     }
 
    }

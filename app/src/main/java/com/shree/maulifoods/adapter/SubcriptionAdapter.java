@@ -41,6 +41,7 @@ import retrofit2.Response;
 
 public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.MyViewHolder> {
 
+    //<editor-fold desc="Description">
     private Context context;
     private ArrayList<Subcribe> dArrayList;
     private Calendar c;
@@ -57,6 +58,7 @@ public class SubcriptionAdapter extends RecyclerView.Adapter<SubcriptionAdapter.
     private DecimalFormat df = new DecimalFormat("#.##");
     private boolean isOkayClicked = false;
     public static ArrayList<TimeSlot> dTimeSlotArrayList = null;
+    //</editor-fold>
 
     public SubcriptionAdapter(Context context, ArrayList<Subcribe> tempArrayList, String[] tempProductList, String[] tempFrequencyList,
                               HashMap<Integer, String> tempProductListMap, HashMap<Integer, String> tempDispFreqListMap) {

@@ -294,5 +294,4 @@ public class CustomerReportActivity extends AppCompatActivity implements SearchV
         return true;
     }
 
-
 }

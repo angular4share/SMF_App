@@ -1,13 +1,13 @@
 package com.shree.maulifoods.pojo;
 
-public class Inword {
+public class Inward {
 
     String sr_No, inward_ID, vendor_ID, vendor_Name, bill_No, bill_Date, product_ID, product_Desc, uoM_Name, accept_Qty,
             challan_Qty,rate,amount,old_Amount,total_Amount, payment_Mode, payment_Amt;
 
-    public Inword(String sr_No, String inward_ID, String vendor_ID, String vendor_Name, String bill_No, String bill_Date,
+    public Inward(String sr_No, String inward_ID, String vendor_ID, String vendor_Name, String bill_No, String bill_Date,
                   String product_ID, String product_Desc, String uoM_Name, String accept_Qty, String challan_Qty, String rate,
-                  String amount,String old_Amount, String total_Amount, String payment_Mode, String payment_Amt) {
+                  String amount, String old_Amount, String total_Amount, String payment_Mode, String payment_Amt) {
         this.sr_No = sr_No;
         this.inward_ID = inward_ID;
         this.vendor_ID = vendor_ID;
