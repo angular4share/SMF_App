@@ -4,24 +4,21 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
-import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 
 import com.shree.maulifoods.R;
 import com.shree.maulifoods.adapter.CustomerReportAdapter;
 import com.shree.maulifoods.ui.fragments.AccountFragment;
-import com.shree.maulifoods.ui.fragments.BottomSheetNavigationFragment;
 import com.shree.maulifoods.ui.fragments.DashboardFragment;
 import com.shree.maulifoods.ui.fragments.NotificationsFragment;
+import com.shree.maulifoods.ui.fragments.SettingFragment;
 import com.shree.maulifoods.utility.ApiInterface;
 import com.shree.maulifoods.utility.CommonUtil;
 import com.shree.maulifoods.utility.NetworkUtil;
 import com.shree.maulifoods.utility.ProgressInfo;
 import com.shree.maulifoods.utility.RESTApi;
 import com.shree.maulifoods.utility.SessionManagement;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -93,6 +90,7 @@ public class MainActivity extends AppCompatActivity {
                         /*BottomSheetDialogFragment bottomSheetDialogFragment = BottomSheetNavigationFragment.newInstance();
                         bottomSheetDialogFragment.show(getSupportFragmentManager(), "Bottom Sheet Dialog Fragment");*/
                         //commonUtil.getSnackbar(coordinatorLayout,"Coming Soon...","OK");
+                        getSupportFragmentManager().beginTransaction().replace(R.id.framecontainer,new SettingFragment()).commit();
                         break;
                 }
                 return true;

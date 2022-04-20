@@ -11,6 +11,7 @@
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_delivery_report.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_expense.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_expense_report.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_inword.xml" value="0.1" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_inword_report.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_login.xml" value="0.1" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/activity_main.xml" value="0.22083333333333333" />
@@ -24,7 +25,10 @@
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/content_main.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/custom_spinner_items.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/dialog_expense_head.xml" value="0.25" />
-        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_dashboard.xml" value="0.25" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_account.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_dashboard.xml" value="0.2" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_notifications.xml" value="0.22083333333333333" />
+        <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/fragment_settings.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/item_list_delivery_add.xml" value="0.25" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/item_list_subscribe_add.xml" value="0.22083333333333333" />
         <entry key="..\:/Projects/OtherTestDemo/AndroidDemos/SMF_App/app/src/main/res/layout/layout_customer_list_row.xml" value="0.22083333333333333" />

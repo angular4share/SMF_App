@@ -31,7 +31,8 @@ public class DashboardFragment extends Fragment {
     //region Description
     private String TAG = "***DashboardFragment***";
     private CommonUtil commonUtil;
-    private CardView cv_sales, cv_receipts, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock, cv_product, cv_vendor;
+    private CardView cv_sales, cv_receipts, cv_requirment, cv_inword, cv_enquiry, cv_delivery, cv_expense, cv_stock, cv_product,
+            cv_vendor,cv_category,cv_uom;
     SessionManagement session;
     private TextView txtUserName, txtMobile, txtEmail;
     private HashMap<String, String> user = null;
@@ -71,6 +72,8 @@ public class DashboardFragment extends Fragment {
         cv_stock = root.findViewById(R.id.cv_stock);
         cv_product = root.findViewById(R.id.cv_product);
         cv_vendor = root.findViewById(R.id.cv_vendor);
+        cv_category = root.findViewById(R.id.cv_category);
+        cv_uom = root.findViewById(R.id.cv_uom);
 
         editProfileB.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
 
@@ -114,6 +117,8 @@ public class DashboardFragment extends Fragment {
         cv_stock.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
         cv_product.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
         cv_vendor.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_category.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
+        cv_uom.setOnClickListener(view -> commonUtil.getToast(getContext(), "Coming Soon..."));
 
         return root;
     }

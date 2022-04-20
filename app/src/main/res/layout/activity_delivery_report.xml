@@ -33,8 +33,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="5sp"
                 android:layout_marginRight="5sp"
-                app:cardCornerRadius="5dp"
-                app:cardElevation="3dp"
                 app:cardPreventCornerOverlap="true"
                 app:cardUseCompatPadding="true">
 
